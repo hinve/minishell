@@ -50,8 +50,6 @@ typedef struct s_shell
 	t_cmd	*cmd; // puntero a la cabeza de la lista de comandos
     t_env   *export;
     char    *str_cmd; //Prompt comando
-	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
-	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
     char **envp;
     char	*path; // ruta del comando para el executor
     int status;
