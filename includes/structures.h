@@ -1,7 +1,7 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-# include "../libft/includes/libft.h"
+# include "../libft/inc/libft.h"
 
 typedef enum e_token_type
 {

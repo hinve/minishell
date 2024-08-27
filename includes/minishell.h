@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 //*--------------------LEXER-------------------------------
 void	lexer(char *str_cmd, t_token **tok);
@@ -53,5 +54,14 @@ t_cmd	*ft_last_fill(t_cmd *lst);
 void ft_innout(t_cmd *cmd, t_token **tok);
 char	*expand_heredoc(char *line);
 char *expand_utils(char *line, char *temp, int *i, int *temp_len);
+
+//-------------------Executor-------------------------------
+void execute_command(t_shell *data, char *input);
+void mycd(const char *path);
+void myexit(t_shell *data, char **args);
+void ft_clear_structs(t_token **token, t_cmd **cmd);
+
+
+
 
 #endif
