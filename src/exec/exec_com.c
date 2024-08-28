@@ -1,97 +1,53 @@
 
 
 #include "minishell.h"
-
-void ft_clear_structs(t_token **token, t_cmd **cmd)
+/*
+typedef struct s_cmd // ----> Estructura para trabajar commandos
 {
-    if (token && *token)
-    {
-        t_token *current = *token;
-        t_token *next;
-        while (current)
-        {
-            next = current->next;
-            free(current);
-            current = next;
-        }
-        *token = NULL;
-    }
+	char	**arg; // comando con sus flags
+	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2
+    int fdin;
+    int fdout;
+    struct s_cmd *next; // puntero al siguiente nodo (comando)
+}	t_cmd;
+*/
 
-    if (cmd && *cmd)
+void execute_command(t_shell *shell)
+{
+    t_shell *current = shell;
+
+    while (current != NULL)
     {
-        t_cmd *current = *cmd;
-        t_cmd *next;
-        while (current)
+        int i = 0;
+        while (i < current->cmd->n_args)
         {
-            next = current->next;
-            free(current);
-            current = next;
+            printf("%s ", current->cmd->arg[i]);
+            i++;
         }
-        *cmd = NULL;
+        printf("\n");
+        current->cmd = current->cmd->next;
     }
 }
 
-void execute_command(t_shell *data, char *input)
+
+int		exec_bin(char **args)
 {
-    char **args = NULL;
-    char *token;
-    int arg_count = 0;
+	int		result;
 
-    token = strtok(input, " \t\n");
-    while (token != NULL)
-    {
-        args = realloc(args, sizeof(char*) * (arg_count + 1));
-        if (args == NULL)
-        {
-            perror("realloc");
-            exit(EXIT_FAILURE);
-        }
-        args[arg_count++] = token;
-        token = strtok(NULL, " \t\n");
-    }
-    args = realloc(args, sizeof(char*) * (arg_count + 1));
-    if (args == NULL)
-    {
-        perror("realloc");
-        exit(EXIT_FAILURE);
-    }
-    args[arg_count] = NULL;
+	result = 0;
+	if (ft_strcmp(args[0], "echo") == 0)
+	ft_echo(args);
+	if (ft_strcmp(args[0], "cd") == 0)
+		ft_cd(args);
+	if (ft_strcmp(args[0], "pwd") == 0)
+		ft_pwd(args);
+	if (ft_strcmp(args[0], "env") == 0)
+		ft_env(args);
+	if (ft_strcmp(args[0], "export") == 0)
+		ft_export(args);
+	if (ft_strcmp(args[0], "unset") == 0)
+		ft_unset(args);
 
-    if (arg_count == 0)
-    {
-        free(args);
-        return;
-    }
-    if (strcmp(args[0], "cd") == 0)
-    {
-        mycd(args[1]);
-        free(args);
-        return;
-    } 
-    else if (strcmp(args[0], "exit") == 0)
-    {
-        myexit(data, args); // Call myexit function with data and args
-        free(args);
-        return;
-    }
-    pid_t pid = fork();
-    if (pid == -1)
-    {
-        perror("fork");
-        free(args);
-        exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-    {
-        execvp(args[0], args);
-        perror("execvp");
-        free(args);
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        int status;
-        waitpid(pid, &status, 0);
-    }
-    free(args);
+	return (result);
+
 }

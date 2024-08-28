@@ -33,7 +33,7 @@ typedef struct s_env
 
 // esta estructura es un nodo para una lista enlazada de comandos: 
 // cada nodo debe contener un comando con sus flags en formato array **arg: ejemplo: echo -n
-typedef struct s_cmd
+typedef struct s_cmd // ----> Estructura para trabajar commandos
 {
 	char	**arg; // comando con sus flags
 	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2

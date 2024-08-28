@@ -26,8 +26,8 @@ FILES_SRC		= main.c 				\
 					parsing/file_des.c			\
 					parsing/fill_utils.c		\
 					parsing/expand_utils.c		\
-					exec/built_ins.c			\
-					exec/exec_com.c		\
+					exec/exec_com.c				\
+					exec/built_in.c				\
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC 		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
