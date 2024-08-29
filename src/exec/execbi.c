@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:01:08 by matta             #+#    #+#             */
-/*   Updated: 2024/08/28 00:16:16 by matta            ###   ########.fr       */
+/*   Updated: 2024/08/29 10:31:43 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		exec_bin(char **args, t_shell *shell)
 	if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(args, mini);
 	return (result);
-} */
+} 
 
 int		exec_bin(char **args)
 {
@@ -51,3 +51,4 @@ int		exec_bin(char **args)
 		ft_unset(args);
 	return (result);
 }
+*/

@@ -56,15 +56,17 @@ char	*expand_heredoc(char *line);
 char *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
 //-------------------Executor-------------------------------
-void execute_command(t_shell *data);
+void    execute_command(t_shell *data);
 //void ft_cd(const char *path);
 //void ft_exit(t_shell *data, char **args);
-void ft_echo(char **args);
-void ft_cd(char **args);
-void ft_pwd(char **args);
-void ft_env(char **args);
-void ft_export(char **args);
-void ft_unset(char **args);
+void    ft_echo(char **args);
+void    ft_cd(char **args);
+void    ft_pwd(char **args);
+void    ft_env(char **args);
+void    ft_export(char **args);
+void    ft_unset(char **args);
+int		exec_bin(char **args);
+
 
 
 

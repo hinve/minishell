@@ -12,31 +12,13 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
 }	t_cmd;
 */
 
-void execute_command(t_shell *shell)
-{
-    t_shell *current = shell;
-
-    while (current != NULL)
-    {
-        int i = 0;
-        while (i < current->cmd->n_args)
-        {
-            printf("%s ", current->cmd->arg[i]);
-            i++;
-        }
-        printf("\n");
-        current->cmd = current->cmd->next;
-    }
-}
-
-
 int		exec_bin(char **args)
 {
 	int		result;
 
 	result = 0;
 	if (ft_strcmp(args[0], "echo") == 0)
-	ft_echo(args);
+		ft_echo(args);
 	if (ft_strcmp(args[0], "cd") == 0)
 		ft_cd(args);
 	if (ft_strcmp(args[0], "pwd") == 0)
@@ -47,7 +29,44 @@ int		exec_bin(char **args)
 		ft_export(args);
 	if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(args);
+//	else
+//		printf("cmd not found");
 
 	return (result);
 
+}
+
+void execute_command(t_shell *shell)
+{
+    t_shell *current = shell;
+
+    while (current != NULL)
+    {
+        if (current->cmd == NULL)
+        {
+            printf("Error: cmd is null\n");
+            return;
+        }
+
+        int i = 0;
+        while (i < current->cmd->n_args)
+        {
+            if (current->cmd->arg[i] == NULL)
+            {
+                printf("Error: arg[%d] is null\n", i);
+                return;
+            }
+            exec_bin(current->cmd->arg);
+            i++;
+        }
+        printf("\n");
+
+        if (current->cmd->next == NULL)
+        {
+ //           printf("Error: next cmd is null\n");
+            return;
+        }
+
+        current->cmd = current->cmd->next;
+    }
 }

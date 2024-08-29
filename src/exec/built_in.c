@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/08/29 01:35:08 by matta            ###   ########.fr       */
+/*   Updated: 2024/08/29 10:41:12 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 void ft_echo(char **args)
 {
     int i = 1;
-    while (args[i])
+    while (args[0])
     {
         printf("%s ", args[i]);
         i++;
@@ -56,7 +56,6 @@ void ft_pwd(char **args)
     else
         perror("getcwd() error");
 
-    // Use the function input to print something
     if (args[1])
         printf("Additional argument: %s\n", args[1]);
     else
