@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/08/29 10:41:12 by matta            ###   ########.fr       */
+/*   Updated: 2024/08/29 15:57:45 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
-
+#include "limits.h"
 /*
 	result = 0;
 	if (ft_strcmp(args[0], "echo") == 0)
@@ -28,8 +28,8 @@
 	if (ft_strcmp(args[0], "unset") == 0)
 		ft_unset(args, mini);
 */
-
-void ft_echo(char **args)
+/*
+void ft_echo(t_shell shell)
 {
     int i = 1;
     while (args[0])
@@ -40,7 +40,7 @@ void ft_echo(char **args)
     printf("\n");
 }
 
-void ft_cd(char **args)
+void ft_cd(t_shell shell)
 {
     if (args[1])
         printf("Changing directory to: %s\n", args[1]);
@@ -48,21 +48,7 @@ void ft_cd(char **args)
         printf("No directory specified\n");
 }
 
-void ft_pwd(char **args)
-{
-    char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL)
-        printf("Current working directory: %s\n", cwd);
-    else
-        perror("getcwd() error");
-
-    if (args[1])
-        printf("Additional argument: %s\n", args[1]);
-    else
-        printf("No additional argument provided\n");
-}
-
-void ft_env(char **args)
+void ft_env(t_shell shell)
 {
     extern char **environ;
     for (char **env = environ; *env != 0; env++)
@@ -78,7 +64,7 @@ void ft_env(char **args)
         printf("No additional argument provided\n");
 }
 
-void ft_export(char **args)
+void ft_export(t_shell shell)
 {
     if (args[1])
         printf("Exporting: %s\n", args[1]);
@@ -86,10 +72,35 @@ void ft_export(char **args)
         printf("No variable specified\n");
 }
 
-void ft_unset(char **args)
+void ft_unset(t_shell shell)
 {
     if (args[1])
         printf("Unsetting: %s\n", args[1]);
     else
         printf("No variable specified\n");
+}
+*/
+int		ft_env(t_env *env)
+{
+	while (env && env->next != NULL)
+	{
+		ft_putendl(env->value);
+		env = env->next;
+	}
+	if (env)
+		ft_putendl(env->value);
+	return (0);
+}
+
+int ft_pwd(void)
+{
+    char	cwd[500];
+
+	if (getcwd(cwd, 500))
+	{
+		ft_putendl_fd(cwd, 1);
+		return (0);
+	}
+	else
+		return (1);
 }

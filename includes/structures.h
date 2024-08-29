@@ -52,9 +52,9 @@ typedef struct s_shell
     char    *str_cmd; //Prompt comando
 	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
 	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
-    char **envp;
+    char    **envp;
     char	*path; // ruta del comando para el executor
-    int status;
+    int     status;
     t_token *token;
     pid_t	pid;
 }	t_shell;

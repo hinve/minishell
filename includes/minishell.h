@@ -59,15 +59,17 @@ char *expand_utils(char *line, char *temp, int *i, int *temp_len);
 void    execute_command(t_shell *data);
 //void ft_cd(const char *path);
 //void ft_exit(t_shell *data, char **args);
-void    ft_echo(char **args);
-void    ft_cd(char **args);
-void    ft_pwd(char **args);
-void    ft_env(char **args);
-void    ft_export(char **args);
-void    ft_unset(char **args);
-int		exec_bin(char **args);
+int     ft_pwd(void);
+int		ft_env(t_env *env);
 
+/*
+void    ft_echo(t_shell shell);
+void    ft_cd(t_shell shell);
+void    ft_export(t_shell shell);
+void    ft_unset(t_shell shell);
+int		exec_bin(t_shell shell);
 
+*/
 
 
 

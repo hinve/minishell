@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matta <matta@student.42.fr>                +#+  +:+       +#+         #
+#    By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:05:16 by mjeannin          #+#    #+#              #
-#    Updated: 2024/06/21 13:35:24 by matta            ###   ########.fr        #
+#    Updated: 2024/08/29 15:53:58 by mjeannin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ FTMEM_DIR		=	$(SRC_DIR)ft_mem/ft_bzero.c \
 FTPUT_DIR		=	$(SRC_DIR)ft_put/ft_putchar_fd.c \
 					$(SRC_DIR)ft_put/ft_putendl_fd.c \
 					$(SRC_DIR)ft_put/ft_putnbr_fd.c \
-					$(SRC_DIR)ft_put/ft_putstr_fd.c 
+					$(SRC_DIR)ft_put/ft_putstr_fd.c \
+					$(SRC_DIR)ft_put/ft_putendl.c
 
 FTTO_DIR		=	$(SRC_DIR)ft_to/ft_atoi.c \
 					$(SRC_DIR)ft_to/ft_itoa.c \
