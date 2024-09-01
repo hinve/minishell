@@ -61,6 +61,8 @@ void    execute_command(t_shell *data);
 //void ft_exit(t_shell *data, char **args);
 int     ft_pwd(void);
 int		ft_env(t_env *env);
+void    ft_exit();
+
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);

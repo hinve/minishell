@@ -69,7 +69,6 @@ int	main(int argc, char **argv, char **envp)
 		{
 			expand_variables(&data.token, envp, data.env);
 			fill_struct(&data);
-//			printf("%s", data.env->value);
 			execute_command(&data);
 		}
 		free(data.str_cmd);
