@@ -1,0 +1,3 @@
+1 : si el parseo se hace correctamente, se puede entrar en el ejecutor : execute_command
+2 : aqui hay que classificar el input si es un pipe / built in / etc 
+3 : empezar con los builts in 

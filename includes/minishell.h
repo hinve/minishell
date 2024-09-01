@@ -40,20 +40,20 @@ void	parser(t_token **tok, char **envp, t_env *env);
 //*--------------------EXPAND_VARIABLES---------------------
 void	expand_variables(t_token **token, char **envp, t_env *env);
 void	create_env_list(char *value, t_env **env, char *key);
-int is_there_a_dollar(char *str);
-char *replace_dollar(char *str, t_env *env);
+int     is_there_a_dollar(char *str);
+char    *replace_dollar(char *str, t_env *env);
 
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
-int syntaxis_is_ok(t_token **token);
+int     syntaxis_is_ok(t_token **token);
 t_cmd	*list_empty_fill(t_token **token, int argcs);
 void	add_back_fill(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_last_fill(t_cmd *lst);
 
 //*--------------------FDS----------------------------------
-void ft_innout(t_cmd *cmd, t_token **tok);
+void    ft_innout(t_cmd *cmd, t_token **tok);
 char	*expand_heredoc(char *line);
-char *expand_utils(char *line, char *temp, int *i, int *temp_len);
+char    *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
 //-------------------Executor-------------------------------
 void    execute_command(t_shell *data);
@@ -61,7 +61,6 @@ void    execute_command(t_shell *data);
 //void ft_exit(t_shell *data, char **args);
 int     ft_pwd(void);
 int		ft_env(t_env *env);
-
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);
