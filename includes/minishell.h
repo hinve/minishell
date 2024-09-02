@@ -42,6 +42,8 @@ void	expand_variables(t_token **token, char **envp, t_env *env);
 void	create_env_list(char *value, t_env **env, char *key);
 int     is_there_a_dollar(char *str);
 char    *replace_dollar(char *str, t_env *env);
+t_env	*transform_env(char *envp[]);
+
 
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
@@ -57,19 +59,15 @@ char    *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
 //-------------------Executor-------------------------------
 void    execute_command(t_shell *data);
-//void ft_cd(const char *path);
-//void ft_exit(t_shell *data, char **args);
 int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
-
+void    check_env_values(t_env *env);
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);
 void    ft_export(t_shell shell);
 void    ft_unset(t_shell shell);
-int		exec_bin(t_shell shell);
-
 */
 
 

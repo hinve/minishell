@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
 		{
 			expand_variables(&data.token, envp, data.env);
+			data.env = transform_env(envp);
 			fill_struct(&data);
 			execute_command(&data);
 		}

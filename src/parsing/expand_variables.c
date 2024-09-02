@@ -77,6 +77,7 @@ void	expand_variables(t_token **token, char **envp, t_env *env)
 
 	env = transform_env(envp);
 	aux = *token;
+	
 	while (aux)
 	{
 		if (is_there_a_dollar(aux->content) == 1 && (aux->type == DQUOTE

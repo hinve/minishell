@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/01 04:59:52 by matta            ###   ########.fr       */
+/*   Updated: 2024/09/02 18:26:41 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,6 @@
 #include "limits.h"
 
 /*
-void ft_echo(t_shell shell)
-{
-    int i = 1;
-    while (args[0])
-    {
-        printf("%s ", args[i]);
-        i++;
-    }
-    printf("\n");
-}
 
 void ft_cd(t_shell shell)
 {
@@ -51,26 +41,40 @@ void ft_unset(t_shell shell)
 }
 */
 
-void ft_exit()
+/* void ft_echo(t_cmd shell)
+{
+    t_cmd   current = cmd;
+    int i = 1;
+    while (args[0])
+    {
+        printf("%s ", args[i]);
+        i++;
+    }
+    printf("\n");
+} */
+
+void    ft_exit()
 {
     ft_printf("Hasta luegi !\n");
     exit (1);
 }
 
-
-int	ft_env(t_env *env)
+int ft_env(t_env *env)
 {
     t_env   *current = env;
-    
-	while (current && current->next != NULL)
-	{
-		ft_putendl(current->value);
-        printf("%s", current->value);
-		current = current->next;
-	}
-	if (current)
-		ft_putendl(current->value);
-	return (0);
+
+    if (!current || !current->value || current->value[0] == '\0')
+    {
+        ft_printf("Value is empty or not set\n");
+        return (1);
+    }
+    while (current)
+    {
+        ft_putendl(current->value);
+        ft_printf("%s", current->value);
+        current = current->next;
+    }
+    return (0);
 }
 
 int ft_pwd(void)

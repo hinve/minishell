@@ -11,26 +11,44 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
     struct s_cmd *next; // puntero al siguiente nodo (comando)
 }	t_cmd;
 */
+void check_env_values(t_env *env)
+{
+    t_env *current = env;
+    
+    if (!current)
+        printf("naze\n");
+    while (current)
+    {
+        printf("Key: %s, Value: %s\n", current->key, current->value);
+        current = current->next;
+    }
 
+}
 
 int		exec_bin(t_cmd cmd, t_shell shell)
 {
 
 	int		result;
- //   t_shell *currentshell = &shell;
+//    t_shell *currentshell = &shell;
     t_cmd   *currentcmd = &cmd;
- //   t_env   *currentenv = shell.env;
+    t_env   *currentenv = shell.env;
 
 	result = 0;
 
     if (ft_strcmp(currentcmd->arg[0], "pwd") == 0)
 		result = ft_pwd();
-    if (ft_strcmp(currentcmd->arg[0], "env") == 0)
-		ft_env(shell.env);
+    if (ft_strcmp(currentcmd->arg[0], "env") == 0) {
+        if (currentenv && currentenv->value) {
+            ft_env(currentenv);
+        } else {
+            ft_printf("Environment value is not set or empty1\n");
+        }
+}
     if (ft_strcmp(currentcmd->arg[0], "exit") == 0)
-		ft_exit(); 
-/*	if (ft_strcmp(current->cmd->arg[0], "echo") == 0)
-		ft_echo(current);
+		ft_exit();
+ /*    if (ft_strcmp(currentcmd->arg[0], "echo") == 0)
+		ft_echo(current); */
+/*
 	if (ft_strcmp(current->cmd->arg[0], "cd") == 0)
 		ft_cd(current);
 
