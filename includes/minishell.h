@@ -63,6 +63,7 @@ int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
 void    check_env_values(t_env *env);
+void    ft_echo(t_cmd cmd);
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);

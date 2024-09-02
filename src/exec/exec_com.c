@@ -37,17 +37,13 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 
     if (ft_strcmp(currentcmd->arg[0], "pwd") == 0)
 		result = ft_pwd();
-    if (ft_strcmp(currentcmd->arg[0], "env") == 0) {
-        if (currentenv && currentenv->value) {
+    if (ft_strcmp(currentcmd->arg[0], "env") == 0)
+        if (currentenv && currentenv->value)
             ft_env(currentenv);
-        } else {
-            ft_printf("Environment value is not set or empty1\n");
-        }
-}
     if (ft_strcmp(currentcmd->arg[0], "exit") == 0)
 		ft_exit();
- /*    if (ft_strcmp(currentcmd->arg[0], "echo") == 0)
-		ft_echo(current); */
+    if (ft_strcmp(currentcmd->arg[0], "echo") == 0)
+		ft_echo(*currentcmd);
 /*
 	if (ft_strcmp(current->cmd->arg[0], "cd") == 0)
 		ft_cd(current);
@@ -66,7 +62,9 @@ void execute_command(t_shell *shell)
 {
     t_shell *current = shell;
 
-    while (current != NULL)
+    exec_bin(*current->cmd, *shell);
+
+/*     while (current != NULL)
     {
         if (current->cmd == NULL)
         {
@@ -77,10 +75,9 @@ void execute_command(t_shell *shell)
         while (i < current->cmd->n_args)
         {
             // No need to check current->cmd again here
-            exec_bin(*current->cmd, *shell);
             i++;
         }
 
         current->cmd = current->cmd->next;
-    }
+    } */
 }

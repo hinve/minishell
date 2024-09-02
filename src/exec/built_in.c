@@ -6,7 +6,7 @@
 /*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/02 18:26:41 by matteo           ###   ########.fr       */
+/*   Updated: 2024/09/02 21:30:50 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,22 @@ void ft_unset(t_shell shell)
 }
 */
 
-/* void ft_echo(t_cmd shell)
+void ft_echo(t_cmd cmd)
 {
-    t_cmd   current = cmd;
+ 
     int i = 1;
-    while (args[0])
+
+    while (cmd.arg[i] != NULL)
     {
-        printf("%s ", args[i]);
+        printf("%s", cmd.arg[i]);
+        if (i == cmd.n_args)
+            ft_printf("\n");
+        else
+            printf(" ");
         i++;
     }
     printf("\n");
-} */
+}
 
 void    ft_exit()
 {

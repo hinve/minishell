@@ -1,3 +1,4 @@
-cambiar la ruta para  compilar en el makefile exec/ parsing/ 
 Exit funciona pero quizas se debe mejorar
-El pwd funciona pero se repite si hay varios argumentos
+Gestionar errores si hay parametros incorectos, por ejemplo : pwd algo algo
+En echo, verificar el salto de linea con cat -e despues de plantear los pipes
+Plantear gestion de las comillas
