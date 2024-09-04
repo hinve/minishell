@@ -44,7 +44,6 @@ int     is_there_a_dollar(char *str);
 char    *replace_dollar(char *str, t_env *env);
 t_env	*transform_env(char *envp[]);
 
-
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
 int     syntaxis_is_ok(t_token **token);
@@ -63,7 +62,9 @@ int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
 void    check_env_values(t_env *env);
-void    ft_echo(t_cmd cmd);
+void ft_echo(t_cmd cmd, t_env *env);
+void ft_export(t_cmd cmd, t_env *env);
+
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);

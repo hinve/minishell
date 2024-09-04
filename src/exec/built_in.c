@@ -6,7 +6,7 @@
 /*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/02 21:30:50 by matteo           ###   ########.fr       */
+/*   Updated: 2024/09/03 02:26:55 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,7 @@ void ft_cd(t_shell shell)
         printf("No directory specified\n");
 }
 
-void ft_export(t_shell shell)
-{
-    if (args[1])
-        printf("Exporting: %s\n", args[1]);
-    else
-        printf("No variable specified\n");
-}
+
 
 void ft_unset(t_shell shell)
 {
@@ -41,45 +35,72 @@ void ft_unset(t_shell shell)
 }
 */
 
-void ft_echo(t_cmd cmd)
+char *get_env_value(t_env *env, const char *key)
 {
- 
-    int i = 1;
-
-    while (cmd.arg[i] != NULL)
+    t_env *current = env;
+    while (current)
     {
-        printf("%s", cmd.arg[i]);
-        if (i == cmd.n_args)
-            ft_printf("\n");
-        else
-            printf(" ");
-        i++;
+        if (strcmp(current->key, key) == 0)
+        {
+            return current->value;
+        }
+        current = current->next;
     }
-    printf("\n");
+    return NULL;
 }
 
-void    ft_exit()
+void ft_echo(t_cmd cmd, t_env *env)
 {
-    ft_printf("Hasta luegi !\n");
-    exit (1);
+    int i = 1;
+    char *env_var;
+
+    while (i < cmd.n_args)
+    {
+        if (cmd.arg[i][0] == '$')
+        {
+            // Skip the '$' and get the environment variable name
+            env_var = get_env_value(env, cmd.arg[i] + 1);
+            if (env_var)
+            {
+                write(STDOUT_FILENO, env_var, strlen(env_var));
+            }
+        }
+        else
+        {
+            write(STDOUT_FILENO, cmd.arg[i], strlen(cmd.arg[i]));
+        }
+
+        // Print a space between arguments
+        if (i < cmd.n_args - 1)
+        {
+            write(STDOUT_FILENO, " ", 1);
+        }
+        i++;
+    }
+    write(STDOUT_FILENO, "\n", 1);
+}
+
+void ft_exit()
+{
+    printf("Hasta luegi !\n");
+    exit(1);
 }
 
 int ft_env(t_env *env)
 {
-    t_env   *current = env;
+    t_env *current = env;
 
     if (!current || !current->value || current->value[0] == '\0')
     {
-        ft_printf("Value is empty or not set\n");
-        return (1);
+        printf("Value is empty or not set\n");
+        return 1;
     }
     while (current)
     {
-        ft_putendl(current->value);
-        ft_printf("%s", current->value);
+        printf("%s\n", current->value);
         current = current->next;
     }
-    return (0);
+    return 0;
 }
 
 int ft_pwd(void)

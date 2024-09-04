@@ -1,16 +1,7 @@
 
 
 #include "minishell.h"
-/*
-typedef struct s_cmd // ----> Estructura para trabajar commandos
-{
-	char	**arg; // comando con sus flags
-	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2
-    int fdin;
-    int fdout;
-    struct s_cmd *next; // puntero al siguiente nodo (comando)
-}	t_cmd;
-*/
+
 void check_env_values(t_env *env)
 {
     t_env *current = env;
@@ -43,13 +34,14 @@ int		exec_bin(t_cmd cmd, t_shell shell)
     if (ft_strcmp(currentcmd->arg[0], "exit") == 0)
 		ft_exit();
     if (ft_strcmp(currentcmd->arg[0], "echo") == 0)
-		ft_echo(*currentcmd);
+		ft_echo(*currentcmd, currentenv);
+	if (ft_strcmp(currentcmd->arg[0], "export") == 0)
+		ft_export(*currentcmd, currentenv);
 /*
 	if (ft_strcmp(current->cmd->arg[0], "cd") == 0)
 		ft_cd(current);
 
-	if (ft_strcmp(current->cmd->arg[0], "export") == 0)
-		ft_export(current);
+
 	if (ft_strcmp(current->cmd->arg[0], "unset") == 0)
 		ft_unset(current);*/
 //	else
@@ -62,22 +54,7 @@ void execute_command(t_shell *shell)
 {
     t_shell *current = shell;
 
+// ----> aqui plantear un if para determinar si es un builtin o otro
     exec_bin(*current->cmd, *shell);
 
-/*     while (current != NULL)
-    {
-        if (current->cmd == NULL)
-        {
-            return;
-        }
-
-        int i = 0;
-        while (i < current->cmd->n_args)
-        {
-            // No need to check current->cmd again here
-            i++;
-        }
-
-        current->cmd = current->cmd->next;
-    } */
 }
