@@ -28,26 +28,30 @@ void	append_out(char *str_cmd, t_token **tok, int *i)
 	}
 }
 
-void	print_banner()
+void print_banner()
 {
     int fd;
     ssize_t bytes_read;
     char buffer[1024];
 
     fd = open("init", O_RDONLY);
-    if (fd == -1) {
+    if (fd == -1)
+	{
         perror("Error opening banner file");
         return;
     }
 
-    while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0) {
-        buffer[bytes_read] = '\0'; // Null-terminate the buffer
+    write(STDOUT_FILENO, "\033[32m", 5);
+
+    while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0)
+	{
+        buffer[bytes_read] = '\0';
         write(STDOUT_FILENO, buffer, bytes_read);
     }
-
-    if (bytes_read == -1) {
+    if (bytes_read == -1)
+	{
         perror("Error reading banner file");
     }
-
+    write(STDOUT_FILENO, "\033[0m", 4);
     close(fd);
 }

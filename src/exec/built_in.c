@@ -6,7 +6,7 @@
 /*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/03 02:26:55 by matteo           ###   ########.fr       */
+/*   Updated: 2024/09/04 23:01:14 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,18 @@ char *get_env_value(t_env *env, const char *key)
 void ft_echo(t_cmd cmd, t_env *env)
 {
     int i = 1;
+    int newline = 1;
     char *env_var;
-
+    
+    if (cmd.n_args > 1 && strcmp(cmd.arg[1], "-n") == 0)
+    {
+        newline = 0;
+        i = 2;
+    }
     while (i < cmd.n_args)
     {
         if (cmd.arg[i][0] == '$')
         {
-            // Skip the '$' and get the environment variable name
             env_var = get_env_value(env, cmd.arg[i] + 1);
             if (env_var)
             {
@@ -69,15 +74,16 @@ void ft_echo(t_cmd cmd, t_env *env)
         {
             write(STDOUT_FILENO, cmd.arg[i], strlen(cmd.arg[i]));
         }
-
-        // Print a space between arguments
         if (i < cmd.n_args - 1)
         {
             write(STDOUT_FILENO, " ", 1);
         }
         i++;
     }
-    write(STDOUT_FILENO, "\n", 1);
+    if (newline)
+    {
+        write(STDOUT_FILENO, "\n", 1);
+    }
 }
 
 void ft_exit()
