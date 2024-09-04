@@ -38,7 +38,7 @@ void	append_out(char *str_cmd, t_token **tok, int *i);
 void	parser(t_token **tok, char **envp, t_env *env);
 
 //*--------------------EXPAND_VARIABLES---------------------
-void	expand_variables(t_token **token, char **envp, t_env *env);
+void	expand_variables(t_token **token, t_env *env);
 void	create_env_list(char *value, t_env **env, char *key);
 int     is_there_a_dollar(char *str);
 char    *replace_dollar(char *str, t_env *env);
