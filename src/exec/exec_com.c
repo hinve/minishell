@@ -44,9 +44,9 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 
 	if (ft_strcmp(current->cmd->arg[0], "unset") == 0)
 		ft_unset(current);*/
-//	else
-//		printf("cmd not found");
-
+/* 	else
+		printf("cmd not found");
+ */
 	return (result);
 }
 

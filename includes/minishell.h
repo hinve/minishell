@@ -62,9 +62,11 @@ int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
 void    check_env_values(t_env *env);
-void ft_echo(t_cmd cmd, t_env *env);
-void ft_export(t_cmd cmd, t_env *env);
+void    ft_echo(t_cmd cmd, t_env *env);
+void    ft_export(t_cmd cmd, t_env *env);
 
+//-------------------INIT-----------------------------------
+void    print_banner();
 /*
 void    ft_echo(t_shell shell);
 void    ft_cd(t_shell shell);

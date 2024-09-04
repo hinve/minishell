@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_struct(&data, envp);
+	print_banner();
 	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
 	while (data.str_cmd)
 	{
