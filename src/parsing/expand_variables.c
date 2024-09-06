@@ -71,11 +71,10 @@ t_env	*transform_env(char *envp[])
 	return (env);
 }
 
-void	expand_variables(t_token **token, char **envp, t_env *env)
+void	expand_variables(t_token **token, t_env *env)
 {
 	t_token	*aux;
 
-	env = transform_env(envp);
 	aux = *token;
 	
 	while (aux)

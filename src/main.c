@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	init_struct(&data, envp);
 	print_banner();
 	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+	data.env = transform_env(envp);
 	while (data.str_cmd)
 	{
 		add_history(data.str_cmd);
@@ -69,8 +70,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer(data.str_cmd, &data.token);
 		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
 		{
-			expand_variables(&data.token, envp, data.env);
-			data.env = transform_env(envp);
+			expand_variables(&data.token, data.env);
 			fill_struct(&data);
 			execute_command(&data);
 		}
