@@ -30,6 +30,7 @@ FILES_SRC		= main.c 				\
 					exec/exec_com.c				\
 					exec/built_in.c				\
 					exec/export.c				\
+					exec/man.c
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC 		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

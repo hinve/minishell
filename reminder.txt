@@ -1,5 +1,4 @@
 Exit funciona pero quizas se debe mejorar
 Gestionar errores si hay parametros incorectos, por ejemplo : pwd algo algo
-En echo, verificar el salto de linea con cat -e despues de plantear los pipes
 Plantear gestion de las comillas
 plantear cmd not found

@@ -6,7 +6,7 @@
 /*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/04 23:01:14 by matteo           ###   ########.fr       */
+/*   Updated: 2024/09/13 08:28:01 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ char *get_env_value(t_env *env, const char *key)
     return NULL;
 }
 
-void ft_echo(t_cmd cmd, t_env *env)
+void ft_echo(t_cmd cmd)
 {
     int i = 1;
     int newline = 1;
-    char *env_var;
-    
+
     if (cmd.n_args > 1 && strcmp(cmd.arg[1], "-n") == 0)
     {
         newline = 0;
@@ -62,18 +61,7 @@ void ft_echo(t_cmd cmd, t_env *env)
     }
     while (i < cmd.n_args)
     {
-        if (cmd.arg[i][0] == '$')
-        {
-            env_var = get_env_value(env, cmd.arg[i] + 1);
-            if (env_var)
-            {
-                write(STDOUT_FILENO, env_var, strlen(env_var));
-            }
-        }
-        else
-        {
-            write(STDOUT_FILENO, cmd.arg[i], strlen(cmd.arg[i]));
-        }
+        write(STDOUT_FILENO, cmd.arg[i], ft_strlen(cmd.arg[i]));
         if (i < cmd.n_args - 1)
         {
             write(STDOUT_FILENO, " ", 1);
