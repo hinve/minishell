@@ -10,7 +10,7 @@ RM				= rm -rf
 SRC_DIR			= src/
 OBJ_DIR			= obj/
 
-FILES_SRC		= main.c 				\
+FILES_SRC		= 	main.c 						\
 					parsing/lexer.c 			\
 					parsing/tokenizator.c 		\
 					parsing/setter.c			\
@@ -28,9 +28,13 @@ FILES_SRC		= main.c 				\
 					parsing/expand_utils.c		\
 					parsing/stock_var.c			\
 					exec/exec_com.c				\
-					exec/built_in.c				\
-					exec/export.c				\
-					exec/man.c
+					exec/exec_utils.c			\
+					exec/BIN/export.c			\
+					exec/BIN/ft_echo.c			\
+					exec/BIN/ft_env.c			\
+					exec/BIN/ft_exit.c			\
+					exec/BIN/ft_man.c			\
+					exec/BIN/ft_pwd.c
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC 		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

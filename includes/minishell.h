@@ -11,6 +11,8 @@
 # define C "\033[1;36m"   /* Bold Cyan */
 # define W "\033[1;37m"   /* Bold White */
 
+# define BUFF_SIZE 4096
+
 # include "structures.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -63,17 +65,20 @@ int		ft_env(t_env *env);
 void    ft_exit();
 void    check_env_values(t_env *env);
 void    ft_echo(t_cmd cmd);
-void    ft_export(t_cmd cmd, t_env *env);
-void    man(t_cmd cmd);
+void    ft_man(t_cmd cmd);
 
+int		env_add(const char *value, t_env *env);
+char	*get_env_name(char *dest, const char *src);
+int		is_in_env(t_env *env, char *args);
+int		ft_export(char **args, t_env *env, t_env *secret);
 
 //-------------------INIT-----------------------------------
 void    print_banner();
 
-//-------------------==VAR----------------------------------
+//-------------------VAR----------------------------------
 int     recognize_var(char *cmd);
-void    add_var(t_var *var, t_cmd cmd);
-int     is_cmd_in_varname(t_cmd *cmd, t_var *var_list);
-void    print_variable(t_var *var, char *key);
+void    add_var(t_env *var, t_cmd cmd);
+int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
+void    print_variable(t_env *var, char *key);
 
 #endif

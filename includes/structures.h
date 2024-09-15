@@ -42,18 +42,12 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
     struct s_cmd *next; // puntero al siguiente nodo (comando)
 }	t_cmd;
 
-typedef struct s_var
-{
-    char *varname;
-    char *value;
-    struct s_var *next;
-} t_var;
-
 // En esta estructura durante el parseo se debe guardar los fd de apertura o creación de archivos
 // Este fd debe ir actualizandose de modo que el ejecutor acceda al último fd para plasmar la salida del comando, en caso de haber mas de uno
 typedef struct s_shell
 {
 	t_env	*env; // puntero a la cabeza de la lista de variables de entorno
+    t_env   *vars;
 	t_cmd	*cmd; // puntero a la cabeza de la lista de comandos
     t_env   *export;
     char    *str_cmd; //Prompt comando
@@ -64,7 +58,6 @@ typedef struct s_shell
     int     status;
     t_token *token;
     pid_t	pid;
-    t_var   *var;
 }	t_shell;
 
 

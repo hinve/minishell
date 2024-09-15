@@ -28,20 +28,20 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 	result = 0;
 
 
-    if (ft_strcmp(currentcmd->arg[0], "pwd") == 0)
+    if (!ft_strcmp(currentcmd->arg[0], "pwd"))
 		result = ft_pwd();
-    else if (ft_strcmp(currentcmd->arg[0], "env") == 0)
+    else if (!ft_strcmp(currentcmd->arg[0], "env"))
             ft_env(currentenv);
-    else if (ft_strcmp(currentcmd->arg[0], "exit") == 0)
+    else if (!ft_strcmp(currentcmd->arg[0], "exit"))
 		ft_exit();
-    else if (ft_strcmp(currentcmd->arg[0], "echo") == 0)
+    else if (!ft_strcmp(currentcmd->arg[0], "echo"))
 		ft_echo(*currentcmd);
-	else if (ft_strcmp(currentcmd->arg[0], "export") == 0)
+	else if (!ft_strcmp(currentcmd->arg[0], "export"))
 		ft_export(*currentcmd, currentenv);
-    else if(ft_strcmp(currentcmd->arg[0], "man") == 0)
-        man(*currentcmd);
+    else if(!ft_strcmp(currentcmd->arg[0], "man"))
+        ft_man(*currentcmd);
     else
-        ("\n");
+        ft_printf("\n");
 
 /* 
 	if (ft_strcmp(current->cmd->arg[0], "cd") == 0)
