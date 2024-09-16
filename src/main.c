@@ -13,6 +13,35 @@ int	only_spaces(char *str_cmd)
 	}
 	return (1);
 }
+void clear_env_structs(t_env **env, t_env **vars)
+{
+    t_env *current_env;
+    t_env *next_env;
+
+    // Clear environment variables
+    current_env = *env;
+    while (current_env != NULL)
+    {
+        next_env = current_env->next;
+        free(current_env->key);
+        free(current_env->value);
+        free(current_env);
+        current_env = next_env;
+    }
+    *env = NULL;
+
+    // Clear additional variables
+    current_env = *vars;
+    while (current_env != NULL)
+    {
+        next_env = current_env->next;
+        free(current_env->key);
+        free(current_env->value);
+        free(current_env);
+        current_env = next_env;
+    }
+    *vars = NULL;
+}
 
 void	clear_structs(t_token **token, t_cmd **cmd)
 {
@@ -76,6 +105,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(data.str_cmd);
 		clear_structs(&data.token, &data.cmd);
+		clear_env_structs(&data.env, &data.var);
 		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
 	}
 }

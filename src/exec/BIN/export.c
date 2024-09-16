@@ -1,72 +1,5 @@
 #include "minishell.h"
 
-/* void ft_export(t_cmd cmd, t_env *env)
-{
-    t_env *new;
-    t_env *current = env;
-    char *var;
-    char *value;
-
-    if (cmd.n_args < 2)
-    {
-        write(STDERR_FILENO, "export: not enough arguments\n", 29);
-        return;
-    }
-
-    var = strdup(cmd.arg[1]);
-    if (!var) {
-        perror("strdup");
-        return;
-    }
-
-    value = strchr(var, '=');
-    if (value == NULL) {
-        write(STDERR_FILENO, "export: invalid format, expected VAR=VALUE\n", 44);
-        free(var);
-        return;
-    }
-
-    *value = '\0';
-    value++;
-
-    while (current) {
-        if (strcmp(current->key, var) == 0) {
-            free(current->value);
-            current->value = strdup(value);
-            free(var);
-            return;
-        }
-        current = current->next;
-    }
-
-    new = malloc(sizeof(t_env));
-    if (!new) {
-        perror("malloc");
-        free(var);
-        return;
-    }
-    new->key = strdup(var);
-    if (!new->key) {
-        free(new);
-        free(var);
-        perror("strdup");
-        return;
-    }
-    new->value = strdup(value);
-    if (!new->value) {
-        free(new->key);
-        free(new);
-        free(var);
-        perror("strdup");
-        return;
-    }
-    new->next = env->next;
-    env->next = new;
-    free(var);
-}
-
----------------- */
-
 static int	print_error(int error, const char *arg)
 {
 	int		i;
@@ -128,7 +61,7 @@ int			is_in_env(t_env *env, char *args)
 	get_env_name(var_name, args);
 	while (env && env->next)
 	{
-		get_env_name(env_name, env->value);
+		get_env_name(env_name, env->key);
 		if (ft_strcmp(var_name, env_name) == 0)
 		{
 			ft_memdel(env->value);
@@ -149,9 +82,9 @@ int	ft_export(t_cmd cmd, t_env *env, t_env *vars)
     new_env = 0;
     if (!currentcmd->arg[1])
     {
-        print_sorted_env(vars);
+        ft_env(env);
         return (0);
-    }
+    } // check if the argument is correct
     else
     {
         error_ret = is_valid_env(currentcmd->arg[1]);
@@ -159,12 +92,10 @@ int	ft_export(t_cmd cmd, t_env *env, t_env *vars)
             error_ret = -3;
         if (error_ret <= 0)
             return (print_error(error_ret, currentcmd->arg[1]));
-        
         if (error_ret == 2)
             new_env = 1;
         else
             new_env = is_in_env(env, currentcmd->arg[1]);
-        
         if (new_env == 0)
         {
             if (error_ret == 1)

@@ -76,7 +76,7 @@ void print_sorted_env(t_env *env)
     sort_env(&env);
     while (env)
     {
-        ft_printf("declare -x %s=%s\n", env->key, env->value);
+        ft_printf("%s=%s\n", env->key, env->value);
         env = env->next;
     }
 }

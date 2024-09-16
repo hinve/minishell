@@ -2,3 +2,4 @@ Exit funciona pero quizas se debe mejorar
 Gestionar errores si hay parametros incorectos, por ejemplo : pwd algo algo
 Plantear gestion de las comillas
 plantear cmd not found
+ver de donde vienen los leaks (history ?)

@@ -20,11 +20,9 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 {
 
 	int		result;
-//    t_shell *currentshell = &shell;
     t_cmd   *currentcmd = &cmd;
     t_env   *currentenv = shell.env;
     t_env   *currentvar = shell.var;
- //   t_env   *currentvar = shell.var;
 
 	result = 0;
 
