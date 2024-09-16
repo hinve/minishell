@@ -47,7 +47,7 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
 typedef struct s_shell
 {
 	t_env	*env; // puntero a la cabeza de la lista de variables de entorno
-    t_env   *vars;
+    t_env   *var;
 	t_cmd	*cmd; // puntero a la cabeza de la lista de comandos
     t_env   *export;
     char    *str_cmd; //Prompt comando

@@ -140,35 +140,36 @@ int			is_in_env(t_env *env, char *args)
 	return (0);
 }
 
-int	ft_export(char **args, t_env *env, t_env *vars)
+int	ft_export(t_cmd cmd, t_env *env, t_env *vars)
 {
     int	new_env;
     int	error_ret;
+    t_cmd *currentcmd = &cmd;
 
     new_env = 0;
-    if (!args[1])
+    if (!currentcmd->arg[1])
     {
         print_sorted_env(vars);
         return (0);
     }
     else
     {
-        error_ret = is_valid_env(args[1]);
-        if (args[1][0] == '=')
+        error_ret = is_valid_env(currentcmd->arg[1]);
+        if (currentcmd->arg[1][0] == '=')
             error_ret = -3;
         if (error_ret <= 0)
-            return (print_error(error_ret, args[1]));
+            return (print_error(error_ret, currentcmd->arg[1]));
         
         if (error_ret == 2)
             new_env = 1;
         else
-            new_env = is_in_env(env, args[1]);
+            new_env = is_in_env(env, currentcmd->arg[1]);
         
         if (new_env == 0)
         {
             if (error_ret == 1)
-                env_add(args[1], env);
-            env_add(args[1], vars);
+                env_add(currentcmd->arg[1], env);
+            env_add(currentcmd->arg[1], vars);
         }
     }
     return (0);

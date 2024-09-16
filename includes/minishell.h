@@ -70,7 +70,7 @@ void    ft_man(t_cmd cmd);
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
 int		is_in_env(t_env *env, char *args);
-int		ft_export(char **args, t_env *env, t_env *secret);
+int		ft_export(t_cmd cmd, t_env *env, t_env *secret);
 
 //-------------------INIT-----------------------------------
 void    print_banner();
