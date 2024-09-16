@@ -34,7 +34,8 @@ FILES_SRC		= 	main.c 						\
 					exec/BIN/ft_env.c			\
 					exec/BIN/ft_exit.c			\
 					exec/BIN/ft_man.c			\
-					exec/BIN/ft_pwd.c
+					exec/BIN/ft_pwd.c			\
+					exec/sort_env.c
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))
 OBJ_SRC 		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
