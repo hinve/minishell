@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 
 //*--------------------LEXER-------------------------------
 void	lexer(char *str_cmd, t_token **tok);
@@ -70,7 +71,16 @@ void    ft_man(t_cmd cmd);
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
 int		is_in_env(t_env *env, char *args);
-int		ft_export(t_cmd cmd, t_env *env, t_env *secret);
+int     builtin_export(t_cmd cmd, t_shell data);
+int     is_valid_argument(const char *arg);
+void    print_error(const char *arg, const char *msg);
+void    env_put_var(t_env **env, const char *arg);
+t_env   *find_env_var(t_env *env, const char *key);
+void    print_sorted_env(t_env *env);
+int     ft_export(t_cmd cmd, t_shell data);
+
+
+
 
 //-------------------INIT-----------------------------------
 void    print_banner();
@@ -82,7 +92,6 @@ void    print_variable(t_env *var, char *key);
 //-------------------ENV----------------------------------
 int     str_env_len(t_env *env);
 void    sort_env(t_env **env);
-void    print_sorted_env(t_env *env);
 int     is_valid_env(char *arg);
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);

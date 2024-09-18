@@ -1,3 +1,52 @@
 1 : si el parseo se hace correctamente, se puede entrar en el ejecutor : execute_command
 2 : aqui hay que classificar el input si es un pipe / built in / etc 
 3 : empezar con los builts in 
+
+
+steps export : 
+
+To imitate the behavior of the export command in a shell, you need to follow these steps:
+
+Check for Arguments:
+
+If no arguments are provided, print the current environment variables in a sorted manner.
+Validate the Argument:
+
+Check if the provided argument is a valid environment variable name. This involves ensuring it starts with a letter or underscore and is followed by letters, digits, or underscores. If the argument is invalid, print an error message.
+Check for Existing Variable:
+
+Determine if the environment variable already exists in the environment list. If it does, update its value.
+Add New Variable:
+
+If the environment variable does not exist, add it to the environment list.
+Update Environment List:
+
+If the variable is valid and does not already exist, add it to the environment list. If it exists, update its value.
+Handle Errors:
+
+If any errors occur during validation or updating, print appropriate error messages.
+Detailed Steps:
+Check for Arguments:
+
+If no arguments are provided, call a function to print the current environment variables in a sorted order.
+Validate the Argument:
+
+Use a function to check if the argument is a valid environment variable name.
+If the argument starts with an =, mark it as invalid.
+If the argument is invalid, call a function to print an error message and return.
+Check for Existing Variable:
+
+Use a function to check if the environment variable already exists in the environment list.
+If it exists, update its value.
+Add New Variable:
+
+If the environment variable does not exist, add it to the environment list.
+Allocate memory for the new variable and set its key and value.
+Update Environment List:
+
+If the variable is valid and does not already exist, add it to the environment list.
+If it exists, update its value.
+Handle Errors:
+
+If any errors occur during validation or updating, call a function to print appropriate error messages.
+By following these steps, you can imitate the behavior of the export command in a shell.
