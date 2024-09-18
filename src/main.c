@@ -105,7 +105,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free(data.str_cmd);
 		clear_structs(&data.token, &data.cmd);
-		clear_env_structs(&data.env, &data.var);
+//		clear_env_structs(&data.env, &data.var);
 		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
 	}
 }

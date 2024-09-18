@@ -22,7 +22,7 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 	int		result;
     t_cmd   *currentcmd = &cmd;
     t_env   *currentenv = shell.env;
-    t_env   *currentvar = shell.var;
+ //   t_env   *currentvar = shell.var;
 
 	result = 0;
 
@@ -36,7 +36,7 @@ int		exec_bin(t_cmd cmd, t_shell shell)
     else if (!ft_strcmp(currentcmd->arg[0], "echo"))
 		ft_echo(*currentcmd);
 	else if (!ft_strcmp(currentcmd->arg[0], "export"))
-		ft_export(*currentcmd, currentenv, currentvar);
+        ft_export(*currentcmd, shell);
     else if(!ft_strcmp(currentcmd->arg[0], "man"))
         ft_man(*currentcmd);
     else

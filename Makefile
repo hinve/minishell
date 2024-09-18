@@ -4,7 +4,8 @@ LIBS			= -lft -lreadline
 NAME			= minishell
 
 CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra -I./includes -I./usr/include/readline -g
+CFLAGS			= -Wall -Werror -Wextra -I./includes -I./usr/include/readline -g \
+	# -fsanitize=address,undefined
 RM				= rm -rf
 
 SRC_DIR			= src/
@@ -49,7 +50,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_SRC)
 	@$(MAKE) -s all -C $(LIBFT_DIR)
-	$(CC) $(OBJ_SRC) -L $(LIBFT_DIR) $(LIBS) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJ_SRC) -L $(LIBFT_DIR) $(LIBS) $(LDFLAGS) -o $@
 
 clean:
 	@$(RM) $(OBJ_DIR)

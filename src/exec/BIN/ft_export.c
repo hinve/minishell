@@ -154,8 +154,10 @@ void print_sorted_env(t_env *env)
     {
         current = sorted_env;
         sorted_env = sorted_env->next;
-        free(current->key);
-        free(current->value);
+        if (current->key)
+            free(current->key);
+        if (current->value)
+            free(current->value);
         free(current);
     }
 }
