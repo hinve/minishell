@@ -1,5 +1,13 @@
-Exit funciona pero quizas se debe mejorar
+
+
+Exit : funciona pero quizas se debe mejorar
 Gestionar errores si hay parametros incorectos, por ejemplo : pwd algo algo
-Plantear gestion de las comillas
-plantear cmd not found
-ver de donde vienen los leaks (history ?)
+Parsing : plantear gestion de las comillas
+Ver de donde vienen los leaks (history ?)
+Ft_cd : se supone que ft_cd funciona pero como comprobarlo dentro de la minishell ?
+
+
+--------------------------notas------------------------------
+
+en exec_com, pasamos la lista o los argumentos directamente ? Cual es lo mas eficiente y la diferencia ?
+

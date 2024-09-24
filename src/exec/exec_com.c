@@ -39,17 +39,16 @@ int		exec_bin(t_cmd cmd, t_shell shell)
         ft_export(*currentcmd, shell);
     else if(!ft_strcmp(currentcmd->arg[0], "man"))
         ft_man(*currentcmd);
+    else if (ft_strcmp(currentcmd->arg[0], "cd") == 0)
+        ft_cd(currentcmd->arg[1]);
     else
-        ft_printf("\n");
+        ft_printf("command not found\n");
 
-/* 
-	if (ft_strcmp(current->cmd->arg[0], "cd") == 0)
-		ft_cd(current);
-
+/*
 
 	if (ft_strcmp(current->cmd->arg[0], "unset") == 0)
-		ft_unset(current);*/
-/* 	else
+		ft_unset(current);
+ 	else
 		printf("cmd not found");
  */
 	return (result);

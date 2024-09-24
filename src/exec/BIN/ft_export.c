@@ -1,34 +1,6 @@
 #include "minishell.h"
 
-int ft_export(t_cmd cmd, t_shell data)
-{
-    int status;
-    int i;
-    t_env *currentenv = data.env;
-    char **argv = cmd.arg;
 
-    status = EXIT_SUCCESS;
-    if (!argv[1])
-    {
-        print_sorted_env(currentenv);
-        return (status);
-    }
-    i = 1;
-    while (argv[i])
-    {
-        if (!is_valid_argument(argv[i]))
-        {
-            print_error(argv[i], "not a valid identifier");
-            status = EXIT_FAILURE;
-        }
-        else
-        {
-            env_put_var(&currentenv, argv[i]);
-        }
-        i++;
-    }
-    return (status);
-}
 
 // Helper function to check if an argument is a valid environment variable
 int is_valid_argument(const char *arg)
@@ -144,9 +116,9 @@ void print_sorted_env(t_env *env)
     while (current)
     {
         if (current->value)
-            printf("declare -x %s=\"%s\"\n", current->key, current->value);
+            ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
         else
-            printf("declare -x %s\n", current->key);
+            ft_printf("declare -x %s\n", current->key);
         current = current->next;
     }
 
@@ -160,4 +132,34 @@ void print_sorted_env(t_env *env)
             free(current->value);
         free(current);
     }
+}
+
+int ft_export(t_cmd cmd, t_shell data)
+{
+    int status;
+    int i;
+    t_env *currentenv = data.env;
+    char **argv = cmd.arg;
+
+    status = EXIT_SUCCESS;
+    if (!argv[1])
+    {
+        print_sorted_env(currentenv);
+        return (status);
+    }
+    i = 1;
+    while (argv[i])
+    {
+        if (!is_valid_argument(argv[i]))
+        {
+            print_error(argv[i], "not a valid identifier");
+            status = EXIT_FAILURE;
+        }
+        else
+        {
+            env_put_var(&currentenv, argv[i]);
+        }
+        i++;
+    }
+    return (status);
 }

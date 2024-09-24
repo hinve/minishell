@@ -26,7 +26,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 
-//*--------------------LEXER-------------------------------
+//*--------------------LEXER--------------------------------
 void	lexer(char *str_cmd, t_token **tok);
 void	set_token(int type, char *str_cmd, t_token **tok, int *i);
 void	setter(int type, char *str_cmd, t_token **tok, int *i);
@@ -67,6 +67,8 @@ void    ft_exit();
 void    check_env_values(t_env *env);
 void    ft_echo(t_cmd cmd);
 void    ft_man(t_cmd cmd);
+void    ft_cd(char *path);
+
 
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
@@ -84,12 +86,12 @@ int     ft_export(t_cmd cmd, t_shell data);
 
 //-------------------INIT-----------------------------------
 void    print_banner();
-//-------------------VAR----------------------------------
+//-------------------VAR------------------------------------
 int     recognize_var(char *cmd);
 void    add_var(t_env *var, t_cmd cmd);
 int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
 void    print_variable(t_env *var, char *key);
-//-------------------ENV----------------------------------
+//-------------------ENV------------------------------------
 int     str_env_len(t_env *env);
 void    sort_env(t_env **env);
 int     is_valid_env(char *arg);
