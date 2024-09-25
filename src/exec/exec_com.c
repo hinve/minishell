@@ -2,27 +2,12 @@
 
 #include "minishell.h"
 
-void check_env_values(t_env *env)
-{
-    t_env *current = env;
-    
-    if (!current)
-        printf("naze\n");
-    while (current)
-    {
-        printf("Key: %s, Value: %s\n", current->key, current->value);
-        current = current->next;
-    }
-
-}
-
 int		exec_bin(t_cmd cmd, t_shell shell)
 {
 
 	int		result;
     t_cmd   *currentcmd = &cmd;
     t_env   *currentenv = shell.env;
- //   t_env   *currentvar = shell.var;
 
 	result = 0;
 
@@ -45,7 +30,6 @@ int		exec_bin(t_cmd cmd, t_shell shell)
         ft_printf("command not found\n");
 
 /*
-
 	if (ft_strcmp(current->cmd->arg[0], "unset") == 0)
 		ft_unset(current);
  	else

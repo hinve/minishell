@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-
-
 // Helper function to check if an argument is a valid environment variable
 int is_valid_argument(const char *arg)
 {
@@ -20,7 +18,6 @@ int is_valid_argument(const char *arg)
             return 0;
         i++;
     }
-
     return 1;
 }
 
