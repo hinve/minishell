@@ -40,7 +40,7 @@ int		exec_bin(t_cmd cmd, t_shell shell)
     else if(!ft_strcmp(currentcmd->arg[0], "man"))
         ft_man(*currentcmd);
     else if (ft_strcmp(currentcmd->arg[0], "cd") == 0)
-        ft_cd(currentcmd->arg[1]);
+        ft_cd(&shell, &cmd);
     else
         ft_printf("command not found\n");
 

@@ -7,7 +7,7 @@ Ver de donde vienen los leaks (history ?)
 Ft_cd : se supone que ft_cd funciona pero como comprobarlo dentro de la minishell ?
 
 
---------------------------notas------------------------------
+--------------------------NOTAS------------------------------
 
 en exec_com, pasamos la lista o los argumentos directamente ? Cual es lo mas eficiente y la diferencia ?
 

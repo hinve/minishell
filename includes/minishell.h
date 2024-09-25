@@ -67,8 +67,7 @@ void    ft_exit();
 void    check_env_values(t_env *env);
 void    ft_echo(t_cmd cmd);
 void    ft_man(t_cmd cmd);
-void    ft_cd(char *path);
-
+void ft_cd(t_shell *shell, t_cmd *cmd);
 
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
@@ -80,9 +79,6 @@ void    env_put_var(t_env **env, const char *arg);
 t_env   *find_env_var(t_env *env, const char *key);
 void    print_sorted_env(t_env *env);
 int     ft_export(t_cmd cmd, t_shell data);
-
-
-
 
 //-------------------INIT-----------------------------------
 void    print_banner();
