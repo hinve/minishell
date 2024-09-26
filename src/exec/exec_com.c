@@ -34,15 +34,14 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 		ft_unset(current);
  	else
 		printf("cmd not found");
- */
+*/
 	return (result);
 }
 
 void execute_command(t_shell *shell)
 {
     t_shell *current = shell;
-
 // ----> aqui plantear un if para determinar si es un builtin o otro
-    exec_bin(*current->cmd, *shell);
-
+    if (is_bin(*shell))
+        exec_bin(*current->cmd, *shell);
 }

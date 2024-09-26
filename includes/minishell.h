@@ -56,8 +56,9 @@ void    ft_innout(t_cmd *cmd, t_token **tok);
 char	*expand_heredoc(char *line);
 char    *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
-//-------------------Executor-------------------------------
+//....................EXECUTOR..............................
 void    execute_command(t_shell *data);
+//-------------------BUILTS_IN------------------------------
 int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
@@ -65,6 +66,7 @@ void    check_env_values(t_env *env);
 void    ft_echo(t_cmd cmd);
 void    ft_man(t_cmd cmd);
 void    ft_cd(t_shell *shell, t_cmd *cmd);
+int     ft_export(t_cmd cmd, t_shell data);
 
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
@@ -75,7 +77,10 @@ void    print_error(const char *arg, const char *msg);
 void    env_put_var(t_env **env, const char *arg);
 t_env   *find_env_var(t_env *env, const char *key);
 void    print_sorted_env(t_env *env);
-int     ft_export(t_cmd cmd, t_shell data);
+
+//----------------------EXEC_UTILS--------------------------
+int is_var_declaration(t_shell data);
+int     is_bin(t_shell data);
 
 //-------------------INIT-----------------------------------
 void    print_banner();
