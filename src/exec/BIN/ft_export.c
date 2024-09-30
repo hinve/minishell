@@ -1,7 +1,6 @@
 #include "minishell.h"
 
-// Helper function to check if an argument is a valid environment variable
-int is_valid_argument(const char *arg)
+int     is_valid_argument(const char *arg)
 {
     int i;
 
@@ -21,8 +20,7 @@ int is_valid_argument(const char *arg)
     return 1;
 }
 
-// Helper function to print an error message
-void print_error(const char *arg, const char *msg)
+void    print_error(const char *arg, const char *msg)
 {
     write(STDERR_FILENO, "export: `", 9);
     write(STDERR_FILENO, arg, strlen(arg));
@@ -31,8 +29,7 @@ void print_error(const char *arg, const char *msg)
     write(STDERR_FILENO, "\n", 1);
 }
 
-// Helper function to add or update an environment variable
-void env_put_var(t_env **env, const char *arg)
+void    env_put_var(t_env **env, const char *arg)
 {
     char *key;
     char *value;
@@ -67,8 +64,7 @@ void env_put_var(t_env **env, const char *arg)
     }
 }
 
-// Helper function to find an environment variable by key
-t_env *find_env_var(t_env *env, const char *key)
+t_env   *find_env_var(t_env *env, const char *key)
 {
     while (env)
     {
@@ -79,8 +75,7 @@ t_env *find_env_var(t_env *env, const char *key)
     return NULL;
 }
 
-// Helper function to print the environment variables in sorted order
-void print_sorted_env(t_env *env)
+void    print_sorted_env(t_env *env)
 {
     t_env *sorted_env = NULL;
     t_env *current;
@@ -131,7 +126,7 @@ void print_sorted_env(t_env *env)
     }
 }
 
-int ft_export(t_cmd cmd, t_shell data)
+int     ft_export(t_cmd cmd, t_shell data)
 {
     int status;
     int i;

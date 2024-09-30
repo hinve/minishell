@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/26 16:37:50 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/09/27 00:58:54 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int     is_key_in_env(t_shell data, const char *key)
+{
+    t_env *currentenv = data.env;
+    t_env *currentvar = data.var;
+    
+    while (currentenv)
+    {
+        if (strcmp(currentenv->key, key) == 0)
+        {
+            return (1);
+        }
+        currentenv = currentenv->next;
+    }
+    while (currentvar)
+    {
+        if (strcmp(currentvar->key, key) == 0)
+        {
+            return (1);
+        }
+        currentvar = currentvar->next;
+    }
+    return (0);
+}
 
 char *get_env_value(t_env *env, const char *key)
 {
@@ -23,7 +47,7 @@ char *get_env_value(t_env *env, const char *key)
         }
         current = current->next;
     }
-    return NULL;
+    return (NULL);
 }
 
 int is_bin(t_shell data)

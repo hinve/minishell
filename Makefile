@@ -37,6 +37,7 @@ FILES_SRC		= 	main.c 						\
 					exec/BIN/ft_man.c			\
 					exec/BIN/ft_pwd.c			\
 					exec/BIN/ft_cd.c			\
+					exec/set_var.c
 
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))

@@ -63,14 +63,14 @@ int     ft_pwd(void);
 int		ft_env(t_env *env);
 void    ft_exit();
 void    check_env_values(t_env *env);
-void    ft_echo(t_cmd cmd);
+void    ft_echo(t_shell data);
 void    ft_man(t_cmd cmd);
 void    ft_cd(t_shell *shell, t_cmd *cmd);
 int     ft_export(t_cmd cmd, t_shell data);
 
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
-int		is_in_env(t_env *env, char *args);
+int     is_key_in_env(t_shell data, const char *key);
 int     builtin_export(t_cmd cmd, t_shell data);
 int     is_valid_argument(const char *arg);
 void    print_error(const char *arg, const char *msg);
@@ -79,16 +79,17 @@ t_env   *find_env_var(t_env *env, const char *key);
 void    print_sorted_env(t_env *env);
 
 //----------------------EXEC_UTILS--------------------------
-int is_var_declaration(t_shell data);
+int     is_var_declaration(t_shell data);
 int     is_bin(t_shell data);
 
 //-------------------INIT-----------------------------------
 void    print_banner();
 //-------------------VAR------------------------------------
 int     recognize_var(char *cmd);
-void    add_var(t_env *var, t_cmd cmd);
 int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
 void    print_variable(t_env *var, char *key);
+void    var_declaration(t_shell data);
+
 //-------------------ENV------------------------------------
 int     str_env_len(t_env *env);
 void    sort_env(t_env **env);
