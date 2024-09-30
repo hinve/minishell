@@ -28,6 +28,7 @@ FILES_SRC		= 	main.c 						\
 					parsing/fill_utils.c		\
 					parsing/expand_utils.c		\
 					parsing/stock_var.c			\
+					parsing/utils2.c			\
 					exec/exec_com.c				\
 					exec/exec_utils.c			\
 					exec/BIN/ft_export.c		\

@@ -54,7 +54,7 @@ void	print_cmd_list(t_cmd *cmd)
 void	fill_struct(t_shell *data)
 {
 	int	argcs;
-
+	
 	argcs = count_args(data->token);
 	while (data->token)
 	{

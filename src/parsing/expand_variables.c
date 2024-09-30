@@ -71,19 +71,18 @@ t_env	*transform_env(char *envp[])
 	return (env);
 }
 
-void	expand_variables(t_token **token, t_env *env)
+void	expand_variables(t_token **token, t_env *env, t_shell *data)
 {
 	t_token	*aux;
 
 	aux = *token;
-	
 	while (aux)
 	{
-		if (is_there_a_dollar(aux->content) == 1 && (aux->type == DQUOTE
+		if (aux->type == HEREDOC)
+			aux = aux->next;
+		else if (is_there_a_dollar(aux->content) == 1 && (aux->type == DQUOTE
 				|| aux->type == WORD))
-		{
-			aux->content = ft_strdup(replace_dollar(aux->content, env));
-		}
+			aux->content = ft_strdup(replace_dollar(aux->content, env, data));
 		aux = aux->next;
 	}
 }

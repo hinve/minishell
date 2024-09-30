@@ -39,10 +39,10 @@ void	append_out(char *str_cmd, t_token **tok, int *i);
 //*--------------------PARSER-------------------------------
 void	parser(t_token **tok, char **envp, t_env *env);
 //*--------------------EXPAND_VARIABLES---------------------
-void	expand_variables(t_token **token, t_env *env);
+void	expand_variables(t_token **token, t_env *env, t_shell *data);
 void	create_env_list(char *value, t_env **env, char *key);
 int     is_there_a_dollar(char *str);
-char    *replace_dollar(char *str, t_env *env);
+char    *replace_dollar(char *str, t_env *env, t_shell *data);
 t_env	*transform_env(char *envp[]);
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
@@ -50,6 +50,9 @@ int     syntaxis_is_ok(t_token **token);
 t_cmd	*list_empty_fill(t_token **token, int argcs);
 void	add_back_fill(t_cmd **lst, t_cmd *new);
 t_cmd	*ft_last_fill(t_cmd *lst);
+//*--------------------UTILS2-------------------------------
+char	*get_value(t_env *env, const char *key);
+char *quote_union(char *str);
 
 //*--------------------FDS----------------------------------
 void    ft_innout(t_cmd *cmd, t_token **tok);
@@ -65,7 +68,7 @@ void    ft_exit();
 void    ft_echo(t_shell *data);
 void    ft_man(t_shell *data);
 void    ft_cd(t_shell *data);
-int     ft_export(t_shell *data);
+int     ft_export(t_cmd cmd, t_shell data);
 int     builtin_export(t_shell *data);
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);

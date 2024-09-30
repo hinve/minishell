@@ -17,7 +17,7 @@ int		exec_bin(t_shell shell)
     else if (!ft_strcmp(shell.cmd->arg[0], "echo"))
 		ft_echo(&shell);
 	else if (!ft_strcmp(shell.cmd->arg[0], "export"))
-        ft_export(&shell);
+        ft_export(*shell.cmd, shell);
     else if(!ft_strcmp(shell.cmd->arg[0], "man"))
         ft_man(&shell);
     else if (ft_strcmp(shell.cmd->arg[0], "cd") == 0)

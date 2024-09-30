@@ -90,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
 	init_struct(&data, envp);
 	print_banner();
 	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+	//data.str_cmd = quote_union(data.str_cmd);
 	data.env = transform_env(envp);
 	while (data.str_cmd)
 	{
@@ -99,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer(data.str_cmd, &data.token);
 		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
 		{
-			expand_variables(&data.token, data.env);
+			expand_variables(&data.token, data.env, &data);
 			fill_struct(&data);
 			execute_command(&data);
 		}
