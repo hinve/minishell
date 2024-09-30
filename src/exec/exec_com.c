@@ -1,30 +1,27 @@
 
 #include "minishell.h"
 
-int		exec_bin(t_cmd cmd, t_shell shell)
+int		exec_bin(t_shell shell)
 {
 
 	int		result;
-    t_cmd   *currentcmd = shell.cmd;
-    t_env   *currentenv = shell.env;
 
 	result = 0;
 
-
-    if (!ft_strcmp(currentcmd->arg[0], "pwd"))
+    if (!ft_strcmp(shell.cmd->arg[0], "pwd"))
 		result = ft_pwd();
-    else if (!ft_strcmp(currentcmd->arg[0], "env"))
-            ft_env(currentenv);
-    else if (!ft_strcmp(currentcmd->arg[0], "exit"))
+    else if (!ft_strcmp(shell.cmd->arg[0], "env"))
+            ft_env(&shell);
+    else if (!ft_strcmp(shell.cmd->arg[0], "exit"))
 		ft_exit();
-    else if (!ft_strcmp(currentcmd->arg[0], "echo"))
-		ft_echo(shell);
-	else if (!ft_strcmp(currentcmd->arg[0], "export"))
-        ft_export(*currentcmd, shell);
-    else if(!ft_strcmp(currentcmd->arg[0], "man"))
-        ft_man(*currentcmd);
-    else if (ft_strcmp(currentcmd->arg[0], "cd") == 0)
-        ft_cd(&shell, &cmd);
+    else if (!ft_strcmp(shell.cmd->arg[0], "echo"))
+		ft_echo(&shell);
+	else if (!ft_strcmp(shell.cmd->arg[0], "export"))
+        ft_export(&shell);
+    else if(!ft_strcmp(shell.cmd->arg[0], "man"))
+        ft_man(&shell);
+    else if (ft_strcmp(shell.cmd->arg[0], "cd") == 0)
+        ft_cd(&shell);
     else
         ft_printf("command not found\n");
 
@@ -39,10 +36,8 @@ int		exec_bin(t_cmd cmd, t_shell shell)
 
 void execute_command(t_shell *shell)
 {
-    t_shell *current = shell;
-
     if (is_bin(*shell))
-        exec_bin(*current->cmd, *shell);
+        exec_bin(*shell);
     if (is_var_declaration(*shell))
         var_declaration(*shell);
 }

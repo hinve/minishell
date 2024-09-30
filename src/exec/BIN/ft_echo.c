@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:44:24 by matteo            #+#    #+#             */
-/*   Updated: 2024/09/27 00:57:33 by matteo           ###   ########.fr       */
+/*   Updated: 2024/09/30 13:11:27 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_echo(t_shell data)
+void ft_echo(t_shell *data)
 {
-    t_cmd *currentcmd = data.cmd;
+    t_cmd *currentcmd = data->cmd;
     int i = 1;
     int newline = 1;
 

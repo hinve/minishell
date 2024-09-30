@@ -1,8 +1,8 @@
 #include "minishell.h"
 
-int ft_env(t_env *env)
+int ft_env(t_shell *data)
 {
-    t_env *current = env;
+    t_env *current = data->env;
 
     if (!current || !current->value || current->value[0] == '\0')
     {

@@ -42,17 +42,17 @@ void update_env_var(t_env *env, const char *key, const char *value)
     env = new_node;
 }
 
-void ft_cd(t_shell *shell, t_cmd *cmd)
+void ft_cd(t_shell *data)
 {
     char *path;
     char cwd[1024];
 
-    if (cmd->n_args < 2 || ft_strlen(cmd->arg[1]) == 0)
+    if (data->cmd->n_args < 2 || ft_strlen(data->cmd->arg[1]) == 0)
     {
         ft_printf("cd: missing argument\n");
         return;
     }
-    path = cmd->arg[1];
+    path = data->cmd->arg[1];
 
     if (strcmp(path, "..") == 0)
     {
@@ -70,10 +70,9 @@ void ft_cd(t_shell *shell, t_cmd *cmd)
             return;
         }
     }
-
     if (getcwd(cwd, sizeof(cwd)) != NULL)
     {
-        update_env_var(shell->env, "PWD", cwd);
+        update_env_var(data->env, "PWD", cwd);
     }
     else
     {
