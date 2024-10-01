@@ -6,7 +6,7 @@
 /*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/09/27 00:58:54 by matteo           ###   ########.fr       */
+/*   Updated: 2024/10/01 11:30:31 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,23 @@ int is_bin(t_shell data)
 
 int is_var_declaration(t_shell data)
 {
-    const char *input = data.cmd->arg[1];
-    const char *equal_sign;
-    const char *ptr;
-
-    if (input == NULL || *input == '\0')
+    printf("is var declaration\n");
+    int last = ft_strlen(data.cmd->arg[0]) - 1;
+    
+    if (data.cmd->arg == NULL || data.cmd->arg[0][0] == '\0')
         return (0);
 
-    equal_sign = strchr(input, '=');
-    if (equal_sign == NULL)
+
+    if (data.cmd->arg[0][last] != '=')
         return (0);
 
-    if (equal_sign == input || *(equal_sign + 1) == '\0')
-        return (0);
-
-    ptr = input;
-    while (ptr < equal_sign)
+    while (data.cmd->arg[1])
     {
-        if (!isalnum(*ptr) && *ptr != '_')
+        if (!isalnum(data.cmd->arg[1]))
             return (0);
-        ptr++;
+        data.cmd->arg++;
     }
+
     return (1);
 }
-
 

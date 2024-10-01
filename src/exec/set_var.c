@@ -8,6 +8,7 @@ void    var_declaration(t_shell data)
     t_env *new_var = (t_env *)malloc(sizeof(t_env));
     char *value = currentcmd->arg[2];
 
+    printf("var declaration");
     while (current)
     {
         if (ft_strcmp(current->key, currentcmd->arg[1]) == 0)

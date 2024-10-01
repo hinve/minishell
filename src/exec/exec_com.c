@@ -39,5 +39,8 @@ void execute_command(t_shell *shell)
     if (is_bin(*shell))
         exec_bin(*shell);
     if (is_var_declaration(*shell))
+    {
+        printf("is var out");
         var_declaration(*shell);
+    }
 }
