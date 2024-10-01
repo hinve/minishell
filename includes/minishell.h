@@ -96,6 +96,8 @@ int     recognize_var(char *cmd);
 int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
 void    print_variable(t_env *var, char *key);
 void    var_declaration(t_shell data);
+//-------------------INIT_EXPORT-------------------------------
+void init_export(t_shell *data);
 //-------------------ENV------------------------------------
 
 
