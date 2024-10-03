@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exp_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 14:08:47 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/10/02 14:17:49 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int	is_there_a_dollar(char *str)
@@ -21,7 +33,7 @@ char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
 	char	*new_temp;
 	char	*env_value;
 
-	aux = (char *)malloc(sizeof(ft_strlen(line) + 1)); // se tiene que proteger malloc en caso de error al reservar memoria
+	aux = (char *)malloc(sizeof(ft_strlen(line) + 1));
 	j = 0;
 	(*i)++;
 	while (line[*i] && ft_isalnum(line[*i]))
@@ -37,18 +49,20 @@ char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
 	return (new_temp);
 }
 
-char *replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido como parametro la estructura data, puedes acceder a env desde data->env
+char	*replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido como parametro la estructura data, puedes acceder a env desde data->env
 {
-    char *temp;
-    int i = 0;
-    int temp_len = 0;
+	char	*temp;
+	int		i;
+	int		temp_len;
 
+	i = 0;
+	temp_len = 0;
 	temp = ft_strdup("");
-    while (line[i])
+	while (line[i])
 	{
 		if (line[i] == '$')
 		{
-			if(line[i + 1] == '?' && line[i + 2] == '\0')
+			if (line[i + 1] == '?' && line[i + 2] == '\0')
 			{
 				temp = ft_strjoin(temp, ft_itoa(data->status));
 				temp_len += ft_strlen(ft_itoa(data->status));
@@ -57,11 +71,12 @@ char *replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido c
 			else
 				temp = expand_utils2(line, temp, &i, &temp_len);
 		}
-        else if ((line[i] == '~' && line[i + 1] == '\0') || (line[i] == '-' && line[i + 1] == '\0'))
-            return(get_value(env, "HOME")); // create una copia de la lista env para evitar leaks y q no afecte a los builtins recorrer la lista original
+		else if ((line[i] == '~' && line[i + 1] == '\0')
+			|| (line[i] == '-' && line[i + 1] == '\0'))
+			return (get_value(env, "HOME"));
 		else
-            temp[temp_len++] = line[i++];
-        temp[temp_len] = '\0';
-    }
-    return temp;
+			temp[temp_len++] = line[i++];
+		temp[temp_len] = '\0';
+	}
+	return (temp);
 }

@@ -1,40 +1,52 @@
-# include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 14:06:54 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/10/02 14:07:58 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char    *get_value(t_env *env, const char *key)
+#include "minishell.h"
+
+char	*get_value(t_env *env, const char *key)
 {
-    if (env == NULL || key == NULL)
-        perror("Error: null arguments");
-    while (env != NULL && env->next != NULL)
-    {
-        if (!ft_strncmp(env->key, key, ft_strlen(key) + 1))
-            return (env->value);
-        env = env->next;
-    }
-    return (NULL);
+	if (env == NULL || key == NULL)
+		perror("Error: null arguments");
+	while (env != NULL && env->next != NULL)
+	{
+		if (!ft_strncmp(env->key, key, ft_strlen(key) + 1))
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
 
 /* char *quote_union(char *str)
 {
-    int i;
-    int q_count;
-    int dq_count;
+	int i;
+	int q_count;
+	int dq_count;
 
-    dq_count = 0;
-    q_count = 0;
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '\'')
-            q_count++;
-        else if (str[i] == '"')
-            dq_count++;
-        i++;
-    }
-    if (q_count % 2 != 0 || dq_count % 2 != 0)
-        return (NULL);
-    else
-    {
-        printf("quote union\n");
-    }
-    return (str);
+	dq_count = 0;
+	q_count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			q_count++;
+		else if (str[i] == '"')
+			dq_count++;
+		i++;
+	}
+	if (q_count % 2 != 0 || dq_count % 2 != 0)
+		return (NULL);
+	else
+	{
+		printf("quote union\n");
+	}
+	return (str);
 } */

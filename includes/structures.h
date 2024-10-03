@@ -60,7 +60,6 @@ typedef struct s_shell
     pid_t	pid;
 }	t_shell;
 
-
 typedef struct s_signal
 {
 	int		exit_status;

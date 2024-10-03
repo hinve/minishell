@@ -11,7 +11,7 @@ int ft_env(t_shell *data)
     }
     while (current)
     {
-        printf("%s\n", current->value);
+        printf("%s=%s\n", current->key, current->value);
         current = current->next;
     }
     return 0;

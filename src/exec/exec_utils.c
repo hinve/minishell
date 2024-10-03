@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/10/01 11:30:31 by matteo           ###   ########.fr       */
+/*   Updated: 2024/10/02 12:09:12 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int is_var_declaration(t_shell data)
     
     if (data.cmd->arg == NULL || data.cmd->arg[0][0] == '\0')
         return (0);
-
 
     if (data.cmd->arg[0][last] != '=')
         return (0);

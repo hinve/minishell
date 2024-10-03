@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/02 14:08:08 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/10/02 14:08:29 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	create_fill_list(t_cmd **cmd, t_token **token, int argcs)
@@ -54,7 +66,7 @@ void	print_cmd_list(t_cmd *cmd)
 void	fill_struct(t_shell *data)
 {
 	int	argcs;
-	
+
 	argcs = count_args(data->token);
 	while (data->token)
 	{
