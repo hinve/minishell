@@ -3,3 +3,4 @@ Export + unset : llamar variables y gestionarlas
 Pipes
 Gestionar $?
 Reorganizar el acceso a data en exec_bin
+            

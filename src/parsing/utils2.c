@@ -25,6 +25,33 @@ char	*get_value(t_env *env, const char *key)
 	return (NULL);
 }
 
+char *own_get_env(char *key)
+{
+	extern char **environ;
+	int i;
+	int j;
+	char *value;
+	char *env_key;
+
+	i = 0;
+	while (environ[i])
+	{
+		j = 0;
+		while (environ[i][j] != '=')
+			j++;
+		env_key = ft_substr(environ[i], 0, j);
+		if (!ft_strcmp(env_key, key))
+		{
+			value = ft_strdup(&environ[i][j + 1]);
+			free(env_key);
+			return (value);
+		}
+		free(env_key);
+		i++;
+	}
+	return (NULL);
+}
+
 /* char *quote_union(char *str)
 {
 	int i;

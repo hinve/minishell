@@ -39,7 +39,7 @@ char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
 	while (line[*i] && ft_isalnum(line[*i]))
 		aux[j++] = line[(*i)++];
 	aux[j] = '\0';
-	env_value = getenv(aux); // getenv no se puede usar
+	env_value = own_get_env(aux); // getenv no se puede usar (HECHO)
 	if (!env_value)
 		env_value = "";
 	new_temp = ft_strjoin(temp, env_value);
@@ -49,7 +49,7 @@ char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
 	return (new_temp);
 }
 
-char	*replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido como parametro la estructura data, puedes acceder a env desde data->env
+char	*replace_dollar(char *line, t_env *env, t_shell *data)
 {
 	char	*temp;
 	int		i;
@@ -71,8 +71,7 @@ char	*replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido c
 			else
 				temp = expand_utils2(line, temp, &i, &temp_len);
 		}
-		else if ((line[i] == '~' && line[i + 1] == '\0')
-			|| (line[i] == '-' && line[i + 1] == '\0'))
+		else if (line[i] == '~' && line[i + 1] == '\0')
 			return (get_value(env, "HOME"));
 		else
 			temp[temp_len++] = line[i++];

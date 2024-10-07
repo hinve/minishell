@@ -13,7 +13,7 @@ char	*expand_utils(char *line, char *temp, int *i, int *temp_len)
 	while (line[*i] && ft_isalnum(line[*i]))
 		aux[j++] = line[(*i)++];
 	aux[j] = '\0';
-	env_value = getenv(aux);
+	env_value = own_get_env(aux);
 	if (!env_value)
 		env_value = "";
 	new_temp = ft_strjoin(temp, env_value);

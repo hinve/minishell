@@ -53,6 +53,7 @@ t_cmd	*ft_last_fill(t_cmd *lst);
 //*--------------------UTILS2-------------------------------
 char	*get_value(t_env *env, const char *key);
 char *quote_union(char *str);
+char *own_get_env(char *key);
 
 //*--------------------FDS----------------------------------
 void    ft_innout(t_cmd *cmd, t_token **tok);
@@ -98,6 +99,9 @@ void    print_variable(t_env *var, char *key);
 void    var_declaration(t_shell data);
 //-------------------INIT_EXPORT-------------------------------
 void init_export(t_shell *data);
+//--------------------EXEC_PATH------------------------------
+int    is_in_path(t_shell *shell);
+void   exec_path_cmd(t_shell *shell);
 //-------------------ENV------------------------------------
 
 
