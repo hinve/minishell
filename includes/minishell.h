@@ -75,7 +75,7 @@ int     builtin_export(t_shell *data);
 void    check_env_values(t_env *env);
 int		env_add(const char *value, t_env *env);
 char	*get_env_name(char *dest, const char *src);
-int     is_key_in_env(t_shell data, const char *key);
+int     is_key_in_env(t_cmd cmd, t_env env);
 int     is_valid_argument(const char *arg);
 void    print_error(const char *arg, const char *msg);
 void    env_put_var(t_env **env, const char *arg);
@@ -97,6 +97,7 @@ int     recognize_var(char *cmd);
 int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
 void    print_variable(t_env *var, char *key);
 void    var_declaration(t_shell data);
+
 //-------------------INIT_EXPORT-------------------------------
 void init_export(t_shell *data);
 //--------------------EXEC_PATH------------------------------

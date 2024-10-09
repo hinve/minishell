@@ -1,36 +1,63 @@
 #include "minishell.h"
 
-void    var_declaration(t_shell data)
+void    update_var(t_shell data)
 {
-    t_cmd *currentcmd = data.cmd;
-    t_env *current = data.var;
-    t_env *prev = NULL;
-    t_env *new_var = (t_env *)malloc(sizeof(t_env));
-    char *value = currentcmd->arg[2];
+    t_env *current = data.env;
 
-    printf("var declaration");
     while (current)
     {
-        if (ft_strcmp(current->key, currentcmd->arg[1]) == 0)
+        if (ft_strcmp(current.key, data.cmd.arg[0]))
         {
             free(current->value);
-            current->value = ft_strdup(value);
-            return;
+            current->value = ft_strdup(data.cmd->arg[1]);
+            return ;
         }
-        prev = current;
         current = current->next;
     }
-    if (!new_var)
+    current = data.var;
+        while (current)
     {
-        perror("malloc");
-        exit(EXIT_FAILURE);
+        if (ft_strcmp(current.key, data.cmd.arg[0]))
+        {
+            free(current->value);
+            current->value = ft_strdup(data.cmd->arg[1]);
+            return ;
+        }
+        current = current->next;
     }
-    new_var->key = ft_strdup(currentcmd->arg[1]);
-    new_var->value = ft_strdup(value);
-    new_var->next = NULL;
+    return ;
+}
 
-    if (prev)
-        prev->next = new_var;
-    else
+void set_var(t_shell data) {
+    if (data.cmd->arg[0] == NULL || data.cmd->arg[1] == NULL) {
+        printf("Usage: set_var <key> <value>\n");
+        return;
+    }
+
+    char *key = data.cmd->arg[0];
+    char *value = data.cmd->arg[1];
+    t_env *current = find_var(data.var, key);
+
+    if (current) {
+        free(current->value);
+        current->value = strdup(value);
+    } else {
+        t_env *new_var = malloc(sizeof(t_env));
+        if (!new_var) {
+            perror("malloc");
+            exit(EXIT_FAILURE);
+        }
+        new_var->key = strdup(key);
+        new_var->value = strdup(value);
+        new_var->next = data.var;
         data.var = new_var;
+    }
+}
+
+void    var_declaration(t_shell data)
+{
+    if (is_key_in_env(data.cmd, data.var))
+        update_var(data);
+    else
+        set_var(data);
 }

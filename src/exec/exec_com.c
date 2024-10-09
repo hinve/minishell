@@ -42,9 +42,9 @@ void execute_command(t_shell *shell)
         exec_bin(*shell);
     else
         printf("%s: command not found\n", shell->cmd->arg[0]);
-    // if (is_var_declaration(*shell))
-    // {
-    //     printf("is var out");
-    //     var_declaration(*shell);
-    // }
+    if (is_var_declaration(*shell))
+    {
+         printf("is var out");
+         var_declaration(*shell);
+    }
 }
