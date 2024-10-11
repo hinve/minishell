@@ -6,25 +6,32 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/10/09 17:28:00 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/10 22:02:59 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int     is_key_in_env(t_cmd cmd, t_env env)
+int     is_key_in_env(t_shell data)
 {
-    t_env *currentenv = &env;
-    t_env *currentvar = &var; 
-    t_cmd *currentcmd = &cmd;
+    t_env *currentenv = data.env;
+    t_env *currentvar = data.var;
 
     while (currentenv)
     {
-        if (ft_strcmp(currentenv->key, currentcmd->arg[0]) == 0)
+        if (ft_strcmp(currentenv->key, data.cmd->arg[0]) == 0)
         {
             return (1);
         }
         currentenv = currentenv->next;
+    }
+    while (currentvar)
+    {
+        if (ft_strcmp(currentvar->key, data.cmd->arg[0]) == 0)
+        {
+            return (1);
+        }
+        currentvar = currentvar->next;
     }
     return (0);
 }
