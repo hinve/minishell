@@ -26,56 +26,46 @@ int	is_there_a_dollar(char *str)
 	return (0);
 }
 
-char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
+char *get_env_content(char *key, t_env *env)
 {
-	char	*aux;
-	int		j;
-	char	*new_temp;
-	char	*env_value;
-
-	aux = (char *)malloc(sizeof(ft_strlen(line) + 1));
-	j = 0;
-	(*i)++;
-	while (line[*i] && ft_isalnum(line[*i]))
-		aux[j++] = line[(*i)++];
-	aux[j] = '\0';
-	env_value = own_get_env(aux); // getenv no se puede usar (HECHO)
-	if (!env_value)
-		env_value = "";
-	new_temp = ft_strjoin(temp, env_value);
-	*temp_len += ft_strlen(env_value);
-	free(aux);
-	free(temp);
-	return (new_temp);
+    t_env *current = env;
+    
+    while (current != NULL)
+    {
+        if (ft_strcmp(current->key, key) == 0)
+            return current->value;
+        current = current->next;
+    }
+    return NULL;
 }
 
-char	*replace_dollar(char *line, t_env *env, t_shell *data)
+char *get_var_value(char *key, t_env *var)
 {
-	char	*temp;
-	int		i;
-	int		temp_len;
+    t_env *current = var;
+    
+    while (current != NULL)
+    {
+        if (strcmp(current->key, key) == 0)
+            return current->value;
+        current = current->next;
+    }
+    return NULL;
+}
 
-	i = 0;
-	temp_len = 0;
-	temp = ft_strdup("");
-	while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			if (line[i + 1] == '?' && line[i + 2] == '\0')
-			{
-				temp = ft_strjoin(temp, ft_itoa(data->status));
-				temp_len += ft_strlen(ft_itoa(data->status));
-				i += 2;
-			}
-			else
-				temp = expand_utils2(line, temp, &i, &temp_len);
-		}
-		else if (line[i] == '~' && line[i + 1] == '\0')
-			return (get_value(env, "HOME"));
-		else
-			temp[temp_len++] = line[i++];
-		temp[temp_len] = '\0';
-	}
-	return (temp);
+char	*replace_dollar(char *line, t_shell *data)
+{
+    if (line[0] != '$')
+        return ft_strdup(line);
+
+    char *key = line + 1;
+    
+    char *value = get_env_content(key, data->env);
+
+	if (value == NULL)
+		value = get_var_value(key, data->var);
+
+    if (value != NULL)
+        return ft_strdup(value);
+    
+    return ft_strdup("");
 }

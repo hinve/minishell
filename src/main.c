@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **envp)
 		lexer(data.str_cmd, &data.token);
 		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
 		{
-			expand_variables(&data.token, data.env, &data);
+			expand_variables(&data);
 			fill_struct(&data);
 			execute_command(&data);
 		}

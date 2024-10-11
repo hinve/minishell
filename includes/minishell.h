@@ -39,10 +39,10 @@ void	append_out(char *str_cmd, t_token **tok, int *i);
 //*--------------------PARSER-------------------------------
 void	parser(t_token **tok, char **envp, t_env *env);
 //*--------------------EXPAND_VARIABLES---------------------
-void	expand_variables(t_token **token, t_env *env, t_shell *data);
+void	expand_variables(t_shell *data);
 void	create_env_list(char *value, t_env **env, char *key);
 int     is_there_a_dollar(char *str);
-char    *replace_dollar(char *str, t_env *env, t_shell *data);
+char    *replace_dollar(char *str, t_shell *data);
 t_env	*transform_env(char *envp[]);
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
