@@ -103,6 +103,8 @@ void init_export(t_shell *data);
 //--------------------EXEC_PATH------------------------------
 int    is_in_path(t_shell *shell);
 void   exec_path_cmd(t_shell *shell);
+int     exec_path(t_shell data);
+
 //-------------------ENV------------------------------------
 
 

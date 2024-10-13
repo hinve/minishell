@@ -39,7 +39,7 @@ FILES_SRC		= 	main.c 						\
 					exec/BIN/ft_pwd.c			\
 					exec/BIN/ft_cd.c			\
 					exec/set_var.c				\
-					exec/exec_path.c 			\
+#					exec/exec_path.c 			\
 #					exec/BIN/ft_init_export.c		
 
 
