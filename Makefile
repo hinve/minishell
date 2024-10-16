@@ -31,16 +31,17 @@ FILES_SRC		= 	main.c 						\
 					parsing/utils2.c			\
 					exec/exec_com.c				\
 					exec/exec_utils.c			\
-					exec/BIN/ft_export.c		\
-					exec/BIN/ft_echo.c			\
-					exec/BIN/ft_env.c			\
-					exec/BIN/ft_exit.c			\
-					exec/BIN/ft_man.c			\
-					exec/BIN/ft_pwd.c			\
-					exec/BIN/ft_cd.c			\
-					exec/set_var.c				\
-#					exec/exec_path.c 			\
-#					exec/BIN/ft_init_export.c		
+					exec/Builts_in/ft_export.c		\
+					exec/Builts_in/ft_echo.c		\
+					exec/Builts_in/ft_env.c			\
+					exec/Builts_in/ft_exit.c		\
+					exec/Builts_in/ft_man.c			\
+					exec/Builts_in/ft_pwd.c			\
+					exec/Builts_in/ft_cd.c			\
+					exec/Builts_in/ft_unset.c		\
+
+#					exec/BIN/exec_path.c 
+#					exec/BIN/ft_init_export.c 	
 
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))

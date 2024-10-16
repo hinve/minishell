@@ -5,19 +5,18 @@ int     is_valid_argument(const char *arg)
     int i;
 
     if (!arg || !arg[0])
-        return 0;
+        return (0);
 
     if (arg[0] != '_' && !isalpha(arg[0]))
-        return 0;
-
+        return (0);
     i = 1;
     while (arg[i] && arg[i] != '=')
     {
         if (arg[i] != '_' && !isalnum(arg[i]))
-            return 0;
+            return (0);
         i++;
     }
-    return 1;
+    return (1);
 }
 
 void    print_error(const char *arg, const char *msg)
@@ -72,7 +71,7 @@ t_env   *find_env_var(t_env *env, const char *key)
             return env;
         env = env->next;
     }
-    return NULL;
+    return (NULL);
 }
 
 void    print_sorted_env(t_env *env)
@@ -126,17 +125,16 @@ void    print_sorted_env(t_env *env)
     }
 }
 
-int     ft_export(t_cmd cmd, t_shell data)
+int ft_export(t_cmd cmd, t_shell *data)
 {
     int status;
     int i;
-    t_env *currentenv = data.env;
     char **argv = cmd.arg;
 
     status = EXIT_SUCCESS;
     if (!argv[1])
     {
-        print_sorted_env(currentenv);
+        print_sorted_env(data->env);
         return (status);
     }
     i = 1;
@@ -149,7 +147,7 @@ int     ft_export(t_cmd cmd, t_shell data)
         }
         else
         {
-            env_put_var(&currentenv, argv[i]);
+            env_put_var(&(data->env), argv[i]);
         }
         i++;
     }

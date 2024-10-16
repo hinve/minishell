@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+         #
+#    By: matta <matta@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:05:16 by mjeannin          #+#    #+#              #
-#    Updated: 2024/09/19 15:01:27 by mjeannin         ###   ########.fr        #
+#    Updated: 2024/10/14 18:14:06 by matta            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,10 @@ FTLST_DIR		=	$(SRC_DIR)ft_lst/ft_lstadd_back.c \
 					$(SRC_DIR)ft_lst/ft_lstlast.c \
 					$(SRC_DIR)ft_lst/ft_lstmap.c \
 					$(SRC_DIR)ft_lst/ft_lstnew.c \
-					$(SRC_DIR)ft_lst/ft_lstsize.c 
+					$(SRC_DIR)ft_lst/ft_lstsize.c
+					
+FTFD_DIR		=	$(SRC_DIR)ft_fd/ft_close.c \
+
 
 FTPRINTF_DIR	=	$(SRC_DIR)ft_printf/ft_printf.c \
 					$(SRC_DIR)ft_printf/format.c \
@@ -80,7 +83,7 @@ FTPRINTF_DIR	=	$(SRC_DIR)ft_printf/ft_printf.c \
 
 GNL_DIR			=	$(SRC_DIR)get_next_line/get_next_line.c
 
-SRC 			= $(FTIS_DIR) $(FTMEM_DIR) $(FTPUT_DIR) $(FTTO_DIR) $(FTTO_DIR) $(FTSTR_DIR) $(FTLST_DIR) $(FTPRINTF_DIR) $(GNL_DIR)
+SRC 			= $(FTFD_DIR) $(FTIS_DIR) $(FTMEM_DIR) $(FTPUT_DIR) $(FTTO_DIR) $(FTTO_DIR) $(FTSTR_DIR) $(FTLST_DIR) $(FTPRINTF_DIR) $(GNL_DIR)
 
 OBJ 			= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC))
 

@@ -7,7 +7,7 @@ int ft_env(t_shell *data)
     if (!current || !current->value || current->value[0] == '\0')
     {
         printf("Value is empty or not set\n");
-        return 1;
+        return (1);
     }
     while (current)
     {

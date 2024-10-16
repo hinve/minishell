@@ -1,6 +1,21 @@
 #include "minishell.h"
 
-int			error_message(char *path)
+void	free_tab(char **tab)
+{
+    int i = 0;
+    if (tab == NULL)
+	{
+        return;
+    }
+    while (tab[i] != NULL) 
+	{
+        free(tab[i]);
+        i++;
+    }
+    free(tab);
+}
+
+int	error_message(char *path)
 {
 	DIR	*folder;
 	int	fd;
@@ -19,31 +34,31 @@ int			error_message(char *path)
 	else if (fd != -1 && folder == NULL)
 		ft_putendl_fd(": Permission denied", STDERR);
 	if (ft_strchr(path, '/') == NULL || (fd == -1 && folder == NULL))
-		ret = UNKNOWN_COMMAND;
+		ret = 127;
 	else
-		ret = IS_DIRECTORY;
+		ret = 126;
 	if (folder)
 		closedir(folder);
-	ft_close(fd);
+	close(fd);
 	return (ret);
 }
 
-int			magic_box(t_shell data)
+int			magic_box(char *path, char **args, t_env *env, t_shell *mini)
 {
 	char	**env_array;
 	char	*ptr;
 	int		ret;
 
-	ret = SUCCESS;
+	ret = 0;
 	g_sig.pid = fork();
 	if (g_sig.pid == 0)
 	{
-		ptr = env_to_str(data.env);
+		ptr = env_to_str(env);
 		env_array = ft_split(ptr, '\n');
 		ft_memdel(ptr);
 		if (ft_strchr(path, '/') != NULL)
-			execve(data.path, data.cmd.args, env_array);
-		ret = error_message(data.path);
+			execve(path, args, env_array);
+		ret = error_message(path);
 		free_tab(env_array);
 		free_token(mini->start);
 		exit(ret);
@@ -86,7 +101,7 @@ char		*check_dir(char *bin, char *command)
 	return (path);
 }
 
-int			exec_path(t_shell data)
+int			exec_bin(char **args, t_env *env, t_shell *mini)
 {
 	int		i;
 	char	**bin;
@@ -94,14 +109,14 @@ int			exec_path(t_shell data)
 	int		ret;
 
 	i = 0;
-	ret = UNKNOWN_COMMAND;
+	ret = 127;
 	while (env && env->value && ft_strncmp(env->value, "PATH=", 5) != 0)
 		env = env->next;
 	if (env == NULL || env->next == NULL)
-		return (magic_box(data));
+		return (magic_box(args[0], args, env, mini));
 	bin = ft_split(env->value, ':');
 	if (!args[0] && !bin[0])
-		return (ERROR);
+		return (1);
 	i = 1;
 	path = check_dir(bin[0] + 5, args[0]);
 	while (args[0] && bin[i] && path == NULL)

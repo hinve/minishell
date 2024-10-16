@@ -13,6 +13,10 @@
 
 # define BUFF_SIZE 4096
 
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+
 # include "structures.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -25,6 +29,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <dirent.h>
+# include <sys/types.h>
+
+
 
 //*--------------------LEXER--------------------------------
 void	lexer(char *str_cmd, t_token **tok);
@@ -69,8 +77,10 @@ void    ft_exit();
 void    ft_echo(t_shell *data);
 void    ft_man(t_shell *data);
 void    ft_cd(t_shell *data);
-int     ft_export(t_cmd cmd, t_shell data);
+int     ft_export(t_cmd cmd, t_shell *data);
 int     builtin_export(t_shell *data);
+int     ft_unset(t_cmd cmd, t_shell *data);
+
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);
 int		env_add(const char *value, t_env *env);
@@ -86,7 +96,6 @@ int     is_valid_env(char *arg);
 int		is_in_env(t_env *env, char *args);
 
 //----------------------EXEC_UTILS--------------------------
-int     is_var_declaration(t_shell data);
 int     is_bin(t_shell data);
 
 //-------------------INIT-----------------------------------
@@ -95,17 +104,15 @@ void    print_banner();
 int     recognize_var(char *cmd);
 int     is_cmd_in_varname(t_cmd *cmd, t_env *var_list);
 void    print_variable(t_env *var, char *key);
-void    var_declaration(t_shell data);
 int     is_key_in_env(t_shell data);
 
 //-------------------INIT_EXPORT-------------------------------
-void init_export(t_shell *data);
+void    init_export(t_shell *data);
 //--------------------EXEC_PATH------------------------------
 int    is_in_path(t_shell *shell);
 void   exec_path_cmd(t_shell *shell);
-int     exec_path(t_shell data);
+int    exec_path(t_shell data);
 
 //-------------------ENV------------------------------------
-
 
 #endif
