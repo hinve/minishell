@@ -1,5 +1,7 @@
 Plantear los comandos de  PATH (ls, etc)
-Export + unset : llamar variables y gestionarlas 
+    comprobar si es un BIN 
+    buscar el commando dentro de los directorios
+Export + unset : hacer unset
 Pipes
-Gestionar $?
+Gestionar $? : hacer return a cada funcion
 Reorganizar el acceso a data en exec_bin

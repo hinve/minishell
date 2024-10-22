@@ -54,7 +54,7 @@ typedef struct s_shell
 	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
 	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
     char    **envp;
-    char	*path; // ruta del comando para el executor
+    const char	*path; // ruta del comando para el executor
     int     status;
     t_token *token;
     pid_t	pid;
@@ -65,5 +65,11 @@ typedef struct s_signal
 	int		exit_status;
 	pid_t	pid;
 }	t_signal;
+
+typedef struct s_box
+{
+    char            *dir;
+    struct s_box  *next;
+}   t_box;
 
 #endif

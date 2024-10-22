@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:28:33 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/14 18:00:34 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/18 11:34:30 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+char	*ft_strndup(const char *source, size_t n);
 //\----------------------------------FT_FD--------------------------------------
 void free_tab(char **tab);
 

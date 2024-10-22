@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 00:02:42 by matta             #+#    #+#             */
-/*   Updated: 2024/10/16 13:05:17 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/21 12:42:15 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char *get_env_value(t_env *env, const char *key)
 int is_bin(t_shell data)
 {
     t_cmd *currentcmd = data.cmd;
-   
     if (ft_strcmp(currentcmd->arg[0], "pwd") == 0 || ft_strcmp(currentcmd->arg[0], "env") == 0 
         || ft_strcmp(currentcmd->arg[0], "echo") == 0 || ft_strcmp(currentcmd->arg[0], "export") == 0 
         || ft_strcmp(currentcmd->arg[0], "man") == 0 || ft_strcmp(currentcmd->arg[0], "cd") == 0 || 

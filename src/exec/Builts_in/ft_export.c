@@ -7,12 +7,12 @@ int     is_valid_argument(const char *arg)
     if (!arg || !arg[0])
         return (0);
 
-    if (arg[0] != '_' && !isalpha(arg[0]))
+    if (arg[0] != '_' && !ft_isalpha(arg[0]))
         return (0);
     i = 1;
     while (arg[i] && arg[i] != '=')
     {
-        if (arg[i] != '_' && !isalnum(arg[i]))
+        if (arg[i] != '_' && !ft_isalnum(arg[i]))
             return (0);
         i++;
     }
@@ -22,9 +22,9 @@ int     is_valid_argument(const char *arg)
 void    print_error(const char *arg, const char *msg)
 {
     write(STDERR_FILENO, "export: `", 9);
-    write(STDERR_FILENO, arg, strlen(arg));
+    write(STDERR_FILENO, arg, ft_strlen(arg));
     write(STDERR_FILENO, "': ", 3);
-    write(STDERR_FILENO, msg, strlen(msg));
+    write(STDERR_FILENO, msg, ft_strlen(msg));
     write(STDERR_FILENO, "\n", 1);
 }
 
@@ -35,15 +35,15 @@ void    env_put_var(t_env **env, const char *arg)
     char *equal_sign;
     t_env *existing_var;
 
-    equal_sign = strchr(arg, '=');
+    equal_sign = ft_strchr(arg, '=');
     if (equal_sign)
     {
         key = strndup(arg, equal_sign - arg);
-        value = strdup(equal_sign + 1);
+        value = ft_strdup(equal_sign + 1);
     }
     else
     {
-        key = strdup(arg);
+        key = ft_strdup(arg);
         value = NULL;
     }
 
@@ -67,7 +67,7 @@ t_env   *find_env_var(t_env *env, const char *key)
 {
     while (env)
     {
-        if (strcmp(env->key, key) == 0)
+        if (ft_strcmp(env->key, (char *)key) == 0)
             return env;
         env = env->next;
     }
@@ -90,7 +90,7 @@ void    print_sorted_env(t_env *env)
         current = env->next;
         while (current)
         {
-            if (strcmp(current->key, min->key) < 0)
+            if (ft_strcmp(current->key, min->key) < 0)
             {
                 min = current;
                 min_prev = prev;
@@ -107,9 +107,9 @@ void    print_sorted_env(t_env *env)
     while (current)
     {
         if (current->value)
-            ft_printf("declare -x %s=\"%s\"\n", current->key, current->value);
+            printf("declare -x %s=\"%s\"\n", current->key, current->value);
         else
-            ft_printf("declare -x %s\n", current->key);
+            printf("declare -x %s\n", current->key);
         current = current->next;
     }
 

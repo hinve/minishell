@@ -39,8 +39,9 @@ FILES_SRC		= 	main.c 						\
 					exec/Builts_in/ft_pwd.c			\
 					exec/Builts_in/ft_cd.c			\
 					exec/Builts_in/ft_unset.c		\
-
-#					exec/BIN/exec_path.c 
+					exec/BIN/cmd.c					\
+					exec/BIN/env_arr.c				\
+#					exec/cmd/testcmd.c
 #					exec/BIN/ft_init_export.c 	
 
 

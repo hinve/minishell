@@ -98,6 +98,13 @@ int		is_in_env(t_env *env, char *args);
 //----------------------EXEC_UTILS--------------------------
 int     is_bin(t_shell data);
 
+//-------------------------CMD-------------------------------
+void     find_cmd(t_shell *data);
+void    exec_cmd(char *loc, char *cmd, t_shell *data);
+char **convert_env_to_array(t_env *env);
+void	execute_bin(t_shell *shell, char **args);
+
+
 //-------------------INIT-----------------------------------
 void    print_banner();
 //-------------------VAR------------------------------------

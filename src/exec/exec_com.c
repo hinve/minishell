@@ -36,10 +36,14 @@ int		exec_bin(t_shell *shell)
 
 void execute_command(t_shell *shell)
 {
-    /* if (is_in_path(shell))
-        exec_path_cmd(shell); */
+
+
+    find_cmd(shell);
+
     if (is_bin(*shell))
+    {
         exec_bin(shell);
+    }
     else
         printf("%s: command not found\n", shell->cmd->arg[0]);
 }

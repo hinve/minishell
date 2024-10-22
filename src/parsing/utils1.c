@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:18:10 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/02 14:20:52 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/10/19 10:44:45 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	print_banner(void)
 	ssize_t	bytes_read;
 	char	buffer[1024];
 
-	fd = open("init", O_RDONLY);
+	fd = open("init.h", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Error opening banner file");

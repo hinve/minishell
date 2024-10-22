@@ -7,11 +7,11 @@ void update_env_var(t_env *env, const char *key, const char *value)
     // Traverse the linked list to find the key
     while (current != NULL)
     {
-        if (strcmp(current->key, key) == 0)
+        if (ft_strcmp(current->key, (char *)key) == 0)
         {
             // Free the old value and assign the new value
             free(current->value);
-            current->value = strdup(value);
+            current->value = ft_strdup(value);
             if (!current->value)
             {
                 ft_printf("cd: memory allocation error\n");
@@ -28,11 +28,11 @@ void update_env_var(t_env *env, const char *key, const char *value)
         ft_printf("cd: memory allocation error\n");
         return;
     }
-    new_node->key = strdup(key);
-    new_node->value = strdup(value);
+    new_node->key = ft_strdup(key);
+    new_node->value = ft_strdup(value);
     if (!new_node->key || !new_node->value)
     {
-        ft_printf("cd: memory allocation error\n");
+        printf("cd: memory allocation error\n");
         free(new_node->key);
         free(new_node->value);
         free(new_node);
@@ -54,7 +54,7 @@ void ft_cd(t_shell *data)
     }
     path = data->cmd->arg[1];
 
-    if (strcmp(path, "..") == 0)
+    if (ft_strcmp(path, "..") == 0)
     {
         if (chdir("..") != 0)
         {
