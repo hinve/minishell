@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/10/22 13:44:24 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/23 13:52:05 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,25 @@ void    free_split(char **split)
         i++;
     }
     free(split);
+}
+
+char    **set_argv(t_shell *data)
+{
+    int i;
+    char **argv = malloc((data->cmd->n_args + 1) * sizeof(char *));
+    if (!argv)
+    {
+        printf("Error: malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
+    i = 0;
+    while(i < data->cmd->n_args) {
+        argv[i] = data->cmd->arg[i];
+        i++;
+    }
+    argv[i] = NULL;
+    
+    return (argv);
 }
 
 void    find_cmd(t_shell *data)
@@ -46,19 +65,22 @@ void    find_cmd(t_shell *data)
         ft_strncpy(full_path, stack[i], ft_strlen(full_path));  // Copy "stack[i]" to full_path
         strcat(full_path, "/");       // Append '/' to full_path
         strcat(full_path, data->cmd->arg[0]);       // Append "cmd" to full_path
-
+        
+ //       i = 0;
         pid = fork();
         if (pid == 0)
         {
-            char *argv[] = {data->cmd->arg[0], NULL};
+            char **argv = set_argv(data);
             char **envp = convert_env_to_array(data->env);
-            if (!envp) {
+            if (!envp)
+            {
                 printf("Error: Failed to convert environment variables\n");
                 exit(EXIT_FAILURE);
             }
             execve(full_path, argv, envp);
             free(full_path);
             free_split(envp);
+            free(argv);
             exit(EXIT_FAILURE);
         }
         else if (pid < 0)
@@ -75,7 +97,6 @@ void    find_cmd(t_shell *data)
             waitpid(pid, &status, 0);
             if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
             {
-                // Command executed successfully
                 free(full_path);
                 free_split(stack);
                 return;

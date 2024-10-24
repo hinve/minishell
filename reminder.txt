@@ -7,7 +7,7 @@ Ver de donde vienen los leaks (history ?)
 Ver si se puede dejar la bandera
 ENV : hay un for loop en sort_env
     no imprime todo correctamente, a revisar
-
+Si no encuentra el comando da seg fault por ejemplo clea <--- seg fault
 --------------------------NOTAS------------------------------
 
 en exec_com, pasamos la lista o los argumentos directamente ?
