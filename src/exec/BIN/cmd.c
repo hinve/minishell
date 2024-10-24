@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/10/23 13:52:05 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:48:39 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void    find_cmd(t_shell *data)
         strcat(full_path, "/");       // Append '/' to full_path
         strcat(full_path, data->cmd->arg[0]);       // Append "cmd" to full_path
         
- //       i = 0;
         pid = fork();
         if (pid == 0)
         {
@@ -74,7 +73,7 @@ void    find_cmd(t_shell *data)
             char **envp = convert_env_to_array(data->env);
             if (!envp)
             {
-                printf("Error: Failed to convert environment variables\n");
+                printf("Error: Failed to convert exit variables\n");
                 exit(EXIT_FAILURE);
             }
             execve(full_path, argv, envp);

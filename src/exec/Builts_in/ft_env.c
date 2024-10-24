@@ -14,5 +14,5 @@ int ft_env(t_shell *data)
         printf("%s=%s\n", current->key, current->value);
         current = current->next;
     }
-    return 0;
+    return (0);
 }

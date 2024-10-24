@@ -6,13 +6,13 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 10:44:24 by matteo            #+#    #+#             */
-/*   Updated: 2024/10/10 21:53:42 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/24 18:07:56 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_echo(t_shell *data)
+int ft_echo(t_shell *data)
 {
     t_cmd *currentcmd = data->cmd;
     int i = 1;
@@ -36,4 +36,5 @@ void ft_echo(t_shell *data)
     {
         write(STDOUT_FILENO, "\n", 1);
     }
+    return (0);
 }

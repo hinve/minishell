@@ -1,7 +1,8 @@
 #include "minishell.h"
 
-void ft_exit()
+int ft_exit()
 {
     printf("Hasta luegi !\n");
     exit(1);
+    return (0);
 }

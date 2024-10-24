@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:05:05 by matta             #+#    #+#             */
-/*   Updated: 2024/10/21 13:34:13 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/24 17:50:01 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void print_env_array(char **env_array)
 {
     int i = 0;
-    while (env_array[i] != NULL) {
+    while (env_array[i] != NULL)
+    {
         printf("%s\n", env_array[i]);
         i++;
     }

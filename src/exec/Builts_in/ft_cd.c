@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void update_env_var(t_env *env, const char *key, const char *value)
+int update_env_var(t_env *env, const char *key, const char *value)
 {
     t_env *current = env;
 
@@ -14,15 +14,15 @@ void update_env_var(t_env *env, const char *key, const char *value)
             current->value = ft_strdup(value);
             if (!current->value)
             {
-                ft_printf("cd: memory allocation error\n");
+                printf("cd: memory allocation error\n");
             }
-            return;
+            return (0);
         }
         current = current->next;
     }
 
     // If the key does not exist, add a new node to the list
-    t_env *new_node = (t_env *)malloc(sizeof(t_env));
+    t_env   *new_node = (t_env *)malloc(sizeof(t_env));
     if (!new_node)
     {
         ft_printf("cd: memory allocation error\n");

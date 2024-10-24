@@ -79,6 +79,7 @@ void	init_struct(t_shell *data, char **envp)
 	data->env = NULL;
 	data->var = NULL,
 	data->envp = envp;
+	data->status = 0;
 }
 
 int	main(int argc, char **argv, char **envp)

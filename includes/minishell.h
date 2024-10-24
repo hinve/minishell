@@ -13,9 +13,13 @@
 
 # define BUFF_SIZE 4096
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+# define STDIN      0
+# define STDOUT     1
+# define STDERR     2
+# define NOT_EXEC   126
+# define NOT_FOUND  127
+# define TERMD      130
+# define SEG_FAULT  139
 
 # include "structures.h"
 # include <errno.h>
