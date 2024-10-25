@@ -91,7 +91,7 @@ int	main(int argc, char **argv, char **envp)
 	init_struct(&data, envp);
 	print_banner();
 	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	//data.str_cmd = quote_union(data.str_cmd);
+	data.str_cmd = quote_union(data.str_cmd);
 	data.env = transform_env(envp);
 	while (data.str_cmd)
 	{

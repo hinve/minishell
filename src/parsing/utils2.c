@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:06:54 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/02 14:07:58 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:03:02 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *own_get_env(char *key)
 	return (NULL);
 }
 
-/* char *quote_union(char *str)
+char *quote_union(char *str)
 {
 	int i;
 	int q_count;
@@ -76,4 +76,4 @@ char *own_get_env(char *key)
 		printf("quote union\n");
 	}
 	return (str);
-} */
+}
