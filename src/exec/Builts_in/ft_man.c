@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    ft_man(t_shell *data)
+int    ft_man(t_shell *data)
 {
     if (!ft_strcmp(data->cmd->arg[1], "echo"))
         ft_printf("echo - display a line of text\n");
@@ -13,5 +13,6 @@ void    ft_man(t_shell *data)
     else if (!ft_strcmp(data->cmd->arg[1], "man"))
         ft_printf("man [func] show you what do\n - echo\n - env\n - exit\n - man\n");
     else
-        ft_printf("wrong argument");
+        return(NOT_FOUND);
+    return (0);
 }

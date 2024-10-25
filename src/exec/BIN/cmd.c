@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/10/24 17:48:39 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/25 12:00:43 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ char    **set_argv(t_shell *data)
         exit(EXIT_FAILURE);
     }
     i = 0;
-    while(i < data->cmd->n_args) {
+    while(i < data->cmd->n_args)
+    {
         argv[i] = data->cmd->arg[i];
         i++;
     }
@@ -42,7 +43,7 @@ char    **set_argv(t_shell *data)
     return (argv);
 }
 
-void    find_cmd(t_shell *data)
+int    find_cmd(t_shell *data)
 {
     char **stack;
     int i = 0;
@@ -58,7 +59,7 @@ void    find_cmd(t_shell *data)
         {
             printf("Error: malloc failed\n");
             free_split(stack);
-            return;
+            return (0);
         }
 
         // Manually build the full path using strcpy and strcat
@@ -88,7 +89,7 @@ void    find_cmd(t_shell *data)
             printf("Error: fork failed\n");
             free(full_path);
             free_split(stack);
-            return;
+            return (0);
         }
         else
         {
@@ -98,7 +99,7 @@ void    find_cmd(t_shell *data)
             {
                 free(full_path);
                 free_split(stack);
-                return;
+                return (0);
             }
         }
 
@@ -108,5 +109,6 @@ void    find_cmd(t_shell *data)
 
     free_split(stack);
     printf("Command not found: %s\n", data->cmd->arg[0]);
-    return; // Command not found
+    data->status = 127;
+    return (127); // Command not found
 }

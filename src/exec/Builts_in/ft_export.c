@@ -125,11 +125,11 @@ void    print_sorted_env(t_env *env)
     }
 }
 
-int ft_export(t_cmd cmd, t_shell *data)
+int ft_export(t_shell *data)
 {
     int status;
     int i;
-    char **argv = cmd.arg;
+    char **argv = data->cmd->arg;
 
     status = EXIT_SUCCESS;
     if (!argv[1])

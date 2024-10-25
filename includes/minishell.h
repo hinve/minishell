@@ -77,11 +77,11 @@ void    execute_command(t_shell *data);
 //-------------------BUILTS_IN------------------------------
 int     ft_pwd(void);
 int		ft_env(t_shell *data);
-void    ft_exit();
-void    ft_echo(t_shell *data);
-void    ft_man(t_shell *data);
-void    ft_cd(t_shell *data);
-int     ft_export(t_cmd cmd, t_shell *data);
+void    ft_exit(t_shell *data);
+int     ft_echo(t_shell *data);
+int     ft_man(t_shell *data);
+int     ft_cd(t_shell *data);
+int     ft_export(t_shell *data);
 int     builtin_export(t_shell *data);
 int     ft_unset(t_cmd cmd, t_shell *data);
 
@@ -103,7 +103,7 @@ int		is_in_env(t_env *env, char *args);
 int     is_bin(t_shell data);
 
 //-------------------------CMD-------------------------------
-void     find_cmd(t_shell *data);
+int     find_cmd(t_shell *data);
 void    exec_cmd(char *loc, char *cmd, t_shell *data);
 char **convert_env_to_array(t_env *env);
 void	execute_bin(t_shell *shell, char **args);

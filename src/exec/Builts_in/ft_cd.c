@@ -26,7 +26,7 @@ int update_env_var(t_env *env, const char *key, const char *value)
     if (!new_node)
     {
         ft_printf("cd: memory allocation error\n");
-        return;
+        return (0);
     }
     new_node->key = ft_strdup(key);
     new_node->value = ft_strdup(value);
@@ -36,21 +36,21 @@ int update_env_var(t_env *env, const char *key, const char *value)
         free(new_node->key);
         free(new_node->value);
         free(new_node);
-        return;
+        return (0);
     }
     new_node->next = env;
     env = new_node;
+    return (0);
 }
 
-void ft_cd(t_shell *data)
+int ft_cd(t_shell *data)
 {
     char *path;
     char cwd[1024];
 
     if (data->cmd->n_args < 2 || ft_strlen(data->cmd->arg[1]) == 0)
     {
-        ft_printf("cd: missing argument\n");
-        return;
+        return (0);
     }
     path = data->cmd->arg[1];
 
@@ -59,7 +59,7 @@ void ft_cd(t_shell *data)
         if (chdir("..") != 0)
         {
             ft_printf("cd: %s: %s\n", path, strerror(errno));
-            return;
+            return (0);
         }
     }
     else
@@ -67,15 +67,18 @@ void ft_cd(t_shell *data)
         if (chdir(path) != 0)
         {
             ft_printf("cd: %s: %s\n", path, strerror(errno));
-            return;
+            return (0);
         }
     }
     if (getcwd(cwd, sizeof(cwd)) != NULL)
     {
         update_env_var(data->env, "PWD", cwd);
+        return (0);
     }
     else
     {
         ft_printf("cd: error retrieving current directory: %s\n", strerror(errno));
+        return (0);
     }
+    return (0);
 }

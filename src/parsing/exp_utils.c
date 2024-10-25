@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:08:47 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/02 14:17:49 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/10/25 12:27:03 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ char	*replace_dollar(char *line, t_shell *data)
 {
     if (line[0] != '$')
         return ft_strdup(line);
+    else if(line[0] == '$' && line[1] == '?' &&  line[2] == '\0') {
+        return ft_itoa(data->status);
+    }
 
     char *key = line + 1;
     

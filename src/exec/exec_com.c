@@ -4,45 +4,34 @@
 int		exec_builts_in(t_shell *data)
 {
 
-	int		result;
-
-	result = 0;
-
     if (!ft_strcmp(data->cmd->arg[0], "pwd"))
-		result = ft_pwd();
+		data->status = ft_pwd();
     else if (!ft_strcmp(data->cmd->arg[0], "env"))
         data->status = ft_env(data);
     else if (!ft_strcmp(data->cmd->arg[0], "exit"))
-		data->status = ft_exit();
+		ft_exit(data);
     else if (!ft_strcmp(data->cmd->arg[0], "echo"))
 		data->status = ft_echo(data);
 	else if (!ft_strcmp(data->cmd->arg[0], "export"))
-        data->status = ft_export(*shell->cmd, shell);
+        data->status = ft_export(data);
     else if(!ft_strcmp(data->cmd->arg[0], "man"))
         data->status = ft_man(data);
-    else if (ft_strcmp(data->cmd->arg[0], "cd") == 0)
+    else if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
         data->status = ft_cd(data);
-    else
-        return(NOT_FOUND);
+    return(127);
 
-/*
-	if (ft_strcmp(current->cmd->arg[0], "unset") == 0)
-		ft_unset(current);
- 	else
-		printf("cmd not found");
-*/
-	return (result);
 }
 
-void execute_command(t_shell *shell)
+void execute_command(t_shell *data)
 {
+//    find_cmd(shell);
 
-    find_cmd(shell);
-
-    if (is_bin(*shell))
+    if (is_bin(*data))
     {
-        data->status = exec_builts_in(shell);
+        data->status = exec_builts_in(data);
+        return;
     }
-    else
-        printf("%s: command not found\n", shell->cmd->arg[0]);
+/*     else
+        find_cmd(shell); */
+    printf("%s: command not found\n", data->cmd->arg[0]);
 }
