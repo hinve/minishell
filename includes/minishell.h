@@ -46,6 +46,7 @@ void	create_list(int type, t_token **tok, char *content);
 void	print_lists(t_token *tok);
 int		quote_stuff(int *i, char *str_cmd);
 int		dquote_stuff(int *i, char *str_cmd);
+int		quote_count(char *str);
 void	heredoc_in(char *str_cmd, t_token **tok, int *i);
 void	append_out(char *str_cmd, t_token **tok, int *i);
 //*--------------------PARSER-------------------------------

@@ -6,7 +6,7 @@
 /*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:06:54 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:03:02 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2024/10/25 13:42:56 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ char	*get_value(t_env *env, const char *key)
 	return (NULL);
 }
 
-char *own_get_env(char *key)
+char	*own_get_env(char *key)
 {
-	extern char **environ;
-	int i;
-	int j;
-	char *value;
-	char *env_key;
+	extern char	**environ;
+	int			i;
+	int			j;
+	char		*value;
+	char		*env_key;
 
 	i = 0;
 	while (environ[i])
@@ -52,28 +52,42 @@ char *own_get_env(char *key)
 	return (NULL);
 }
 
-char *quote_union(char *str)
+void	handle_double_quotes(char *str, char *aux, int *i, int *j)
 {
-	int i;
-	int q_count;
-	int dq_count;
+	(*i)++;
+	while (str[*i] != '"' && str[*i] != '\0')
+		aux[(*j)++] = str[(*i)++];
+	if (str[*i] == '"')
+		(*i)++;
+}
 
-	dq_count = 0;
-	q_count = 0;
-	i = 0;
+void	handle_single_quotes(char *str, char *aux, int *i, int *j)
+{
+	aux[(*j)++] = str[(*i)++];
+	while (str[*i] != '\'' && str[*i] != '\0')
+		aux[(*j)++] = str[(*i)++];
+	if (str[*i] == '\'')
+		aux[(*j)++] = str[(*i)++];
+}
+
+char	*quote_union(char *str)
+{
+	char	*aux;
+	int		i = 0, j;
+
+	aux = malloc(sizeof(char) * (strlen(str) + 1));
+	i = 0, j = 0;
+	if (!aux)
+		return (NULL);
 	while (str[i])
 	{
-		if (str[i] == '\'')
-			q_count++;
-		else if (str[i] == '"')
-			dq_count++;
-		i++;
+		if (str[i] == '"')
+			handle_double_quotes(str, aux, &i, &j);
+		else if (str[i] == '\'')
+			handle_single_quotes(str, aux, &i, &j);
+		else
+			aux[j++] = str[i++];
 	}
-	if (q_count % 2 != 0 || dq_count % 2 != 0)
-		return (NULL);
-	else
-	{
-		printf("quote union\n");
-	}
-	return (str);
+	aux[j] = '\0';
+	return (aux);
 }

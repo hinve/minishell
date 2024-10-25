@@ -18,7 +18,7 @@ int		exec_builts_in(t_shell *data)
         data->status = ft_man(data);
     else if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
         data->status = ft_cd(data);
-    return(127);
+    return(0);
 
 }
 
@@ -33,5 +33,7 @@ void execute_command(t_shell *data)
     }
 /*     else
         find_cmd(shell); */
-    printf("%s: command not found\n", data->cmd->arg[0]);
+    else
+        printf("%s: command not found\n", data->cmd->arg[0]);
+    data->status = 127;
 }

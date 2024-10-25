@@ -86,15 +86,14 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	data;
 
-	(void)argc;
-	(void)argv;
 	init_struct(&data, envp);
 	print_banner();
 	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	data.str_cmd = quote_union(data.str_cmd);
 	data.env = transform_env(envp);
 	while (data.str_cmd)
 	{
+		if(quote_count(data.str_cmd) % 2 == 0)
+			data.str_cmd = quote_union(data.str_cmd);
 		add_history(data.str_cmd);
 		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
 			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
@@ -109,4 +108,5 @@ int	main(int argc, char **argv, char **envp)
 		clear_structs(&data.token, &data.cmd);
 		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
 	}
+	return ((void)argc, (void)argv, 0);
 }

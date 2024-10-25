@@ -33,3 +33,18 @@ int	dquote_stuff(int *i, char *str_cmd)
 	}
 	return (0);
 }
+
+int quote_count(char *str) {
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str[i]) {
+		if (str[i] == '"' || str[i] == '\'') {
+			count++;
+		}
+		i++;
+	}
+	return count;
+}
