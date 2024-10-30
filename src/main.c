@@ -82,31 +82,51 @@ void	init_struct(t_shell *data, char **envp)
 	data->status = 0;
 }
 
-int	main(int argc, char **argv, char **envp)
+void handle_sigint(int sig)
 {
-	t_shell	data;
+    (void)sig;
+    rl_replace_line("", 0);
+    rl_on_new_line();
+    printf("\n");
+    rl_redisplay();
+}
 
-	init_struct(&data, envp);
-	print_banner();
-	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	data.env = transform_env(envp);
-	while (data.str_cmd)
-	{
-		if(quote_count(data.str_cmd) % 2 == 0)
-			data.str_cmd = quote_union(data.str_cmd);
-		add_history(data.str_cmd);
-		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
-			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-		lexer(data.str_cmd, &data.token);
-		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
-		{
-			expand_variables(&data);
-			fill_struct(&data);
-			execute_command(&data);
-		}
-		free(data.str_cmd);
-		clear_structs(&data.token, &data.cmd);
-		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	}
-	return ((void)argc, (void)argv, 0);
+int handle_eof(int count, int key)
+{
+    (void)count;
+    (void)key;
+    printf("exit\n");
+    exit(0);
+}
+
+int main(int argc, char **argv, char **envp)
+{
+    t_shell data;
+
+    // Set up signal handlers
+    signal(SIGINT, handle_sigint);
+    rl_bind_key('\004', handle_eof); // Ctrl+D
+
+    while (1) {
+        data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+        if (!data.str_cmd) {
+            handle_eof(0, 0);
+        }
+        data.env = transform_env(envp);
+        if (quote_count(data.str_cmd) % 2 == 0)
+            data.str_cmd = quote_union(data.str_cmd);
+        add_history(data.str_cmd);
+        if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
+            continue;
+        lexer(data.str_cmd, &data.token);
+        if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
+        {
+            expand_variables(&data);
+            fill_struct(&data);
+            execute_command(&data);
+        }
+        free(data.str_cmd);
+        clear_structs(&data.token, &data.cmd);
+    }
+    return ((void)argc, (void)argv, 0);
 }

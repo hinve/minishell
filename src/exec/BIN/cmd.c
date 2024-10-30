@@ -52,7 +52,7 @@ int    find_cmd(t_shell *data)
 
     data->path = get_value(data->env, "PATH");
     stack = ft_split(data->path, ':');
-    while (stack[i][0] != '\0')
+    while (stack[i] && stack[i][0] != '\0')
     {
         char *full_path = malloc(strlen(stack[i]) + strlen(data->cmd->arg[0]) + 2); // +2 for '/' and '\0'
         if (!full_path)
