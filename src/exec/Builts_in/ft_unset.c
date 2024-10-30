@@ -6,20 +6,20 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:41:43 by matta             #+#    #+#             */
-/*   Updated: 2024/10/16 16:21:31 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/27 13:14:09 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void remove_env_var(t_env **env, const char *key)
+void remove_env_var(t_env *env, const char *key)
 {
-    t_env *current = *env;
-    t_env *previous = NULL;
+    t_env *previous = NULL; // Declare previous variable
+    t_env *current = env; // Declare current variable
 
     while (current)
     {
-        if (strcmp(current->key, key) == 0)
+        if (ft_strcmp((char *)current->key, key) == 0)
         {
             if (previous)
             {
@@ -27,7 +27,7 @@ void remove_env_var(t_env **env, const char *key)
             }
             else
             {
-                *env = current->next;
+                env = current->next;
             }
             free(current->key);
             free(current->value);
@@ -44,21 +44,23 @@ void    print_unset_error(const char *message)
     write(STDERR_FILENO, message, ft_strlen(message));
 }
 
-int ft_unset(t_cmd cmd, t_shell *data)
+int ft_unset(t_shell *data)
 {
     int i = 1;
-    char **argv = cmd.arg;
+    char **argv = data->cmd->arg;
 
-    if (!argv[1]) {
+    printf("unset reached\n");
+    if (!argv[1])
+    {
         print_unset_error("unset: not enough arguments\n");
-        return (EXIT_FAILURE);
+        return (1);
     }
 
     while (argv[i])
     {
-        remove_env_var(&(data->env), argv[i]);
+        remove_env_var(data->env, argv[i]);
         i++;
     }
 
-    return (EXIT_SUCCESS);
+    return (0);
 }

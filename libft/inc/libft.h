@@ -6,7 +6,7 @@
 /*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:28:33 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/18 11:34:30 by matta            ###   ########.fr       */
+/*   Updated: 2024/10/27 13:00:55 by matta            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-int		ft_strcmp(char *s1, char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 //\----------------------------------FT_TO----------------------------------------
 int		ft_tolower(int c);

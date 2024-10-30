@@ -84,7 +84,10 @@ int     ft_man(t_shell *data);
 int     ft_cd(t_shell *data);
 int     ft_export(t_shell *data);
 int     builtin_export(t_shell *data);
-int     ft_unset(t_cmd cmd, t_shell *data);
+int     ft_unset(t_shell *data);
+int		exec_built_in(t_shell *data);
+int     is_built_in(t_shell *data);
+
 
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);
@@ -101,7 +104,6 @@ int     is_valid_env(char *arg);
 int		is_in_env(t_env *env, char *args);
 
 //----------------------EXEC_UTILS--------------------------
-int     is_bin(t_shell data);
 
 //-------------------------CMD-------------------------------
 int     find_cmd(t_shell *data);
