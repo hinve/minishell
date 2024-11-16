@@ -2,14 +2,15 @@
 
 int		exec_built_in(t_shell *data)
 {
-    printf("ping exec reached\n");
-    if (!ft_strcmp(data->cmd->arg[0], "pwd"))
+    if (!ft_strcmp(data->cmd->arg[0], "unset"))
+        data->status = ft_unset(data);
+    else if (!ft_strcmp(data->cmd->arg[0], "pwd"))
 		data->status = ft_pwd();
     else if (!ft_strcmp(data->cmd->arg[0], "env"))
         data->status = ft_env(data);
     else if (!ft_strcmp(data->cmd->arg[0], "exit"))
 		ft_exit(data);
-    else if (!ft_strcmp(data->cmd->arg[0], "echo"))
+    else if (!ft_strcmp(data->cmd->arg[0], "echo")) 
 		data->status = ft_echo(data);
 	else if (!ft_strcmp(data->cmd->arg[0], "export"))
         data->status = ft_export(data);
@@ -17,8 +18,6 @@ int		exec_built_in(t_shell *data)
         data->status = ft_man(data);
     else if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
         data->status = ft_cd(data);
-    else if(ft_strcmp((char *)data->cmd->arg[0], "unset") == 0)
-        data->status = ft_unset(data);
     return(0);
 }
 
@@ -30,7 +29,9 @@ int is_built_in(t_shell *data)
         ft_strcmp(data->cmd->arg[0], "export") == 0 || 
         ft_strcmp(data->cmd->arg[0], "man") == 0 || 
         ft_strcmp(data->cmd->arg[0], "cd") == 0 || 
-        ft_strcmp(data->cmd->arg[0], "exit") == 0)
+        ft_strcmp(data->cmd->arg[0], "exit") == 0 ||
+        ft_strcmp(data->cmd->arg[0], "unset") == 0)
+ 
     {
         return (1);
     }

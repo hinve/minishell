@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_arr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:05:05 by matta             #+#    #+#             */
-/*   Updated: 2024/10/24 17:50:01 by matta            ###   ########.fr       */
+/*   Updated: 2024/11/16 14:44:27 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,24 @@ char    **convert_env_to_array(t_env *env)
     int i = 0;
 
     // Count the number of environment variables
-    while (current) {
+    while (current)
+    {
         count++;
         current = current->next;
     }
 
     // Allocate memory for the array of strings
     env_array = malloc((count + 1) * sizeof(char *));
-    if (!env_array) {
+    if (!env_array)
+    {
         perror("malloc");
         return NULL;
     }
 
     // Convert each environment variable to a string
     current = env;
-    while (current) {
+    while (current)
+    {
         size_t len = strlen(current->key) + strlen(current->value) + 2; // +2 for '=' and '\0'
         env_array[i] = malloc(len);
         if (!env_array[i]) {

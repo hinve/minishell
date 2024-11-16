@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:41:43 by matta             #+#    #+#             */
-/*   Updated: 2024/10/27 13:14:09 by matta            ###   ########.fr       */
+/*   Updated: 2024/11/16 15:29:46 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int ft_unset(t_shell *data)
     int i = 1;
     char **argv = data->cmd->arg;
 
-    printf("unset reached\n");
     if (!argv[1])
     {
         print_unset_error("unset: not enough arguments\n");
