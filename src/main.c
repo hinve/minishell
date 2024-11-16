@@ -7,7 +7,7 @@ int	only_spaces(char *str_cmd)
 	i = 0;
 	while (str_cmd[i])
 	{
-		if (str_cmd[i] != ' ')
+		if (str_cmd[i] != ' ' && str_cmd[i] != '\t')
 			return (0);
 		i++;
 	}
@@ -109,30 +109,28 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGTSTP, SIG_IGN);
 	init_struct(&data, envp);
 	print_banner();
-	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	handle_ctrld(data.str_cmd);
 	data.env = transform_env(envp);
-	while (data.str_cmd)
+	while (1)
 	{
 		if (quote_count(data.str_cmd) % 2 == 0)
 			data.str_cmd = quote_union(data.str_cmd);
-		add_history(data.str_cmd);
-		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
-		{
-			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-			handle_ctrld(data.str_cmd);
-		}
-		lexer(data.str_cmd, &data.token);
-		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
-		{
-			expand_variables(&data);
-			fill_struct(&data);
-			execute_command(&data);
-		}
-		free(data.str_cmd);
-		clear_structs(&data.token, &data.cmd);
 		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-		handle_ctrld(data.str_cmd);
+        handle_ctrld(data.str_cmd);
+        add_history(data.str_cmd);
+        if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
+        {
+            free(data.str_cmd);
+            continue;
+        }
+        lexer(data.str_cmd, &data.token);
+        if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
+        {
+            expand_variables(&data);
+            fill_struct(&data);
+            execute_command(&data);
+        }
+        free(data.str_cmd);
+        clear_structs(&data.token, &data.cmd);
 	}
 	return ((void)argc, (void)argv, 0);
 }

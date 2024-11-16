@@ -8,3 +8,35 @@ Gestionar $? :
     comprobar que son los return correctos
     plantear  en expand variables el "?"
 Reorganizar el acceso a data en exec_bin
+
+
+test :
+
+
+
+------------------------Hector-----------------------------
+ctrl-D in a prompt after you wrote some stuff should not do anything. // DONE
+Test only spaces or tabs. // necesita unas vueltas
+Try ctrl-C after running a blocking command like cat without arguments or grep "something".
+Expandir ~ !!!
+Refactorizar + norminette
+
+------------------------Matteo---------------------------
+Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
+arreglar unset / export / unset  / export
+    borra el primer nodo, settar como ultimo nodo
+Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
+zsh: command not found: dasd
+Exit / pwd + argumentos
+gestionar todos los exit status
+Repeat multiple times with different commands and arguments.
+make arg2? : segfault
+
+
+------------------------Common---------------------------
+Redirecciones < > << >>
+'cat | cat | ls' should behave in a "normal way".
+Try to execute a long command with a ton of arguments.
+Execute commands with pipes like 'cat file | grep bla | more'
+Repeat multiple times with different commands and arguments.
+Try some wrong commands like 'ls filethatdoesntexist | grep bla | more'
