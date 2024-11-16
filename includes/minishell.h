@@ -36,7 +36,6 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <signal.h>
-# include <string.h>
 
 
 

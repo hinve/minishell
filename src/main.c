@@ -13,34 +13,33 @@ int	only_spaces(char *str_cmd)
 	}
 	return (1);
 }
-void clear_env_structs(t_env **env, t_env **vars)
+void	clear_env_structs(t_env **env, t_env **vars)
 {
-    t_env *current_env;
-    t_env *next_env;
+	t_env	*current_env;
+	t_env	*next_env;
 
-    // Clear environment variables
-    current_env = *env;
-    while (current_env != NULL)
-    {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
-    }
-    *env = NULL;
-
-    // Clear additional variables
-    current_env = *vars;
-    while (current_env != NULL)
-    {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
-    }
-    *vars = NULL;
+	// Clear environment variables
+	current_env = *env;
+	while (current_env != NULL)
+	{
+		next_env = current_env->next;
+		free(current_env->key);
+		free(current_env->value);
+		free(current_env);
+		current_env = next_env;
+	}
+	*env = NULL;
+	// Clear additional variables
+	current_env = *vars;
+	while (current_env != NULL)
+	{
+		next_env = current_env->next;
+		free(current_env->key);
+		free(current_env->value);
+		free(current_env);
+		current_env = next_env;
+	}
+	*vars = NULL;
 }
 
 void	clear_structs(t_token **token, t_cmd **cmd)
@@ -77,56 +76,63 @@ void	init_struct(t_shell *data, char **envp)
 	data->token = NULL;
 	data->cmd = NULL;
 	data->env = NULL;
-	data->var = NULL,
-	data->envp = envp;
+	data->var = NULL, data->envp = envp;
 	data->status = 0;
 }
 
-void handle_sigint(int sig)
+void	sigint_handler(int signum)
 {
-    (void)sig;
-    rl_replace_line("", 0);
-    rl_on_new_line();
-    printf("\n");
-    rl_redisplay();
+	if (signum == SIGINT)
+	{
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
 }
 
-int handle_eof(int count, int key)
+void	handle_ctrld(char *str_cmd)
 {
-    (void)count;
-    (void)key;
-    printf("exit\n");
-    exit(0);
+	if (str_cmd == NULL)
+	{
+		printf("exit\n");
+		exit(0);
+	}
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-    t_shell data;
+	t_shell	data;
 
-    // Set up signal handlers
-    signal(SIGINT, handle_sigint);
-    rl_bind_key('\004', handle_eof); // Ctrl+D
-
-    while (1) {
-        data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-        if (!data.str_cmd) {
-            handle_eof(0, 0);
-        }
-        data.env = transform_env(envp);
-        if (quote_count(data.str_cmd) % 2 == 0)
-            data.str_cmd = quote_union(data.str_cmd);
-        add_history(data.str_cmd);
-        if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
-            continue;
-        lexer(data.str_cmd, &data.token);
-        if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
-        {
-            expand_variables(&data);
-            fill_struct(&data);
-            execute_command(&data);
-        }
-        free(data.str_cmd);
-        clear_structs(&data.token, &data.cmd);
-    }
-    return ((void)argc, (void)argv, 0);
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGTSTP, SIG_IGN);
+	init_struct(&data, envp);
+	print_banner();
+	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+	handle_ctrld(data.str_cmd);
+	data.env = transform_env(envp);
+	while (data.str_cmd)
+	{
+		if (quote_count(data.str_cmd) % 2 == 0)
+			data.str_cmd = quote_union(data.str_cmd);
+		add_history(data.str_cmd);
+		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
+		{
+			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+			handle_ctrld(data.str_cmd);
+		}
+		lexer(data.str_cmd, &data.token);
+		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
+		{
+			expand_variables(&data);
+			fill_struct(&data);
+			execute_command(&data);
+		}
+		free(data.str_cmd);
+		clear_structs(&data.token, &data.cmd);
+		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+		handle_ctrld(data.str_cmd);
+	}
+	return ((void)argc, (void)argv, 0);
 }

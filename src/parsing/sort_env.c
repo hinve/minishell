@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:28:42 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/02 14:43:13 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:14:55 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,44 +25,43 @@ int	str_env_len(t_env *env)
 	return (i);
 }
 
-void sort_env(t_env **env)
+void	sort_env(t_env **env)
 {
-    int env_len;
-    int ordered;
-    t_env *current;
-    t_env *next;
-    char *tmp_key;
-    char *tmp_value;
-    int i;
+	int		env_len;
+	int		ordered;
+	t_env	*current;
+	t_env	*next;
+	char	*tmp_key;
+	char	*tmp_value;
+	int		i;
 
-    env_len = str_env_len(*env);
-    ordered = 0;
-    while (ordered == 0)
-    {
-        ordered = 1;
-        current = *env;
-        next = current->next;
-        i = 0;
-
-        while (i < env_len - 1)
-        {
-            if (ft_strcmp(current->key, next->key) > 0)
-            {
-                // Swap keys and values
-                tmp_key = current->key;
-                tmp_value = current->value;
-                current->key = next->key;
-                current->value = next->value;
-                next->key = tmp_key;
-                next->value = tmp_value;
-                ordered = 0;
-            }
-            current = next;
-            next = next->next;
-            i++;
-        }
-        env_len--;
-    }
+	env_len = str_env_len(*env);
+	ordered = 0;
+	while (ordered == 0)
+	{
+		ordered = 1;
+		current = *env;
+		next = current->next;
+		i = 0;
+		while (i < env_len - 1)
+		{
+			if (ft_strcmp(current->key, next->key) > 0)
+			{
+				// Swap keys and values
+				tmp_key = current->key;
+				tmp_value = current->value;
+				current->key = next->key;
+				current->value = next->value;
+				next->key = tmp_key;
+				next->value = tmp_value;
+				ordered = 0;
+			}
+			current = next;
+			next = next->next;
+			i++;
+		}
+		env_len--;
+	}
 }
 
 void	print_sorted_env(t_env *env)

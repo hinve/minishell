@@ -6,7 +6,7 @@
 /*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:06:54 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:42:56 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2024/11/16 14:16:37 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,12 @@ void	handle_single_quotes(char *str, char *aux, int *i, int *j)
 char	*quote_union(char *str)
 {
 	char	*aux;
-	int		i = 0, j;
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
 	aux = malloc(sizeof(char) * (strlen(str) + 1));
-	i = 0, j = 0;
 	if (!aux)
 		return (NULL);
 	while (str[i])
