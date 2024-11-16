@@ -9,8 +9,7 @@ void executor(t_shell *data)
         data->status = exec_built_in(data);
         return;
     }
-    else if (command_exists(data->cmd->arg[0])
-)
+    else if (command_exists(data->cmd->arg[0]))
     {
         find_cmd(data);
         return ;

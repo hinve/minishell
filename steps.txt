@@ -22,7 +22,7 @@ Expandir ~ !!!
 Refactorizar + norminette
 
 ------------------------Matteo---------------------------
-Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
+//Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
 arreglar unset / export / unset  / export
     borra el primer nodo, settar como ultimo nodo
 Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
