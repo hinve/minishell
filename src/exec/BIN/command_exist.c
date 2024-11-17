@@ -59,5 +59,5 @@ int command_exists(const char *cmd)
     {
         return (access(cmd, X_OK) == 0);
     }
-    return search_in_path(cmd);
+    return (search_in_path(cmd));
 }

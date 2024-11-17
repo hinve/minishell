@@ -127,15 +127,15 @@ void    print_sorted_env(t_env *env)
 
 int ft_export(t_shell *data)
 {
-    int status;
+    int stat;
     int i;
     char **argv = data->cmd->arg;
 
-    status = EXIT_SUCCESS;
+    stat = EXIT_SUCCESS;
     if (!argv[1])
     {
         print_sorted_env(data->env);
-        return (status);
+        return (status(data, stat));
     }
     i = 1;
     while (argv[i])
@@ -143,7 +143,7 @@ int ft_export(t_shell *data)
         if (!is_valid_argument(argv[i]))
         {
             print_error(argv[i], "not a valid identifier");
-            status = EXIT_FAILURE;
+            stat = EXIT_FAILURE;
         }
         else
         {
@@ -151,5 +151,5 @@ int ft_export(t_shell *data)
         }
         i++;
     }
-    return (status);
+    return (status(data, stat));
 }

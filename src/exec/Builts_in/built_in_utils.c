@@ -2,23 +2,24 @@
 
 int		exec_built_in(t_shell *data)
 {
+    int stat;
+
+    stat = 0;
     if (!ft_strcmp(data->cmd->arg[0], "unset"))
-        data->status = ft_unset(data);
+        stat = ft_unset(data);
     else if (!ft_strcmp(data->cmd->arg[0], "pwd"))
-		data->status = ft_pwd();
+		stat = ft_pwd(data);
     else if (!ft_strcmp(data->cmd->arg[0], "env"))
-        data->status = ft_env(data);
+        stat = ft_env(data);
     else if (!ft_strcmp(data->cmd->arg[0], "exit"))
 		ft_exit(data);
     else if (!ft_strcmp(data->cmd->arg[0], "echo"))
-		data->status = ft_echo(data);
+		stat = ft_echo(data);
 	else if (!ft_strcmp(data->cmd->arg[0], "export"))
-        data->status = ft_export(data);
-    else if(!ft_strcmp(data->cmd->arg[0], "man"))
-        data->status = ft_man(data);
-    else if(ft_strcmp(data->cmd->arg[0], "cd") == 0)
-        data->status = ft_cd(data);
-    return(0);
+        stat = ft_export(data);
+    else if(!ft_strcmp(data->cmd->arg[0], "cd"))
+        stat = ft_cd(data);
+    return(status(data, stat));
 }
 
 int is_built_in(t_shell *data)
@@ -35,5 +36,5 @@ int is_built_in(t_shell *data)
     {
         return (1);
     }
-    return (0);
+    return (status(data,0));
 }

@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/11/16 18:54:54 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:23:19 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ static int search_in_path(t_shell *data, int pipefd[2])
         i++;
     }
     free_split(stack);
-    return (127); // Command not found
+    return (status(data, 127)); // Command not found
 }
 
 // Main function to find and execute a command

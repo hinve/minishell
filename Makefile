@@ -34,7 +34,6 @@ FILES_SRC		= 	main.c 						\
 					exec/Builts_in/ft_echo.c		\
 					exec/Builts_in/ft_env.c			\
 					exec/Builts_in/ft_exit.c		\
-					exec/Builts_in/ft_man.c			\
 					exec/Builts_in/ft_pwd.c			\
 					exec/Builts_in/ft_cd.c			\
 					exec/Builts_in/ft_unset.c		\

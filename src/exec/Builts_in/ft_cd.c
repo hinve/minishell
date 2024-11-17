@@ -50,7 +50,7 @@ int ft_cd(t_shell *data)
 
     if (data->cmd->n_args < 2 || ft_strlen(data->cmd->arg[1]) == 0)
     {
-        return (0);
+        return status(data, 0);
     }
     path = data->cmd->arg[1];
 
@@ -59,7 +59,7 @@ int ft_cd(t_shell *data)
         if (chdir("..") != 0)
         {
             ft_printf("cd: %s: %s\n", path, strerror(errno));
-            return (0);
+            return status(data, 1); // Set status to indicate error
         }
     }
     else
@@ -67,18 +67,17 @@ int ft_cd(t_shell *data)
         if (chdir(path) != 0)
         {
             ft_printf("cd: %s: %s\n", path, strerror(errno));
-            return (0);
+            return status(data, 1); // Set status to indicate error
         }
     }
     if (getcwd(cwd, sizeof(cwd)) != NULL)
     {
         update_env_var(data->env, "PWD", cwd);
-        return (0);
+        return status(data, 0); // Set status to indicate success
     }
     else
     {
         ft_printf("cd: error retrieving current directory: %s\n", strerror(errno));
-        return (0);
+        return status(data, 1);
     }
-    return (0);
 }

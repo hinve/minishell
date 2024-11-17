@@ -75,14 +75,15 @@ char    *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
 //....................EXECUTOR..............................
 void    executor(t_shell *data);
+int    status(t_shell *data, int status);
+
 //-------------------BUILTS_IN------------------------------
 int     is_built_in(t_shell *data);
 int		exec_built_in(t_shell *data);
-int     ft_pwd(void);
+int     ft_pwd(t_shell *data);
 int		ft_env(t_shell *data);
 void    ft_exit(t_shell *data);
 int     ft_echo(t_shell *data);
-int     ft_man(t_shell *data);
 int     ft_cd(t_shell *data);
 int     ft_export(t_shell *data);
 int     builtin_export(t_shell *data);

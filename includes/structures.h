@@ -41,6 +41,7 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
     int fdout;
     int append;
     struct s_cmd *next; // puntero al siguiente nodo (comando)
+    pid_t   *pid;
 }	t_cmd;
 
 // En esta estructura durante el parseo se debe guardar los fd de apertura o creación de archivos
