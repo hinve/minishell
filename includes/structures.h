@@ -39,6 +39,7 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
 	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2
     int fdin;
     int fdout;
+    int append;
     struct s_cmd *next; // puntero al siguiente nodo (comando)
 }	t_cmd;
 

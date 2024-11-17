@@ -17,7 +17,7 @@ void executor(t_shell *data)
     else
     {
         data->status = 127;
-        print_error_status(data->status);
+        print_error_status(data);
     }
     return;
 }

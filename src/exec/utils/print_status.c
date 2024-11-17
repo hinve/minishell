@@ -1,8 +1,9 @@
 #include "minishell.h"
 
-void print_error_status(int status)
+void print_error_status(t_shell *data)
 {
-    if (status == 127)
-        printf("Error : command not found\n");
+    if (data->status == 127)
+        printf("%s : command not found\n", data->cmd->arg[0]);
+    data->status = 0;
     return;
 }

@@ -23,14 +23,15 @@ Refactorizar + norminette
 
 ------------------------Matteo---------------------------
 //Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
-arreglar unset / export / unset  / export
+//arreglar unset / export / unset  / export
     borra el primer nodo, settar como ultimo nodo
+//zsh: command not found: dasd
+
 Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
-zsh: command not found: dasd
 Exit / pwd + argumentos
-gestionar todos los exit status
 Repeat multiple times with different commands and arguments.
 make arg2? : segfault
+gestionar todos los exit status
 
 
 ------------------------Common---------------------------

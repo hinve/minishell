@@ -10,7 +10,7 @@ int		exec_built_in(t_shell *data)
         data->status = ft_env(data);
     else if (!ft_strcmp(data->cmd->arg[0], "exit"))
 		ft_exit(data);
-    else if (!ft_strcmp(data->cmd->arg[0], "echo")) 
+    else if (!ft_strcmp(data->cmd->arg[0], "echo"))
 		data->status = ft_echo(data);
 	else if (!ft_strcmp(data->cmd->arg[0], "export"))
         data->status = ft_export(data);

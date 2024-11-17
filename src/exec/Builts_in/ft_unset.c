@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: matteo <matteo@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 15:41:43 by matta             #+#    #+#             */
-/*   Updated: 2024/11/16 15:29:46 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/17 00:14:41 by matteo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void remove_env_var(t_env *env, const char *key)
+void remove_env_var(t_env **env, const char *key)
 {
-    t_env *previous = NULL; // Declare previous variable
-    t_env *current = env; // Declare current variable
+    t_env *previous = NULL;
+    t_env *current = *env;
 
     while (current)
     {
@@ -27,7 +27,7 @@ void remove_env_var(t_env *env, const char *key)
             }
             else
             {
-                env = current->next;
+                *env = current->next;
             }
             free(current->key);
             free(current->value);
@@ -39,7 +39,7 @@ void remove_env_var(t_env *env, const char *key)
     }
 }
 
-void    print_unset_error(const char *message)
+void print_unset_error(const char *message)
 {
     write(STDERR_FILENO, message, ft_strlen(message));
 }
@@ -57,7 +57,7 @@ int ft_unset(t_shell *data)
 
     while (argv[i])
     {
-        remove_env_var(data->env, argv[i]);
+        remove_env_var(&data->env, argv[i]);
         i++;
     }
 

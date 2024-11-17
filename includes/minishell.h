@@ -109,7 +109,7 @@ int     is_valid_env(char *arg);
 int		is_in_env(t_env *env, char *args);
 
 //----------------------EXEC_UTILS--------------------------
-void    print_error_status(int status);
+void    print_error_status(t_shell *data);
 
 
 
