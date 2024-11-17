@@ -6,7 +6,7 @@
 /*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 17:01:51 by hpino-mo          #+#    #+#             */
-/*   Updated: 2024/11/17 17:02:38 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:23:06 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ void	handle_heredoc(t_token **tok, int fd)
 {
 	char	*line;
 	char	*expanded_line;
+	int		i;
 
-	line = readline("> ");
-	while (line != NULL)
+	i = 0;
+	while (1)
 	{
+		line = readline("> ");
+		if (line == NULL)
+			printf("bash: warning: here-document at line",
+				"%d delimited by (wanted «%s»)\n", i, (*tok)->content);
 		if (ft_strncmp(line, (*tok)->content, ft_strlen((*tok)->content)
 				+ 1) == 0)
 		{
@@ -31,7 +36,7 @@ void	handle_heredoc(t_token **tok, int fd)
 		write(fd, "\n", 1);
 		free(line);
 		free(expanded_line);
-		line = readline("> ");
+		i++;
 	}
 }
 
@@ -56,4 +61,5 @@ void	save_heredoc(t_cmd *cmd, t_token **tok)
 	}
 	cmd->fdin = fd;
 	*tok = (*tok)->next;
+	unlink("heredoc.tmp");
 }
