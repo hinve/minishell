@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:18:10 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/19 10:44:45 by matta            ###   ########.fr       */
+/*   Updated: 2024/11/17 17:03:26 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	print_banner(void)
 		return ;
 	}
 	write(STDOUT_FILENO, "\033[32m", 5);
-	while ((bytes_read = read(fd, buffer, sizeof(buffer) - 1)) > 0)
+	bytes_read = read(fd, buffer, sizeof(buffer) - 1);
+	while (bytes_read > 0)
 	{
 		buffer[bytes_read] = '\0';
 		write(STDOUT_FILENO, buffer, bytes_read);
+		bytes_read = read(fd, buffer, sizeof(buffer) - 1);
 	}
 	if (bytes_read == -1)
 	{

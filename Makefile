@@ -12,6 +12,8 @@ SRC_DIR			= src/
 OBJ_DIR			= obj/
 
 FILES_SRC		= 	main.c 						\
+					mainutils.c					\
+					mainutils2.c				\
 					parsing/lexer.c 			\
 					parsing/tokenizator.c 		\
 					parsing/setter.c			\
@@ -24,7 +26,9 @@ FILES_SRC		= 	main.c 						\
 					parsing/exp_utils.c			\
 					parsing/fill_struct.c		\
 					parsing/syntaxis.c			\
+					parsing/syntaxis_utils.c	\
 					parsing/file_des.c			\
+					parsing/heredoc.c			\
 					parsing/fill_utils.c		\
 					parsing/expand_utils.c		\
 					parsing/stock_var.c			\

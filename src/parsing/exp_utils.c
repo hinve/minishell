@@ -6,7 +6,7 @@
 /*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:08:47 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/25 13:38:30 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2024/11/17 17:06:35 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_there_a_dollar(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (str[i] == '$' || str[i] == '-' || str[i] == '~')
+		if (str[i] == '$' || str[i] == '~')
 			return (1);
 		i++;
 	}
@@ -59,7 +59,15 @@ char	*replace_dollar(char *line, t_shell *data)
 	char	*key;
 	char	*value;
 
-	if (line[0] != '$')
+	if (line[0] == '~' && (line[1] == '/' || line[1] == '\0'))
+	{
+		value = get_env_content("HOME", data->env);
+		if (value == NULL)
+			value = get_var_value("HOME", data->var);
+		if (value != NULL)
+			return (ft_strjoin(value, line + 1));
+	}
+	else if (line[0] != '$')
 		return (ft_strdup(line));
 	else if (line[0] == '$' && line[1] == '?' && line[2] == '\0')
 		return (ft_itoa(data->status));

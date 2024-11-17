@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/17 17:16:09 by hpino-mo          #+#    #+#             */
+/*   Updated: 2024/11/17 17:18:40 by hpino-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -5,71 +17,65 @@
 
 typedef enum e_token_type
 {
-    WORD,
-    PIPE,
-    IN,
-    OUT,
-    HEREDOC,
-    APPEND,
-    QUOTE,
-    DQUOTE
-}   t_token_type;
+	WORD,
+	PIPE,
+	IN,
+	OUT,
+	HEREDOC,
+	APPEND,
+	QUOTE,
+	DQUOTE
+}					t_token_type;
 
 typedef struct s_token
 {
-    char            *content;
-    t_token_type    type;
-    struct s_token  *next;
-}   t_token;
+	char			*content;
+	t_token_type	type;
+	struct s_token	*next;
+}					t_token;
 
-// Estructura para el nodo de la lista enlazada de las variables de entorno
-// misma estructura para la lista env y la lista export que no es mas que la lista env ordenada
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
-    struct s_env	*next;
-}	t_env;
+	struct s_env	*next;
+}					t_env;
 
-// esta estructura es un nodo para una lista enlazada de comandos: 
-// cada nodo debe contener un comando con sus flags en formato array **arg: ejemplo: echo -n
-typedef struct s_cmd // ----> Estructura para trabajar commandos
+typedef struct s_cmd
 {
-	char	**arg; // comando con sus flags
-	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2
-    int fdin;
-    int fdout;
-    struct s_cmd *next; // puntero al siguiente nodo (comando)
-}	t_cmd;
+	char			**arg;
+	int				n_args;
+	int				fdin;
+	int				fdout;
+	struct s_cmd	*next;
+}					t_cmd;
 
-// En esta estructura durante el parseo se debe guardar los fd de apertura o creación de archivos
-// Este fd debe ir actualizandose de modo que el ejecutor acceda al último fd para plasmar la salida del comando, en caso de haber mas de uno
 typedef struct s_shell
 {
-	t_env	*env; // puntero a la cabeza de la lista de variables de entorno
-    t_env   *var;
-	t_cmd	*cmd; // puntero a la cabeza de la lista de comandos
-    t_env   *export;
-    char    *str_cmd; //Prompt comando
-	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
-	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
-    char    **envp;
-    const char	*path; // ruta del comando para el executor
-    int     status;
-    t_token *token;
-    pid_t	pid;
-}	t_shell;
+	t_env			*env;
+	t_env			*var;
+	t_cmd			*cmd;
+	t_env			*export;
+	char			*str_cmd;
+	int				fdin;
+	int				fdout;
+	char			**envp;
+	const char		*path;
+	int				status;
+	t_token			*token;
+	pid_t			pid;
+}					t_shell;
 
 typedef struct s_signal
 {
-	int		exit_status;
-	pid_t	pid;
-}	t_signal;
+	int				exit_status;
+	pid_t			pid;
+}					t_signal;
 
 typedef struct s_box
 {
-    char            *dir;
-    struct s_box  *next;
-}   t_box;
+	char			*dir;
+	struct s_box	*next;
+}					t_box;
 
 #endif

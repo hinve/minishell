@@ -17,8 +17,8 @@ test :
 ------------------------Hector-----------------------------
 ctrl-D in a prompt after you wrote some stuff should not do anything. // DONE
 Test only spaces or tabs. // necesita unas vueltas
-Try ctrl-C after running a blocking command like cat without arguments or grep "something".
-Expandir ~ !!!
+Try ctrl-C after running a blocking command like cat without arguments or grep "something". // mirar con la actualizacion de matteo
+Expandir ~ !!! // DONE
 Refactorizar + norminette
 
 ------------------------Matteo---------------------------
