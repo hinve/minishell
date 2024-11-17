@@ -1,7 +1,6 @@
 
 #include "minishell.h"
 
-
 void execute_command(t_shell *data)
 {
     if (is_built_in(data) == 1)
