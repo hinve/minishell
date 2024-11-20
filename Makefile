@@ -41,7 +41,9 @@ FILES_SRC		= 	main.c 						\
 					exec/BIN/cmd.c					\
 					exec/BIN/env_arr.c				\
 					exec/BIN/command_exist.c				\
-					exec/utils/print_status.c
+					exec/utils/print_status.c	\
+					exec/pipes/handle_redir.c
+
 	
 
 

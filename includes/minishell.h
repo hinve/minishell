@@ -94,6 +94,8 @@ void    exec_cmd(char *loc, char *cmd, t_shell *data);
 char    **convert_env_to_array(t_env *env);
 void	execute_bin(t_shell *shell, char **args);
 int     command_exists(const char *cmd);
+//---------------------PIPES-----------------------------------
+void handle_pipes(t_shell *data);
 
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);
