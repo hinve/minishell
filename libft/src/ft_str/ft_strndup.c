@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stock_var.c                                        :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 14:26:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/11/24 15:05:01 by mjeannin         ###   ########.fr       */
+/*   Created: 2023/12/04 11:05:26 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/11/21 15:14:11 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../inc/libft.h"
 
-int	recognize_var(char *cmd)
+char	*ft_strndup(const char *source, size_t n)
 {
-	if (ft_strchr((const char *)cmd, '=') != NULL)
-	{
-		printf("Setting variable: %s\n", cmd);
-		return (1);
-	}
-	if (ft_strncmp(cmd, "$", 1) == 0)
-	{
-		printf("Referencing variable: %s\n", cmd);
-		return (2);
-	}
-	printf("Not a variable command: %s\n", cmd);
-	return (0);
+    char	*dup;
+    size_t	len;
+
+    if (source == NULL)
+    {
+        return (NULL);
+    }
+
+    len = ft_strlen(source);
+    if (len > n)
+        len = n;
+
+    dup = (char *)malloc(len + 1);
+    if (dup != NULL)
+    {
+        ft_strlcpy(dup, source, len + 1);
+    }
+    return (dup);
 }
+
+
+    

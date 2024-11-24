@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: matteo <matteo@student.42.fr>              +#+  +:+       +#+         #
+#    By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/13 15:05:16 by mjeannin          #+#    #+#              #
-#    Updated: 2024/11/20 23:55:38 by matteo           ###   ########.fr        #
+#    Updated: 2024/11/21 16:25:45 by mjeannin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,12 @@ FTSTR_DIR		=	$(SRC_DIR)ft_str/ft_split.c \
 					$(SRC_DIR)ft_str/ft_strrchr.c \
 					$(SRC_DIR)ft_str/ft_strtrim.c \
 					$(SRC_DIR)ft_str/ft_substr.c \
+					$(SRC_DIR)ft_str/ft_strndup.c \
 					$(SRC_DIR)ft_str/ft_strcmp.c \
-					$(SRC_DIR)ft_str/ft_strstr.c 
+					$(SRC_DIR)ft_str/ft_strcat.c \
+					$(SRC_DIR)ft_str/ft_strcpy.c
+
+
 
 
 FTLST_DIR		=	$(SRC_DIR)ft_lst/ft_lstadd_back.c \
@@ -73,7 +77,7 @@ FTLST_DIR		=	$(SRC_DIR)ft_lst/ft_lstadd_back.c \
 					$(SRC_DIR)ft_lst/ft_lstlast.c \
 					$(SRC_DIR)ft_lst/ft_lstmap.c \
 					$(SRC_DIR)ft_lst/ft_lstnew.c \
-					$(SRC_DIR)ft_lst/ft_lstsize.c
+					$(SRC_DIR)ft_lst/ft_lstsize.c 
 					
 FTFD_DIR		=	$(SRC_DIR)ft_fd/ft_close.c \
 

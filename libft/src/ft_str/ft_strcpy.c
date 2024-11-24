@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stock_var.c                                        :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/02 14:26:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/11/24 15:05:01 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/11/21 16:25:00 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	recognize_var(char *cmd)
+char *ft_strcpy(char *dest, const char *src)
 {
-	if (ft_strchr((const char *)cmd, '=') != NULL)
-	{
-		printf("Setting variable: %s\n", cmd);
-		return (1);
-	}
-	if (ft_strncmp(cmd, "$", 1) == 0)
-	{
-		printf("Referencing variable: %s\n", cmd);
-		return (2);
-	}
-	printf("Not a variable command: %s\n", cmd);
-	return (0);
+    char *dest_ptr;
+
+    dest_ptr = dest;
+    while (*src)
+    {
+        *dest_ptr++ = *src++;
+    }
+    *dest_ptr = '\0';
+
+    return (dest);
 }

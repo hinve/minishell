@@ -39,7 +39,6 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
 	int		n_args; // numero de argumentos en el nodo: ej: echo -n sería 2
     int fdin;
     int fdout;
-    int append;
     struct s_cmd *next; // puntero al siguiente nodo (comando)
     pid_t   *pid;
 }	t_cmd;
@@ -55,6 +54,8 @@ typedef struct s_shell
     char    *str_cmd; //Prompt comando
 	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
 	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
+    int     inpipe;
+    int     outpipe;
     char    **envp;
     const char	*path; // ruta del comando para el executor
     int     status;

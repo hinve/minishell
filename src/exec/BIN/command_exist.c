@@ -1,16 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   command_exist.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 16:47:30 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/11/24 15:43:25 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int is_absolute_path(const char *cmd)
+
+char *get_next_path(char **start)
 {
-    return cmd[0] == '/';
+    if (start == NULL || *start == NULL)
+    {
+        return NULL;
+    }
+
+    char *end = strchr(*start, ':');
+    char *path;
+
+    if (end != NULL)
+    {
+        *end = '\0';
+        path = *start;
+        *start = end + 1;
+    }
+    else
+    {
+        path = *start;
+        *start = NULL;
+    }
+
+    return path;
 }
 
 int check_command_in_dir(const char *dir, const char *cmd)
 {
-    char *full_path = malloc(strlen(dir) + strlen(cmd) + 2); // +2 for '/' and '\0'
+    char *full_path = malloc(strlen(dir) + strlen(cmd) + 2);
     if (!full_path)
     {
-        return 0; // Memory allocation failed
+        perror("malloc");
+        return 0;
     }
 
     strcpy(full_path, dir);
@@ -22,42 +56,47 @@ int check_command_in_dir(const char *dir, const char *cmd)
     return result;
 }
 
-static int search_in_path(const char *cmd)
+int check_paths(char *path_env, const char *cmd)
 {
-    char *path_env = getenv("PATH");
-    if (!path_env)
-    {
-        return (0);
-    }
+    char *start = path_env;
+    char *path;
 
-    char *path = strdup(path_env);
-    if (!path)
+    while ((path = get_next_path(&start)) != NULL)
     {
-        return (0);
-    }
-
-    char *start = path;
-    char *end = NULL;
-    while ((end = strchr(start, ':')) != NULL)
-    {
-        *end = '\0';
-        if (check_command_in_dir(start, cmd))
+        if (check_command_in_dir(path, cmd))
         {
-            free(path);
             return 1;
         }
-        start = end + 1;
     }
-    int result = check_command_in_dir(start, cmd);
-    free(path);
-    return result;
+    return 0;
 }
 
 int command_exists(const char *cmd)
 {
-    if (is_absolute_path(cmd))
+    if (cmd == NULL || *cmd == '\0')
     {
-        return (access(cmd, X_OK) == 0);
+        return 0;
     }
-    return (search_in_path(cmd));
+
+    if (strchr(cmd, '/') != NULL)
+    {
+        return access(cmd, X_OK) == 0;
+    }
+
+    char *path_env = getenv("PATH");
+    if (path_env == NULL)
+    {
+        return 0;
+    }
+
+    char *path_env_copy = strdup(path_env);
+    if (path_env_copy == NULL)
+    {
+        perror("strdup");
+        return 0;
+    }
+
+    int result = check_paths(path_env_copy, cmd);
+    free(path_env_copy);
+    return result;
 }

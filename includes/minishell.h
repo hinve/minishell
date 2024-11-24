@@ -94,8 +94,6 @@ void    exec_cmd(char *loc, char *cmd, t_shell *data);
 char    **convert_env_to_array(t_env *env);
 void	execute_bin(t_shell *shell, char **args);
 int     command_exists(const char *cmd);
-//---------------------PIPES-----------------------------------
-void handle_pipes(t_shell *data);
 
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);
@@ -110,6 +108,14 @@ int     str_env_len(t_env *env);
 void    sort_env(t_env **env);
 int     is_valid_env(char *arg);
 int		is_in_env(t_env *env, char *args);
+void	env_put_var(t_env **env, const char *arg);
+void	split_key_value(const char *arg, char **key, char **value);
+t_env	*get_min_env(t_env **env);
+void	print_env_list(t_env *env);
+void	free_env_list(t_env *env);
+void	update_existing_var(t_env *existing_var, char *value, char *key);
+void	add_new_var(t_env **env, char *key, char *value);
+char	**allocate_env_array(int count);
 
 //----------------------EXEC_UTILS--------------------------
 void    print_error_status(t_shell *data);

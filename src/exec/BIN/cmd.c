@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/11/17 13:23:19 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:57:09 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ static int search_in_path(t_shell *data, int pipefd[2])
         printf("Error: Failed to split PATH\n");
         return 1;
     }
-
     int i = 0;
     while (stack[i] != NULL)
     {
-        char *full_path = malloc(strlen(stack[i]) + strlen(data->cmd->arg[0]) + 2); // +2 for '/' and '\0'
+        char *full_path;
+		full_path = malloc(strlen(stack[i]) + strlen(data->cmd->arg[0]) + 2);
         if (!full_path)
         {
             printf("Error: malloc failed\n");
             free_split(stack);
-            return 2; // Malloc failed
+            return 2;
         }
         strcpy(full_path, stack[i]);
         strcat(full_path, "/");
@@ -119,7 +119,7 @@ static int search_in_path(t_shell *data, int pipefd[2])
         if (status == 0)
         {
             free_split(stack);
-            return 0; // Command executed successfully
+            return 0;
         }
         i++;
     }
@@ -127,7 +127,6 @@ static int search_in_path(t_shell *data, int pipefd[2])
     return (status(data, 127)); // Command not found
 }
 
-// Main function to find and execute a command
 int find_cmd(t_shell *data)
 {
     int pipefd[2];
