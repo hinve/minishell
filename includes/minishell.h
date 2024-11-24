@@ -74,20 +74,26 @@ char	*expand_heredoc(char *line);
 char    *expand_utils(char *line, char *temp, int *i, int *temp_len);
 
 //....................EXECUTOR..............................
-void    execute_command(t_shell *data);
+void    executor(t_shell *data);
+int    status(t_shell *data, int status);
+
 //-------------------BUILTS_IN------------------------------
-int     ft_pwd(void);
+int     is_built_in(t_shell *data);
+int		exec_built_in(t_shell *data);
+int     ft_pwd(t_shell *data);
 int		ft_env(t_shell *data);
 void    ft_exit(t_shell *data);
 int     ft_echo(t_shell *data);
-int     ft_man(t_shell *data);
 int     ft_cd(t_shell *data);
 int     ft_export(t_shell *data);
 int     builtin_export(t_shell *data);
 int     ft_unset(t_shell *data);
-int		exec_built_in(t_shell *data);
-int     is_built_in(t_shell *data);
-
+//-------------------------CMD-------------------------------
+int     find_cmd(t_shell *data);
+void    exec_cmd(char *loc, char *cmd, t_shell *data);
+char    **convert_env_to_array(t_env *env);
+void	execute_bin(t_shell *shell, char **args);
+int     command_exists(const char *cmd);
 
 //------------------ENV----------------------------
 void    check_env_values(t_env *env);
@@ -102,14 +108,19 @@ int     str_env_len(t_env *env);
 void    sort_env(t_env **env);
 int     is_valid_env(char *arg);
 int		is_in_env(t_env *env, char *args);
+void	env_put_var(t_env **env, const char *arg);
+void	split_key_value(const char *arg, char **key, char **value);
+t_env	*get_min_env(t_env **env);
+void	print_env_list(t_env *env);
+void	free_env_list(t_env *env);
+void	update_existing_var(t_env *existing_var, char *value, char *key);
+void	add_new_var(t_env **env, char *key, char *value);
+char	**allocate_env_array(int count);
 
 //----------------------EXEC_UTILS--------------------------
+void    print_error_status(t_shell *data);
 
-//-------------------------CMD-------------------------------
-int     find_cmd(t_shell *data);
-void    exec_cmd(char *loc, char *cmd, t_shell *data);
-char **convert_env_to_array(t_env *env);
-void	execute_bin(t_shell *shell, char **args);
+
 
 
 //-------------------INIT-----------------------------------

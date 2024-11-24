@@ -29,18 +29,23 @@ FILES_SRC		= 	main.c 						\
 					parsing/expand_utils.c		\
 					parsing/stock_var.c			\
 					parsing/utils2.c			\
-					exec/exec_com.c				\
+					exec/executor.c				\
 					exec/Builts_in/ft_export.c		\
 					exec/Builts_in/ft_echo.c		\
 					exec/Builts_in/ft_env.c			\
 					exec/Builts_in/ft_exit.c		\
-					exec/Builts_in/ft_man.c			\
 					exec/Builts_in/ft_pwd.c			\
 					exec/Builts_in/ft_cd.c			\
 					exec/Builts_in/ft_unset.c		\
 					exec/Builts_in/built_in_utils.c		\
 					exec/BIN/cmd.c					\
-					exec/BIN/env_arr.c				
+					exec/BIN/env_arr.c				\
+					exec/BIN/command_exist.c				\
+					exec/utils/print_status.c	\
+					exec/utils/export_utils.c \
+					exec/utils/export_utils2.c
+
+
 	
 
 

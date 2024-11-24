@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			expand_variables(&data);
 			fill_struct(&data);
-			execute_command(&data);
+			executor(&data);
 		}
 		free(data.str_cmd);
 		clear_structs(&data.token, &data.cmd);

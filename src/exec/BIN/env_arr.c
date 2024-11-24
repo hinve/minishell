@@ -3,62 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   env_arr.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 18:05:05 by matta             #+#    #+#             */
-/*   Updated: 2024/10/24 17:50:01 by matta            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:26:23 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void print_env_array(char **env_array)
+void	free_env_array(char **env_array, int count)
 {
-    int i = 0;
-    while (env_array[i] != NULL)
-    {
-        printf("%s\n", env_array[i]);
-        i++;
-    }
+	while (count > 0)
+	{
+		free(env_array[--count]);
+	}
+	free(env_array);
 }
 
-char    **convert_env_to_array(t_env *env)
+char	*create_env_entry(const char *key, const char *value)
 {
-    int count = 0;
-    t_env *current = env;
-    char **env_array;
-    int i = 0;
+	size_t	len;
+	char	*entry;
 
-    // Count the number of environment variables
-    while (current) {
-        count++;
-        current = current->next;
-    }
+	len = strlen(key) + strlen(value) + 2;
+	entry = malloc(len);
+	if (entry)
+	{
+		ft_strcpy(entry, key);
+		ft_strcat(entry, "=");
+		ft_strcat(entry, value);
+	}
+	return (entry);
+}
 
-    // Allocate memory for the array of strings
-    env_array = malloc((count + 1) * sizeof(char *));
-    if (!env_array) {
-        perror("malloc");
-        return NULL;
-    }
+int	populate_env_array(t_env *env, char **env_array)
+{
+	int	i;
 
-    // Convert each environment variable to a string
-    current = env;
-    while (current) {
-        size_t len = strlen(current->key) + strlen(current->value) + 2; // +2 for '=' and '\0'
-        env_array[i] = malloc(len);
-        if (!env_array[i]) {
-            // Free previously allocated memory on failure
-            while (i > 0) {
-                free(env_array[--i]);
-            }
-            free(env_array);
-            return NULL;
-        }
-        snprintf(env_array[i], len, "%s=%s", current->key, current->value);
-        i++;
-        current = current->next;
-    }
-    env_array[i] = NULL; // Null-terminate the array
-    return env_array;
+	i = 0;
+	while (env)
+	{
+		env_array[i] = create_env_entry(env->key, env->value);
+		if (!env_array[i])
+		{
+			free_env_array(env_array, i);
+			return (0);
+		}
+		i++;
+		env = env->next;
+	}
+	env_array[i] = NULL;
+	return (1);
+}
+
+char	**allocate_env_array(int count)
+{
+	char	**env_array;
+
+	env_array = malloc((count + 1) * sizeof(char *));
+	if (!env_array)
+	{
+		perror("malloc");
+		return (NULL);
+	}
+	return (env_array);
+}
+
+char	**convert_env_to_array(t_env *env)
+{
+	int		count;
+	t_env	*temp;
+	char	**env_array;
+
+	count = 0;
+	env_array = allocate_env_array(count);
+	count = 0;
+	temp = env;
+	while (temp)
+	{
+		count++;
+		temp = temp->next;
+	}
+	if (!env_array)
+		return (NULL);
+	if (!populate_env_array(env, env_array))
+	{
+		free(env_array);
+		return (NULL);
+	}
+	return (env_array);
 }

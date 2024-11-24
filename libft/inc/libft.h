@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: matta <matta@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:28:33 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/27 13:00:55 by matta            ###   ########.fr       */
+/*   Updated: 2024/11/21 16:25:27 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@ char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char	*ft_strndup(const char *source, size_t n);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
+
 //\----------------------------------FT_TO----------------------------------------
 int		ft_tolower(int c);
 int		ft_toupper(int c);
@@ -80,7 +84,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-char	*ft_strndup(const char *source, size_t n);
 //\----------------------------------FT_FD--------------------------------------
 void free_tab(char **tab);
 

@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 14:26:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/10/02 14:28:28 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:05:01 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	recognize_var(char *cmd)
 {
-	if (ft_strchr(cmd, '=') != NULL)
+	if (ft_strchr((const char *)cmd, '=') != NULL)
 	{
 		printf("Setting variable: %s\n", cmd);
 		return (1);

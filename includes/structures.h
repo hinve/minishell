@@ -40,6 +40,7 @@ typedef struct s_cmd // ----> Estructura para trabajar commandos
     int fdin;
     int fdout;
     struct s_cmd *next; // puntero al siguiente nodo (comando)
+    pid_t   *pid;
 }	t_cmd;
 
 // En esta estructura durante el parseo se debe guardar los fd de apertura o creación de archivos
@@ -53,6 +54,8 @@ typedef struct s_shell
     char    *str_cmd; //Prompt comando
 	int		fdin; // fd creado tras abrir el infile. Inicializado a -1 en caso de no haber infile
 	int 	fdout; // fd creado tras crear el outfile. Inicializado a -1 en caso de no haber outfile
+    int     inpipe;
+    int     outpipe;
     char    **envp;
     const char	*path; // ruta del comando para el executor
     int     status;

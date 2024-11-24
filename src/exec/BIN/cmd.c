@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/19 14:23:25 by matta             #+#    #+#             */
-/*   Updated: 2024/10/25 12:00:43 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/11/24 15:57:09 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,72 +43,102 @@ char    **set_argv(t_shell *data)
     return (argv);
 }
 
-int    find_cmd(t_shell *data)
+int execute_command(char *cmd, char **argv, char **envp, int pipefd[2])
 {
-    char **stack;
-    int i = 0;
-    pid_t pid;
-    int status;
-
-    data->path = get_value(data->env, "PATH");
-    stack = ft_split(data->path, ':');
-    while (stack[i][0] != '\0')
+    pid_t pid = fork();
+    if (pid == 0)
     {
-        char *full_path = malloc(strlen(stack[i]) + strlen(data->cmd->arg[0]) + 2); // +2 for '/' and '\0'
+        // Child process
+        close(pipefd[0]);
+        dup2(pipefd[1], STDOUT_FILENO);
+        close(pipefd[1]);
+        execve(cmd, argv, envp);
+        exit(4);
+    }
+    else if (pid < 0)
+    {
+        printf("Error: fork failed\n");
+        return (5);
+    }
+    else
+    {
+        // Parent process
+        close(pipefd[1]); // Close the write end of the pipe
+        char buffer[1024];
+        ssize_t count;
+        while ((count = read(pipefd[0], buffer, sizeof(buffer))) > 0)
+        {
+            write(STDOUT_FILENO, buffer, count); // Write the output to stdout
+        }
+        close(pipefd[0]); // Close the read end of the pipe
+        int status;
+        waitpid(pid, &status, 0);
+        return status;
+    }
+}
+
+int handle_absolute_path(t_shell *data, int pipefd[2])
+{
+    char **argv = set_argv(data);
+    char **envp = convert_env_to_array(data->env);
+    if (!envp)
+    {
+        printf("Error: Failed to convert environment variables\n");
+        return (3);
+    }
+    int status = execute_command(data->cmd->arg[0], argv, envp, pipefd);
+    free_split(envp);
+    free(argv);
+    return status;
+}
+
+static int search_in_path(t_shell *data, int pipefd[2])
+{
+    char **stack = ft_split(data->path, ':');
+    if (!stack)
+    {
+        printf("Error: Failed to split PATH\n");
+        return 1;
+    }
+    int i = 0;
+    while (stack[i] != NULL)
+    {
+        char *full_path;
+		full_path = malloc(strlen(stack[i]) + strlen(data->cmd->arg[0]) + 2);
         if (!full_path)
         {
             printf("Error: malloc failed\n");
             free_split(stack);
-            return (0);
+            return 2;
         }
-
-        // Manually build the full path using strcpy and strcat
-        ft_strncpy(full_path, stack[i], ft_strlen(full_path));  // Copy "stack[i]" to full_path
-        strcat(full_path, "/");       // Append '/' to full_path
-        strcat(full_path, data->cmd->arg[0]);       // Append "cmd" to full_path
-        
-        pid = fork();
-        if (pid == 0)
-        {
-            char **argv = set_argv(data);
-            char **envp = convert_env_to_array(data->env);
-            if (!envp)
-            {
-                printf("Error: Failed to convert exit variables\n");
-                exit(EXIT_FAILURE);
-            }
-            execve(full_path, argv, envp);
-            free(full_path);
-            free_split(envp);
-            free(argv);
-            exit(EXIT_FAILURE);
-        }
-        else if (pid < 0)
-        {
-            // Fork failed
-            printf("Error: fork failed\n");
-            free(full_path);
-            free_split(stack);
-            return (0);
-        }
-        else
-        {
-            // Parent process
-            waitpid(pid, &status, 0);
-            if (WIFEXITED(status) && WEXITSTATUS(status) == 0)
-            {
-                free(full_path);
-                free_split(stack);
-                return (0);
-            }
-        }
-
+        strcpy(full_path, stack[i]);
+        strcat(full_path, "/");
+        strcat(full_path, data->cmd->arg[0]);
+        int status = execute_command(full_path, set_argv(data), convert_env_to_array(data->env), pipefd);
         free(full_path);
+        if (status == 0)
+        {
+            free_split(stack);
+            return 0;
+        }
         i++;
     }
-
     free_split(stack);
-    printf("Command not found: %s\n", data->cmd->arg[0]);
-    data->status = 127;
-    return (127); // Command not found
+    return (status(data, 127)); // Command not found
+}
+
+int find_cmd(t_shell *data)
+{
+    int pipefd[2];
+    if (pipe(pipefd) == -1)
+    {
+        printf("Error: pipe failed\n");
+        return 6;
+    }
+    if (data->cmd->arg[0][0] == '/')
+    {
+        return handle_absolute_path(data, pipefd);
+    }
+    data->path = get_value(data->env, "PATH");
+    return (search_in_path(data, pipefd));
 }
