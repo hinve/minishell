@@ -68,12 +68,40 @@ void	fill_struct(t_shell *data)
 	int	argcs;
 
 	argcs = count_args(data->token);
+
 	while (data->token)
 	{
 		if (data->token->type != PIPE)
 			create_fill_list(&data->cmd, &data->token, argcs);
 		else if (data->token->type == PIPE)
+		{
 			data->token = data->token->next;
+		}
 	}
-	print_cmd_list(data->cmd);
+}
+
+void fill_struct_new(t_shell **data)
+{
+    int i;
+
+    i = 0;
+
+    (*data)->newcmd = malloc(sizeof(t_newcmd));
+    if (!(*data)->newcmd)
+    {
+        printf("Error allocating memory\n");
+        exit(1);
+    }
+
+    (*data)->newcmd->command = (*data)->str_cmd;
+    (*data)->newcmd->countPipes = 0; // Inicializa countPipes a 0
+
+    while((*data)->newcmd->command[i])
+    {
+        if((*data)->newcmd->command[i] == '|')
+        {
+            (*data)->newcmd->countPipes++;
+        }
+        i++;
+    }
 }

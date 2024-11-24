@@ -45,16 +45,25 @@ typedef struct s_cmd
 {
 	char			**arg;
 	int				n_args;
+	int				countPipes;
 	int				fdin;
 	int				fdout;
 	struct s_cmd	*next;
 }					t_cmd;
+
+typedef struct s_newcmd
+{
+	char *command;
+	int countPipes;
+}					t_newcmd;
+
 
 typedef struct s_shell
 {
 	t_env			*env;
 	t_env			*var;
 	t_cmd			*cmd;
+	t_newcmd		*newcmd;
 	t_env			*export;
 	char			*str_cmd;
 	int				fdin;

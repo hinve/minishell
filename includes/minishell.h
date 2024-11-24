@@ -68,6 +68,7 @@ char	*replace_dollar(char *str, t_shell *data);
 t_env	*transform_env(char *envp[]);
 //*--------------------FILL_STRUCT--------------------------
 void	fill_struct(t_shell *data);
+void	fill_struct_new(t_shell **data);
 int		syntaxis_is_ok(t_token **token);
 t_cmd	*list_empty_fill(t_token **token, int argcs);
 void	add_back_fill(t_cmd **lst, t_cmd *new);

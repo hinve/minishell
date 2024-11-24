@@ -16,6 +16,7 @@ void	init_struct(t_shell *data, char **envp)
 {
 	data->token = NULL;
 	data->cmd = NULL;
+	data->newcmd = NULL;
 	data->env = NULL;
 	data->var = NULL;
 	data->envp = envp;
@@ -48,7 +49,9 @@ void	process_command(t_shell *data)
 	{
 		expand_variables(data);
 		fill_struct(data);
-		execute_command(data);
+		fill_struct_new(&data);
+		printf("newcmd: %s pipes: %d\n", data->newcmd->command, data->newcmd->countPipes);
+		//execute_command(data);
 	}
 }
 
