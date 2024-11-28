@@ -9,7 +9,7 @@ void	write_heredoc(char *expanded_line, t_cmd *cmd)
 void	heredoc_handler(int signum)
 {
 	(void)signum;
-	printf("> ^C\n");
+	printf("\n");
 	exit(130);
 }
 
