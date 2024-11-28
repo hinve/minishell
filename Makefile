@@ -1,68 +1,87 @@
-LIBFT_DIR		= libft/
-LIBS			= -lft -lreadline
+LIBFT_DIR       = libft/
+LIBS            = -lft -lreadline
 
-NAME			= minishell
+NAME            = minishell
 
-CC				= gcc
-CFLAGS			= -Wall -Werror -Wextra -I./includes -I./usr/include/readline -g \
-	# -fsanitize=address,undefined
-RM				= rm -rf
+CC              = gcc
+CFLAGS          = -Wall -Werror -Wextra -Iincludes -g #-fsanitize=address
+#LDFLAGS         = -fsanitize=address
+RM              = rm -rf
 
-SRC_DIR			= src/
-OBJ_DIR			= obj/
+SRC_DIR         = src/
+EXEC_DIR        = $(SRC_DIR)executor/
+PARSER_DIR      = $(SRC_DIR)parser/
+OBJ_DIR         = obj/
+OBJ_EXEC_DIR    = $(OBJ_DIR)executor/
+OBJ_PARSER_DIR  = $(OBJ_DIR)parser/
 
-FILES_SRC		= 	main.c 						\
-					parsing/lexer.c 			\
-					parsing/tokenizator.c 		\
-					parsing/setter.c			\
-					parsing/create_lists.c		\
-					parsing/printer.c			\
-					parsing/quote_stuff.c 		\
-					parsing/utils1.c			\
-					parsing/expand_variables.c	\
-					parsing/create_env_lists.c	\
-					parsing/exp_utils.c			\
-					parsing/fill_struct.c		\
-					parsing/syntaxis.c			\
-					parsing/file_des.c			\
-					parsing/fill_utils.c		\
-					parsing/expand_utils.c		\
-					parsing/stock_var.c			\
-					parsing/utils2.c			\
-					exec/executor.c				\
-					exec/Builts_in/ft_export.c		\
-					exec/Builts_in/ft_echo.c		\
-					exec/Builts_in/ft_env.c			\
-					exec/Builts_in/ft_exit.c		\
-					exec/Builts_in/ft_pwd.c			\
-					exec/Builts_in/ft_cd.c			\
-					exec/Builts_in/ft_unset.c		\
-					exec/Builts_in/built_in_utils.c		\
-					exec/BIN/cmd.c					\
-					exec/BIN/env_arr.c				\
-					exec/BIN/command_exist.c				\
-					exec/utils/print_status.c	\
-					exec/utils/export_utils.c \
-					exec/utils/export_utils2.c
+FILES_SRC       = main.c
 
+FILES_PARSER    = init.c    	   \
+                  lexer.c          \
+                  tokenizator.c    \
+                  setter.c         \
+                  create_lists.c   \
+                  printer.c        \
+                  quote_stuff.c    \
+                  in_out.c         \
+                  expand_variables.c\
+				  expand_utils.c	\
+                  exp_utils.c      \
+                  syntaxis.c       \
+				  heredoc.c 	   \
+				  parser_utils.c
 
-	
+FILES_EXEC      = exec_builtins.c  \
+                  exec_utils.c     \
+				  token_to_cmd.c   \
+				  redirections.c   \
+				  free_env.c 	   \
+				  free_token.c	   \
+				  free_cmd.c	   \
+                  free.c           \
+                  list_utils.c     \
+                  key_value.c      \
+                  echo.c           \
+                  pwd.c            \
+                  cd.c             \
+                  env.c            \
+                  exit.c           \
+                  export.c         \
+                  unset.c          \
+                  executor.c       \
+                  path.c           \
+                  printing.c
 
+SRC_MAIN        = $(addprefix $(SRC_DIR),$(FILES_SRC))
+SRC_PARSER      = $(addprefix $(PARSER_DIR),$(FILES_PARSER))
+SRC_EXEC        = $(addprefix $(EXEC_DIR),$(FILES_EXEC))
+SRC             = $(SRC_MAIN) $(SRC_EXEC) $(SRC_PARSER)
 
-SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))
-OBJ_SRC 		= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+OBJ_MAIN        = $(SRC_MAIN:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
+OBJ_PARSER      = $(SRC_PARSER:$(PARSER_DIR)%.c=$(OBJ_PARSER_DIR)%.o)
+OBJ_EXEC        = $(SRC_EXEC:$(EXEC_DIR)%.c=$(OBJ_EXEC_DIR)%.o)
+OBJ_SRC         = $(OBJ_MAIN) $(OBJ_EXEC) $(OBJ_PARSER)
 
-vpath %.c $(SRC_DIR)
+vpath %.c $(SRC_DIR) $(PARSER_DIR) $(EXEC_DIR) 
+
+$(OBJ_PARSER_DIR)%.o: $(PARSER_DIR)%.c
+	@mkdir -p $(OBJ_PARSER_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_EXEC_DIR)%.o: $(EXEC_DIR)%.c
+	@mkdir -p $(OBJ_EXEC_DIR)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	@mkdir -p $(@D)
+	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
 $(NAME): $(OBJ_SRC)
-	@$(MAKE) -s all -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJ_SRC) -L $(LIBFT_DIR) $(LIBS) $(LDFLAGS) -o $@
+	@$(MAKE) -s all bonus printf gnl -C $(LIBFT_DIR)
+	$(CC) $(OBJ_SRC) -L $(LIBFT_DIR) $(LIBS) $(LDFLAGS) -o $@
 
 clean:
 	@$(RM) $(OBJ_DIR)
