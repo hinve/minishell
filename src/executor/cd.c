@@ -92,6 +92,6 @@ void    ft_cd(t_shell *data)
     }
     new_pwd = get_current_directory();
     update_variables(new_pwd, old_pwd, data);
-    free(old_pwd);
+    //free(old_pwd); Esto es lo q causaba el doble free
     free(new_pwd);   
 }
