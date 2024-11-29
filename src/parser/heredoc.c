@@ -28,7 +28,7 @@ void	save_heredoc(t_cmd *cmd, t_token **tok, t_env *env)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("bash: warning: here-document at line %d delimited by (wanted «%s»)\n", i, (*tok)->content); // si ocurre un error con la funcion readline, debe generarse un error, no un printf, se tiene que usar la funcion perror
+			printf("minishell: warning: here-document at line %d delimited by (wanted «%s»)\n", i, (*tok)->content); // si ocurre un error con la funcion readline, debe generarse un error, no un printf, se tiene que usar la funcion perror
 			break ;
 		}
 		i++;

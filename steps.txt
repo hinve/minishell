@@ -1,1 +1,7 @@
-double free detected prueba cd l y despues cd l y da error de double free detected
+double free detected prueba cd l y despues cd l y da error de double free detected // HECHO
+
+PARSEO:
+    - Modificar todo el expand variables.
+
+EXECUTOR:
+    

@@ -11,17 +11,17 @@ int in_out_parser(t_token **tok)
 	{
 		if(aux->next == NULL)
         {
-			printf("bash: syntax error near unexpected token 'newline'\n"); // si hay un error de sintaxis se tiene que generar un error, no printear un mensaje, si tienes dudas de como se manejan los errores de sintaxis, Matias te puede ayudar con esto
+			printf("minishell: syntax error near unexpected token 'newline'\n"); // si hay un error de sintaxis se tiene que generar un error, no printear un mensaje, si tienes dudas de como se manejan los errores de sintaxis, Matias te puede ayudar con esto
             return(1);
         }
 		else if((aux->type == IN && aux->next->type != WORD) || (aux->type == HEREDOC && aux->next->type != WORD))
         {
-			printf("bash: syntax error near unexpected token '<'\n"); // como no estamos replicando bash, seria mas adecuado usar el nombre del programa minishell en estos errores en lugar de bash
+			printf("minishell: syntax error near unexpected token '<'\n"); // como no estamos replicando bash, seria mas adecuado usar el nombre del programa minishell en estos errores en lugar de bash
             return(1);
         }
 		else if((aux->type == OUT && aux->next->type != WORD) || (aux->type == APPEND && aux->next->type != WORD))
         {
-			printf("bash: syntax error near unexpected token '>'\n");
+			printf("minishell: syntax error near unexpected token '>'\n");
             return(1);
         }
 	}

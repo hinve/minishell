@@ -79,7 +79,9 @@ void    ft_cd(t_shell *data)
     char    *pwd;
     char    *old_pwd;
     char    *new_pwd;
+    int flag;
 
+    flag = 0;
     pwd = NULL;
     old_pwd = get_current_directory();
     if (!old_pwd)
@@ -89,9 +91,11 @@ void    ft_cd(t_shell *data)
     {
         free(old_pwd);
         perror("Error: chdir failed");
+        flag = 1;
     }
     new_pwd = get_current_directory();
     update_variables(new_pwd, old_pwd, data);
-    //free(old_pwd); Esto es lo q causaba el doble free
+    if(flag == 0)
+        free(old_pwd);
     free(new_pwd);   
 }
