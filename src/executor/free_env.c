@@ -1,15 +1,23 @@
 #include "minishell.h"
 
-void    free_env_list(t_env *head)
+void free_env_list(t_env *env)
 {
     t_env *temp;
 
-    while (head != NULL)
+    while (env)
     {
-        temp = head;
-        head = head->next;
-        free(temp->key);
-        free(temp->value);
+        temp = env;
+        env = env->next;
+        if (temp->key)
+        {
+            free(temp->key);
+            temp->key = NULL;
+        }
+        if (temp->value)
+        {
+            free(temp->value);
+            temp->value = NULL;
+        }
         free(temp);
     }
 }

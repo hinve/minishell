@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/01 18:02:46 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/01 19:45:01 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_env   *env_lst_search(t_env *env, const char *key)
@@ -13,12 +25,15 @@ t_env   *env_lst_search(t_env *env, const char *key)
 
 static int update_pwd_oldpwd(t_env *env, const char *key, char *value)
 {
-    t_env   *temp_env;
+    t_env *temp_env;
 
     temp_env = env_lst_search(env, key);
     if (temp_env)
     {
-        free(temp_env->value);
+        if (temp_env->value)
+        {
+            free(temp_env->value);
+        }
         temp_env->value = ft_strdup(value);
         if (!temp_env->value)
             return (0);

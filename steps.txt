@@ -4,4 +4,4 @@ PARSEO:
     - Modificar todo el expand variables.
 
 EXECUTOR:
-    
+    dprintf en "print_argu(char **args)"

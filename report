@@ -1,0 +1,31 @@
+check   expand_variables
+        handle vars
+
+
+==2542067== Invalid read of size 1
+==2542067==    at 0x10E0F3: ft_strlen (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10DED4: ft_strdup (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10A786: expand_variables (expand_variables.c:14)
+==2542067==    by 0x109606: minishell (main.c:31)
+==2542067==    by 0x109805: main (main.c:91)
+==2542067==  Address 0x4bd4241 is 0 bytes after a block of size 1 alloc'd
+==2542067==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2542067==    by 0x10DEE1: ft_strdup (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10AC3A: replace_dollar (exp_utils.c:46)
+==2542067==    by 0x10A77E: expand_variables (expand_variables.c:14)
+==2542067==    by 0x109606: minishell (main.c:31)
+==2542067==    by 0x109805: main (main.c:91)
+==2542067== 
+==2542067== Invalid read of size 1
+==2542067==    at 0x10E0F3: ft_strlen (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10DF06: ft_strdup (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10A786: expand_variables (expand_variables.c:14)
+==2542067==    by 0x109606: minishell (main.c:31)
+==2542067==    by 0x109805: main (main.c:91)
+==2542067==  Address 0x4bd4241 is 0 bytes after a block of size 1 alloc'd
+==2542067==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2542067==    by 0x10DEE1: ft_strdup (in /home/mjeannin/Desktop/mini_gitrecup/minishell)
+==2542067==    by 0x10AC3A: replace_dollar (exp_utils.c:46)
+==2542067==    by 0x10A77E: expand_variables (expand_variables.c:14)
+==2542067==    by 0x109606: minishell (main.c:31)
+==2542067==    by 0x109805: main (main.c:91)
