@@ -1,49 +1,44 @@
 #include "minishell.h"
 
-int	only_spaces(char *str_cmd)
+void print_tokens(t_token *token)
 {
-	int	i;
+    while (token)
+    {
+        printf("Token: %s, Type: %d\n", token->content, token->type);
+        token = token->next;
+    }
+}
 
-	i = 0;
-	while (str_cmd[i])
+void is_line_is_empty(char *str)
+{
+    free(str);
+    str = readline(M "Mini" W "shell" G "--> " RST);
+}
+
+void    handle_empty_or_whitespace_commands(char **str_cmd)
+{
+    if (!ft_strlen(*str_cmd) || only_spaces(*str_cmd) == 1)
+    {
+        free(*str_cmd);
+        *str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+    }
+}
+
+static void	minishell(t_shell *data)
+{
+	if (data->token != NULL && syntaxis_is_ok(&data->token) == 1)
 	{
-		if (str_cmd[i] != ' ')
-			return (0);
-		i++;
+		expand_variables(&data->token, data->env, data);
+		token_to_cmd(data);
+		if (data->cmd != NULL)
+		{
+			executor(data);
+			clear_structs(&data->token, &data->cmd);
+		}
 	}
-	return (1);
-}
-void clear_env_structs(t_env **env, t_env **vars)
-{
-    t_env *current_env;
-    t_env *next_env;
-
-    // Clear environment variables
-    current_env = *env;
-    while (current_env != NULL)
-    {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
-    }
-    *env = NULL;
-
-    // Clear additional variables
-    current_env = *vars;
-    while (current_env != NULL)
-    {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
-    }
-    *vars = NULL;
 }
 
-void	clear_structs(t_token **token, t_cmd **cmd)
+void	clear_structs_main(t_token **token, t_cmd **cmd)
 {
 	t_token	*current;
 	t_cmd	*current_cmd;
@@ -51,13 +46,13 @@ void	clear_structs(t_token **token, t_cmd **cmd)
 	t_token	*next;
 
 	current = *token;
-	current_cmd = *cmd;
 	while (current != NULL)
 	{
 		next = current->next;
 		free(current);
 		current = next;
 	}
+	current_cmd = *cmd;
 	while (current_cmd != NULL)
 	{
 		if (current_cmd->fdin != -1)
@@ -72,41 +67,33 @@ void	clear_structs(t_token **token, t_cmd **cmd)
 	*token = NULL;
 }
 
-void	init_struct(t_shell *data, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	data->token = NULL;
-	data->cmd = NULL;
-	data->env = NULL;
-	data->var = NULL,
-	data->envp = envp;
-	data->status = 0;
-}
+    t_shell data;
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_shell	data;
-
-	init_struct(&data, envp);
-	print_banner();
-	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	data.env = transform_env(envp);
-	while (data.str_cmd)
-	{
-		if(quote_count(data.str_cmd) % 2 == 0)
-			data.str_cmd = quote_union(data.str_cmd);
-		add_history(data.str_cmd);
-		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
-			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-		lexer(data.str_cmd, &data.token);
-		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
-		{
-			expand_variables(&data);
-			fill_struct(&data);
-			executor(&data);
-		}
-		free(data.str_cmd);
-		clear_structs(&data.token, &data.cmd);
-		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	}
-	return ((void)argc, (void)argv, 0);
+    init(&data, envp);
+    while (1)
+    {
+        data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+        if (!data.str_cmd)
+        {
+            ft_printf("\nexit\n");
+            break ;
+        }
+        add_history(data.str_cmd);
+        if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
+        {
+            free(data.str_cmd);
+            data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+            continue;
+        }
+        lexer(data.str_cmd, &data.token);
+        minishell(&data);
+        free(data.str_cmd);
+        clear_structs_main(&data.token, &data.cmd);
+        data.cmd_count = 0;
+        data.str_cmd = NULL;
+    }
+    free_all(&data);
+    return ((void)argc, (void)argv, 0);
 }

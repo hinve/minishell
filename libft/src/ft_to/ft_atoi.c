@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:28:11 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/11/17 13:00:13 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:09:21 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ int	ft_atoi(const char *str)
 	}
 	return (neg * (int)resultat);
 }
-

@@ -11,39 +11,41 @@ RM				= rm -rf
 SRC_DIR			= src/
 OBJ_DIR			= obj/
 
-FILES_SRC		= 	main.c 						\
-					parsing/lexer.c 			\
-					parsing/tokenizator.c 		\
-					parsing/setter.c			\
-					parsing/create_lists.c		\
-					parsing/printer.c			\
-					parsing/quote_stuff.c 		\
-					parsing/utils1.c			\
-					parsing/expand_variables.c	\
-					parsing/create_env_lists.c	\
-					parsing/exp_utils.c			\
-					parsing/fill_struct.c		\
-					parsing/syntaxis.c			\
-					parsing/file_des.c			\
-					parsing/fill_utils.c		\
-					parsing/expand_utils.c		\
-					parsing/stock_var.c			\
-					parsing/utils2.c			\
-					exec/executor.c				\
-					exec/Builts_in/ft_export.c		\
-					exec/Builts_in/ft_echo.c		\
-					exec/Builts_in/ft_env.c			\
-					exec/Builts_in/ft_exit.c		\
-					exec/Builts_in/ft_pwd.c			\
-					exec/Builts_in/ft_cd.c			\
-					exec/Builts_in/ft_unset.c		\
-					exec/Builts_in/built_in_utils.c		\
-					exec/BIN/cmd.c					\
-					exec/BIN/env_arr.c				\
-					exec/BIN/command_exist.c				\
-					exec/utils/print_status.c	\
-					exec/utils/export_utils.c \
-					exec/utils/export_utils2.c
+FILES_SRC		= main.c    \
+                parser/init.c    	   \
+                parser/lexer.c          \
+                parser/tokenizator.c    \
+                parser/setter.c         \
+                parser/create_lists.c   \
+                parser/printer.c        \
+                parser/quote_stuff.c    \
+                parser/in_out.c         \
+                parser/expand_variables.c\
+				parser/expand_utils.c	\
+                parser/exp_utils.c      \
+                parser/syntaxis.c       \
+				parser/heredoc.c 	   \
+				parser/parser_utils.c \
+                executor/exec_builtins.c  \
+                executor/exec_utils.c     \
+				executor/token_to_cmd.c   \
+				executor/redirections.c   \
+				executor/free_env.c 	   \
+				executor/free_token.c	   \
+				executor/free_cmd.c	   \
+                executor/free.c           \
+                executor/list_utils.c     \
+                executor/key_value.c      \
+                executor/echo.c           \
+                executor/pwd.c            \
+                executor/cd.c             \
+                executor/env.c            \
+                executor/exit.c           \
+                executor/export.c         \
+                executor/unset.c          \
+                executor/executor.c       \
+                executor/path.c           \
+                executor/printing.c
 
 
 	

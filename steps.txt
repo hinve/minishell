@@ -1,43 +1,7 @@
-Plantear los comandos de  PATH (ls, etc)
-    comprobar si es un BIN 
-    buscar el commando dentro de los directorios
-Export + unset : hacer unset
-Pipes
-Gestionar $? :
-    hacer return a cada funcion
-    comprobar que son los return correctos
-    plantear  en expand variables el "?"
-Reorganizar el acceso a data en exec_bin
+double free detected prueba cd l y despues cd l y da error de double free detected // HECHO
 
+PARSEO:
+    - Modificar todo el expand variables.
 
-test :
-
-
-
-------------------------Hector-----------------------------
-ctrl-D in a prompt after you wrote some stuff should not do anything.
-Test only spaces or tabs.
-Try ctrl-C after running a blocking command like cat without arguments or grep "something".
-Expandir ~ !!!
-Refactorizar + norminette
-
-------------------------Matteo---------------------------
-//Execute a simple command with an absolute path like /bin/ls, or any other command without any options.
-//arreglar unset / export / unset  / export
-    borra el primer nodo, settar como ultimo nodo
-//zsh: command not found: dasd
-
-Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
-Exit / pwd + argumentos
-Repeat multiple times with different commands and arguments.
-make arg2? : segfault
-gestionar todos los exit status
-
-
-------------------------Common---------------------------
-Redirecciones < > << >>
-'cat | cat | ls' should behave in a "normal way".
-Try to execute a long command with a ton of arguments.
-Execute commands with pipes like 'cat file | grep bla | more'
-Repeat multiple times with different commands and arguments.
-Try some wrong commands like 'ls filethatdoesntexist | grep bla | more'
+EXECUTOR:
+    dprintf en "print_argu(char **args)"

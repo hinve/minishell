@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 16:28:33 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/11/21 16:25:27 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/01 18:14:19 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-
 
 //\----------------FT_IS----------------------------
 int		ft_isdigit(int i);
@@ -63,18 +62,18 @@ char	*ft_strndup(const char *source, size_t n);
 char	*ft_strcat(char *dest, const char *src);
 char	*ft_strcpy(char *dest, const char *src);
 
-//\----------------------------------FT_TO----------------------------------------
+//\----------------------------------FT_TO--------------------------
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
-//\----------------------------------FT_PUT--------------------------------------
+//\----------------------------------FT_PUT-------------------------
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putendl(char *s);
-//\----------------------------------FT_LST--------------------------------------
+//\----------------------------------FT_LST------------------------
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
@@ -84,7 +83,7 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-//\----------------------------------FT_FD--------------------------------------
-void free_tab(char **tab);
+//\----------------------------------FT_FD-------------------------
+void	free_tab(char **tab);
 
 #endif
