@@ -6,15 +6,15 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:05:17 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 19:06:00 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:33:42 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    print_list(t_env *head)
+void	print_list(t_env *head)
 {
-	t_env *current;
+	t_env	*current;
 
 	current = head;
 	while (current)
@@ -29,10 +29,11 @@ void    print_list(t_env *head)
 	}
 }
 
-void    print_key(t_env *head)
+void	print_key(t_env *head)
 {
-	t_env *temp = head;
+	t_env	*temp;
 
+	temp = head;
 	while (temp != NULL)
 	{
 		printf("%s\n", temp->key);
@@ -40,13 +41,13 @@ void    print_key(t_env *head)
 	}
 }
 
-char *print_value(t_env *env, char *key)
+char	*print_value(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)+1) == 0)
+		if (ft_strncmp(env->key, key, ft_strlen(env->key) + 1) == 0)
 		{
-			return env->value;
+			return (env->value);
 		}
 		env = env->next;
 	}
@@ -55,7 +56,7 @@ char *print_value(t_env *env, char *key)
 
 void	print_argu(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (args[i] != NULL)

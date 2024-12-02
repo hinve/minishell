@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   executor.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/02 11:49:23 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/02 11:51:38 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	redirection(t_cmd *current, int tmpout, int last_cmd)
 {
-	int fdpipe[2];
+	int	fdpipe[2];
 
 	dup2(current->fdin, 0);
 	close(current->fdin);
@@ -25,7 +37,7 @@ void	redirection(t_cmd *current, int tmpout, int last_cmd)
 }
 
 void	executer(t_shell *data, t_cmd *current, int i)
-{		
+{
 	if (!execute_builtin(data))
 	{
 		data->pid[i] = fork();
@@ -43,26 +55,23 @@ void	executer(t_shell *data, t_cmd *current, int i)
 		}
 		else if (data->pid[i] < 0)
 			perror("Error: fork failed");
-		// else
-		// 	if (current != NULL)
-		// 		close(current->fdout);
 	}
 }
 
-void restart_fds(int tmpin, int tmpout)
-{	
+void	restart_fds(int tmpin, int tmpout)
+{
 	dup2(tmpin, 0);
 	dup2(tmpout, 1);
 	close(tmpin);
 	close(tmpout);
 }
 
-void executor(t_shell *data)
+void	executor(t_shell *data)
 {
-	int tmpin;
-	int tmpout;
-	int i;
-	t_cmd *current;
+	int		tmpin;
+	int		tmpout;
+	int		i;
+	t_cmd	*current;
 
 	i = -1;
 	count_commands(data);
@@ -80,7 +89,7 @@ void executor(t_shell *data)
 		executer(data, current, i);
 		current = current->next;
 	}
-	waitpid(data->pid[data->cmd_count-1], &data->status, 0);
+	waitpid(data->pid[data->cmd_count - 1], &data->status, 0);
 	data->status = WEXITSTATUS(data->status);
 	end_processess(data->pid, data->cmd_count - 1);
 	restart_fds(tmpin, tmpout);
