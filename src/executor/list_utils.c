@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:34:34 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 13:31:41 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:48:17 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,23 @@ void	add(t_env **head, char *key, char *value)
 	}
 }
 
-void	pop(t_env **head, char *key)
+void	remove_head(t_env **head)
 {
 	t_env	*temp;
+
+	temp = *head;
+	*head = (*head)->next;
+	free_env_node(&temp);
+}
+
+void	remove_node(t_env *prev, t_env *current)
+{
+	prev->next = current->next;
+	free_env_node(&current);
+}
+
+void	pop(t_env **head, char *key)
+{
 	t_env	*prev;
 	t_env	*current;
 
@@ -45,9 +59,7 @@ void	pop(t_env **head, char *key)
 		return ;
 	if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 	{
-		temp = current;
-		*head = current->next;
-		free_env_node(&temp);
+		remove_head(head);
 		return ;
 	}
 	prev = current;
@@ -56,8 +68,7 @@ void	pop(t_env **head, char *key)
 	{
 		if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
 		{
-			prev->next = current->next;
-			free_env_node(&current);
+			remove_node(prev, current);
 			return ;
 		}
 		prev = current;

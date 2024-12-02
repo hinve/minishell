@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:02:46 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 13:33:26 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/02 18:15:29 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_env	*env_lst_search(t_env *env, const char *key)
 	return (NULL);
 }
 
-static int	update_pwd_oldpwd(t_env *env, const char *key, char *value)
+static int	update_pwd_oldpwd(t_env *env, const char *key, const char *value)
 {
 	t_env	*temp_env;
 
@@ -33,6 +33,7 @@ static int	update_pwd_oldpwd(t_env *env, const char *key, char *value)
 		if (temp_env->value)
 		{
 			free(temp_env->value);
+			temp_env->value = NULL;
 		}
 		temp_env->value = ft_strdup(value);
 		if (!temp_env->value)
@@ -72,6 +73,7 @@ static void	update_variables(char *new_pwd, char *old_pwd, t_shell *data)
 	{
 		free(old_pwd);
 		perror("Error: getting the new directory");
+		return ;
 	}
 	if (!update_pwd_oldpwd(data->env, "OLDPWD", old_pwd) || \
 		!update_pwd_oldpwd(data->export, "OLDPWD", old_pwd))
@@ -79,6 +81,7 @@ static void	update_variables(char *new_pwd, char *old_pwd, t_shell *data)
 		free(old_pwd);
 		free(new_pwd);
 		perror("Error: updating OLDPWD");
+		return ;
 	}
 	if (!update_pwd_oldpwd(data->env, "PWD", new_pwd) || \
 		!update_pwd_oldpwd(data->export, "PWD", new_pwd))
@@ -86,6 +89,7 @@ static void	update_variables(char *new_pwd, char *old_pwd, t_shell *data)
 		free(old_pwd);
 		free(new_pwd);
 		perror("Error: actualizando PWD");
+		return ;
 	}
 }
 
@@ -100,7 +104,10 @@ void	ft_cd(t_shell *data)
 	pwd = NULL;
 	old_pwd = get_current_directory();
 	if (!old_pwd)
+	{
 		perror("Error: getting pwd");
+		return ;
+	}
 	pwd = get_pwd(data, pwd, old_pwd);
 	if (chdir(pwd) < 0)
 	{
@@ -109,8 +116,17 @@ void	ft_cd(t_shell *data)
 		flag = 1;
 	}
 	new_pwd = get_current_directory();
-	update_variables(new_pwd, old_pwd, data);
-	if (flag == 0)
-		free (old_pwd);
-	free(new_pwd);
+	if (new_pwd)
+	{
+		update_variables(new_pwd, old_pwd, data);
+		if (flag == 0)
+			free(old_pwd);
+		free(new_pwd);
+	}
+	else
+	{
+		free(old_pwd);
+		perror("Error: failed to get current directory");
+	}
+	data->status = flag;
 }

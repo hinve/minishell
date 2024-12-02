@@ -29,7 +29,9 @@ FILES_SRC		= main.c    \
                 executor/exec_builtins.c  \
                 executor/exec_utils.c     \
 				executor/token_to_cmd.c   \
+				executor/token_to_cmd2.c   \
 				executor/redirections.c   \
+				executor/redirection2.c   \
 				executor/free_env.c 	   \
 				executor/free_token.c	   \
 				executor/free_cmd.c	   \
