@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:33:54 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 18:15:12 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:33:49 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,47 @@ static void	access_cmd(t_shell *data)
 	}
 }
 
-void	get_path(t_shell *data, t_cmd *current)
+static char	*join_paths(const char *path, const char *cmd)
 {
-	char	**paths;
 	char	*temp;
-	int		i;
+	char	*full_path;
 
-	access_cmd(data);
-	if (data->path)
-		return ;
-	paths = ft_split(getenv("PATH"), ':');
-	if (!paths)
-		return ;
+	temp = ft_strjoin(path, "/");
+	full_path = ft_strjoin(temp, cmd);
+	free(temp);
+	return (full_path);
+}
+
+static int	check_paths(char **paths, t_shell *data, t_cmd *current)
+{
+	int	i;
+
 	i = 0;
 	while (paths[i])
 	{
-		temp = ft_strjoin(paths[i], "/");
-		data->path = ft_strjoin(temp, current->arg[0]);
-		free(temp);
+		data->path = join_paths(paths[i], current->arg[0]);
 		if (access(data->path, F_OK) == 0)
 		{
 			free_split(paths);
-			return ;
+			return (1);
 		}
 		free(data->path);
 		data->path = NULL;
 		i++;
 	}
-	free_split(paths);
-	data->path = NULL;
+	return (0);
+}
+
+void	get_path(t_shell *data, t_cmd *current)
+{
+	char	**paths;
+
+	paths = ft_split(getenv("PATH"), ':');
+	access_cmd(data);
+	if (data->path)
+		return ;
+	if (!paths)
+		return ;
+	if (!check_paths(paths, data, current))
+		free_split(paths);
 }

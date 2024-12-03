@@ -6,9 +6,11 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:34:34 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 17:48:17 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:55:40 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 #include "minishell.h"
 
