@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 19:05:17 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 11:33:42 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:12:05 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	print_argu(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
-		dprintf(2, "Arg[%d]: %s\n", i, args[i]);
+		printf("Arg[%d]: %s\n", i, args[i]);
 		i++;
 	}
 }
