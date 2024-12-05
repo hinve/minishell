@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:40:35 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 11:41:07 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/04 16:22:38 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,21 @@ void	free_env_list(t_env *env)
 	}
 }
 
-void	free_env_node(t_env **node)
+void free_env_node(t_env **node)
 {
-	free((*node)->key);
-	free((*node)->value);
-	free(*node);
-	*node = NULL;
+    if (node && *node)
+    {
+        if ((*node)->key)
+        {
+            free((*node)->key);
+            (*node)->key = NULL; // Set to NULL to avoid dangling pointer
+        }
+        if ((*node)->value)
+        {
+            free((*node)->value);
+            (*node)->value = NULL; // Set to NULL to avoid dangling pointer
+        }
+        free(*node);
+        *node = NULL; // Set to NULL to avoid dangling pointer
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:42:55 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/03 15:55:48 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/04 17:37:26 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_export(t_shell *data)
 	t_env	*temp;
 
 	handle_vars(data);
+	printf("n_args : %d\narg1 %s\narg 2 : %s\n", data->cmd->n_args, data->cmd->arg[1], data->cmd->arg[2]);
 	if (data->cmd->n_args > 1)
 		return ;
 	export = data->export;
