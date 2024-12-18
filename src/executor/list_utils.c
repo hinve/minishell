@@ -35,6 +35,7 @@ void    pop(t_env **head, char *key)
         temp = current;
         *head = current->next;
         free_env_node(&temp);
+        temp = NULL;
         return ;
     }
     prev = current;
@@ -45,6 +46,7 @@ void    pop(t_env **head, char *key)
         {
             prev->next = current->next;
             free_env_node(&current);
+            current = NULL;
             return ;
         }
         prev = current;

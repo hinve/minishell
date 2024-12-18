@@ -80,7 +80,7 @@ void	sigint_handler(int signum);
 //*--------------------TOKEN-TO-CMD------------------------
 void	add_cmd_to_list(t_cmd **head, t_cmd *new_cmd);
 t_cmd	*create_cmd_node(void);
-void	add_argument(t_cmd *cmd, char *token_content);
+void    add_argument(t_cmd *cmd, const char *arg);
 int		handle_redirection(t_cmd *cmd, t_token **token, t_env *env);
 int		fill_cmd_args(t_cmd *cmd, t_token **token, t_env *env);
 int		add_cmd_to_shell(t_cmd **cmd_list, t_token **token, t_env *env);
@@ -160,6 +160,8 @@ void	free_cmd_list(t_cmd **cmd_list);
 
 void	clear_structs(t_token **token, t_cmd **cmd);
 void	free_all(t_shell *data);
+void    free_pid(t_shell *data);
+
 
 //*--------------------ERRORS-------------------------------
 void fill_struct(t_shell *data);

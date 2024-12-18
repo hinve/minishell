@@ -21,6 +21,15 @@ void    count_commands(t_shell *data)
     }
 }
 
+void    free_pid(t_shell *data)
+{
+    if (data->pid)
+    {
+        free(data->pid);
+        data->pid = NULL;
+    }
+}
+
 void    init_pid(t_shell *data)
 {
     data->pid = ft_calloc(sizeof(int), data->cmd_count);

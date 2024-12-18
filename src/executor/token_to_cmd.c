@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:39:31 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:52:16 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/18 13:51:01 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,33 @@ t_cmd	*create_cmd_node(void)
 	return (node);
 }
 
-void	add_argument(t_cmd *cmd, char *token_content)
+void add_argument(t_cmd *cmd, const char *arg)
 {
-	char	**new_arg;
-	int		i;
-
+	char **new_args;
+	int i;
+	
 	i = 0;
-	new_arg = (char **)malloc(sizeof(char *) * (cmd->n_args + 2));
-	if (!new_arg)
-		perror("Error: allocating memory");
+	new_args = malloc(sizeof(char *) * (cmd->n_args + 2));
+	if (!new_args)
+	{
+		perror("malloc failed");
+		return ;
+	}
 	while (i < cmd->n_args)
 	{
-		new_arg[i] = cmd->arg[i];
+		new_args[i] = cmd->arg[i];
 		i++;
 	}
-	new_arg[cmd->n_args] = ft_strdup(token_content);
-	new_arg[cmd->n_args + 1] = NULL;
-	cmd->arg = new_arg;
+	new_args[i] = ft_strdup(arg);
+	if (!new_args[i])
+	{
+		perror("ft_strdup failed");
+		free(new_args);
+		return ;
+	}
+	new_args[i + 1] = NULL;
+	free(cmd->arg);
+	cmd->arg = new_args;
 	cmd->n_args++;
 }
 

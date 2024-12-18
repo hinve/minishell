@@ -1,17 +1,20 @@
 # include "minishell.h"
 
-void	process_user_input(t_shell *data)
-{
-	data->str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	if (!data->str_cmd)
-	{
-		ft_printf("\nexit\n");
-		free_all(data);
-		exit(0);
-	}
-	if (quote_count(data->str_cmd) % 2 == 0)
-		data->str_cmd = quote_union(data->str_cmd);
-	add_history(data->str_cmd);
+void process_user_input(t_shell *data) {
+    data->str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+    if (!data->str_cmd) {
+        ft_printf("\nexit\n");
+        free_all(data);
+        exit(0);
+    }
+    if (quote_count(data->str_cmd) % 2 == 0) {
+        char *temp = data->str_cmd;
+        data->str_cmd = quote_union(data->str_cmd);
+        free(temp);
+    }
+    add_history(data->str_cmd);
+    // Process the command here
+    free(data->str_cmd); // Free the memory allocated by readline
 }
 
 void	handle_empty_or_whitespace(t_shell *data)
