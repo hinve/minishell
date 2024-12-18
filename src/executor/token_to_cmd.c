@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:39:31 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/18 13:51:01 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/18 14:02:17 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,37 @@ t_cmd	*create_cmd_node(void)
 	return (node);
 }
 
-void add_argument(t_cmd *cmd, const char *arg)
+void	copy_arguments(t_cmd *cmd, char **new_args)
 {
-	char **new_args;
-	int i;
-	
+	int	i;
+
 	i = 0;
+	while (i < cmd->n_args)
+	{
+		new_args[i] = cmd->arg[i];
+		i++;
+	}
+}
+
+void	add_argument(t_cmd *cmd, const char *arg)
+{
+	char	**new_args;
+
 	new_args = malloc(sizeof(char *) * (cmd->n_args + 2));
 	if (!new_args)
 	{
 		perror("malloc failed");
 		return ;
 	}
-	while (i < cmd->n_args)
-	{
-		new_args[i] = cmd->arg[i];
-		i++;
-	}
-	new_args[i] = ft_strdup(arg);
-	if (!new_args[i])
+	copy_arguments(cmd, new_args);
+	new_args[cmd->n_args] = ft_strdup(arg);
+	if (!new_args[cmd->n_args])
 	{
 		perror("ft_strdup failed");
 		free(new_args);
 		return ;
 	}
-	new_args[i + 1] = NULL;
+	new_args[cmd->n_args + 1] = NULL;
 	free(cmd->arg);
 	cmd->arg = new_args;
 	cmd->n_args++;
