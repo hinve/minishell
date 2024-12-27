@@ -63,5 +63,5 @@ char *replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido c
             temp[temp_len++] = line[i++];
         temp[temp_len] = '\0';
     }
-    return (temp);
+    return temp;
 }

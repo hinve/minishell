@@ -1,14 +1,7 @@
 double free detected prueba cd l y despues cd l y da error de double free detected // HECHO
-mirar si se puede utilisar break, hay varios
-
-echo  val =hola
-
 
 PARSEO:
     - Modificar todo el expand variables.
 
 EXECUTOR:
     dprintf en "print_argu(char **args)"
-
-
-leaks  :    var =hola

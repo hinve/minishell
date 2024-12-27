@@ -26,12 +26,12 @@ FILES_SRC		= main.c    \
                 parser/syntaxis.c       \
 				parser/heredoc.c 	   \
 				parser/parser_utils.c \
+                parser/handle_quotes.c \
+                main_utils.c \
                 executor/exec_builtins.c  \
                 executor/exec_utils.c     \
 				executor/token_to_cmd.c   \
-				executor/token_to_cmd2.c   \
 				executor/redirections.c   \
-				executor/redirection2.c   \
 				executor/free_env.c 	   \
 				executor/free_token.c	   \
 				executor/free_cmd.c	   \

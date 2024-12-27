@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 15:32:07 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 15:32:08 by mjeannin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef	MINISHELL_H
 # define MINISHELL_H
 
@@ -176,5 +164,17 @@ void	free_all(t_shell *data);
 //*--------------------ERRORS-------------------------------
 void fill_struct(t_shell *data);
 
+//*--------------------HANDLE_QUOTES-------------------------------
+void	handle_single_quotes(char *str, char *aux, int *i, int *j);
+char	*quote_union(char *str);
+int quote_count(char *str);
+void	handle_double_quotes(char *str, char *aux, int *i, int *j);
+
+//*--------------------MAIN_UTILS----------------------------------
+void	process_user_input(t_shell *data);
+void	handle_empty_or_whitespace(t_shell *data);
+void	process_commands(t_shell *data);
+void	minishell(t_shell *data);
+void	clear_structs_main(t_token **token, t_cmd **cmd);
 
 #endif

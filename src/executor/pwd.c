@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:55:18 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 17:17:22 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/01 19:05:03 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 
 char	*get_current_directory(void)
 {
-	char	*buffer;
-	size_t	size;
+	char	*path;
 
-	buffer = NULL;
-	size = 0;
-	buffer = getcwd(buffer, size);
-	if (!buffer)
-	{
-		perror("getcwd failed");
-		return (NULL);
-	}
-	return (buffer);
+	path = getcwd(NULL, 0);
+	if (!path)
+		perror("Error: getcwd failed");
+	return (path);
 }
 
 void	ft_pwd(void)

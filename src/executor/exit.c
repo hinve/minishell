@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 11:44:30 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 11:49:11 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/27 10:54:21 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 10:56:57 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_exit(t_cmd *cmd)
 		if (isnum(cmd->arg[1]) == 0)
 		{
 			printf("%s%s%s", "exit: ", cmd->arg[1], \
-			" numeric argument required\n");
+				" numeric argument required\n");
 			exit(255);
 		}
 		exit_code = ft_atoi(cmd->arg[1]);

@@ -40,8 +40,8 @@ void	save_heredoc(t_cmd *cmd, t_token **tok, t_env *env)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("minishell: warning: here-document at line %d \
-			delimited by (wanted «%s»)\n", i, (*tok)->content);
+			printf("minishell: warning: here-document at line %d"
+			" delimited by (wanted «%s»)\n", i, (*tok)->content);
 			break ;
 		}
 		i++;

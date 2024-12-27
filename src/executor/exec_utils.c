@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 11:51:44 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/02 11:55:41 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/27 10:58:24 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 10:59:23 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	end_processess(int *pids, int len)
 {
 	while (len)
 		kill(pids[--len], SIGKILL);
-	free (pids);
+	free(pids);
 }

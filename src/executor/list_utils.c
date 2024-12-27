@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 11:34:34 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/04 16:25:39 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/27 10:34:23 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 10:35:50 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,34 +43,34 @@ void	remove_head(t_env **head)
 	free_env_node(&temp);
 }
 
-void remove_node(t_env **head, t_env *prev, t_env *current)
+void	remove_node(t_env **head, t_env *prev, t_env *current)
 {
-    if (prev == NULL) // If the node to remove is the head
-    {
-        *head = current->next;
-    }
-    else
-    {
-        prev->next = current->next;
-    }
-    free_env_node(&current);
+	if (prev == NULL)
+	{
+		*head = current->next;
+	}
+	else
+	{
+		prev->next = current->next;
+	}
+	free_env_node(&current);
 }
 
-void pop(t_env **head, char *key)
+void	pop(t_env **head, char *key)
 {
-    t_env *prev = NULL;
-    t_env *current = *head;
+	t_env	*prev;
+	t_env	*current;
 
-    while (current != NULL)
-    {
-        if (!ft_strncmp(current->key, key, ft_strlen(key) + 1))
-        {
-            remove_node(head, prev, current);
-            return;
-        }
-        prev = current;
-        current = current->next;
-    }
+	prev = NULL;
+	current = *head;
+	while (current != NULL && ft_strcmp(current->key, key) != 0)
+	{
+		prev = current;
+		current = current->next;
+	}
+	if (current == NULL)
+		return ;
+	remove_node(head, prev, current);
 }
 
 t_cmd	*get_last_cmd(t_cmd *cmd)

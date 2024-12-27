@@ -5,29 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 11:42:55 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/04 17:37:26 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 10:54:09 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env	*find_node(t_env *head, char *key)
+{
+	while (head)
+	{
+		if (ft_strcmp(head->key, key) == 0)
+			return (head);
+		head = head->next;
+	}
+	return (NULL);
+}
 
 static void	handle_vars(t_shell *data)
 {
 	char	*key;
 	char	*value;
 	int		i;
+	t_env	*node;
 
 	i = 1;
 	while (i < data->cmd->n_args)
 	{
 		get_key_value(data->cmd->arg[i++], &key, &value);
-		pop(&data->export, key);
-		add(&data->export, key, value);
+		node = find_node(data->export, key);
+		if (node)
+		{
+			free(node->value);
+			node->value = value;
+			free(key);
+		}
+		else
+		{
+			add(&data->export, key, value);
+		}
 		if (value)
 		{
-			pop(&data->env, key);
-			add(&data->env, key, value);
+			node = find_node(data->env, key);
+			if (node)
+			{
+				free(node->value);
+				node->value = value;
+			}
+			else
+			{
+				add(&data->env, key, value);
+			}
 		}
 	}
 }
@@ -38,7 +67,6 @@ void	ft_export(t_shell *data)
 	t_env	*temp;
 
 	handle_vars(data);
-	printf("n_args : %d\narg1 %s\narg 2 : %s\n", data->cmd->n_args, data->cmd->arg[1], data->cmd->arg[2]);
 	if (data->cmd->n_args > 1)
 		return ;
 	export = data->export;
@@ -48,7 +76,7 @@ void	ft_export(t_shell *data)
 		while (temp->key && temp->next)
 		{
 			if (ft_strncmp(temp->key, temp->next->key, \
-			ft_strlen(temp->key) + 1) > 0)
+				ft_strlen(temp->key) + 1) > 0)
 			{
 				ft_swap(&temp->key, &temp->next->key);
 				ft_swap(&temp->value, &temp->next->value);
