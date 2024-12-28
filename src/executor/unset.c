@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/01 18:37:04 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 11:11:40 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
+void	ft_unset(t_shell *data)
+{
+	char	*str;
+	int		i;
+
+	i = 1;
+	while (data->cmd->arg[i])
 	{
-		*dest_ptr++ = *src++;
+		str = data->cmd->arg[i];
+		pop(&data->env, str);
+		pop(&data->export, str);
+		i++;
 	}
-	*dest_ptr = '\0';
-	return (dest);
 }

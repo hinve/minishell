@@ -1,24 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   free_token.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/27 10:37:38 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/27 10:38:17 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
+void	free_token(t_token **token)
+{
+	if (!token || !*token)
+		return ;
+	free((*token)->content);
+	free(*token);
+	*token = NULL;
+}
+
+void	free_token_list(t_token **token_list)
+{
+	t_token	*current;
+	t_token	*next;
+
+	if (!token_list || !*token_list)
+		return ;
+	current = *token_list;
+	while (current)
 	{
-		*dest_ptr++ = *src++;
+		next = current->next;
+		free_token(&current);
+		current = next;
 	}
-	*dest_ptr = '\0';
-	return (dest);
+	*token_list = NULL;
 }

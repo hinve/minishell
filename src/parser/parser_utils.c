@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/01 18:23:14 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/01 18:24:30 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
+int	only_spaces(char *str_cmd)
+{
+	int	i;
+
+	i = 0;
+	while (str_cmd[i])
 	{
-		*dest_ptr++ = *src++;
+		if (str_cmd[i] != ' ')
+			return (0);
+		i++;
 	}
-	*dest_ptr = '\0';
-	return (dest);
+	return (1);
 }

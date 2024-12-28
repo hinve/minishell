@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   fill_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/01 18:28:25 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/28 13:08:11 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
+void	fill_struct(t_shell *data)
+{
+	printf("Filling shell commands...\n");
+	while (data->token)
 	{
-		*dest_ptr++ = *src++;
+		if (data->token->type != PIPE)
+		{
+			printf("Adding command to shell...\n");
+			add_cmd_to_shell(&data->cmd, &data->token, data->env);
+		}
+		else if (data->token->type == PIPE)
+		{
+			printf("Found PIPE, moving to next token...\n");
+			data->token = data->token->next;
+		}
 	}
-	*dest_ptr = '\0';
-	return (dest);
 }

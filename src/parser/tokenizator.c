@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   tokenizator.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/01 18:14:23 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/01 18:14:24 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
-	{
-		*dest_ptr++ = *src++;
-	}
-	*dest_ptr = '\0';
-	return (dest);
+void	set_token(int type, char *str_cmd, t_token **tok, int *i)
+{
+	setter(type, str_cmd, tok, i);
 }

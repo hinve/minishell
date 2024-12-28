@@ -1,112 +1,31 @@
 #include "minishell.h"
 
-int	only_spaces(char *str_cmd)
+void is_line_is_empty(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str_cmd[i])
-	{
-		if (str_cmd[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
+    free(str);
+    str = readline(M "Mini" W "shell" G "--> " RST);
 }
-void clear_env_structs(t_env **env, t_env **vars)
-{
-    t_env *current_env;
-    t_env *next_env;
 
-    // Clear environment variables
-    current_env = *env;
-    while (current_env != NULL)
+void    handle_empty_or_whitespace_commands(char **str_cmd)
+{
+    if (!ft_strlen(*str_cmd) || only_spaces(*str_cmd) == 1)
     {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
+        free(*str_cmd);
+        *str_cmd = readline(M "Mini" W "shell" G "--> " RST);
     }
-    *env = NULL;
-
-    // Clear additional variables
-    current_env = *vars;
-    while (current_env != NULL)
-    {
-        next_env = current_env->next;
-        free(current_env->key);
-        free(current_env->value);
-        free(current_env);
-        current_env = next_env;
-    }
-    *vars = NULL;
-}
-
-void	clear_structs(t_token **token, t_cmd **cmd)
-{
-	t_token	*current;
-	t_cmd	*current_cmd;
-	t_cmd	*next_cmd;
-	t_token	*next;
-
-	current = *token;
-	current_cmd = *cmd;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current);
-		current = next;
-	}
-	while (current_cmd != NULL)
-	{
-		if (current_cmd->fdin != -1)
-			close(current_cmd->fdin);
-		if (current_cmd->fdout != -1)
-			close(current_cmd->fdout);
-		next_cmd = current_cmd->next;
-		free(current_cmd);
-		current_cmd = next_cmd;
-	}
-	*cmd = NULL;
-	*token = NULL;
-}
-
-void	init_struct(t_shell *data, char **envp)
-{
-	data->token = NULL;
-	data->cmd = NULL;
-	data->env = NULL;
-	data->var = NULL,
-	data->envp = envp;
-	data->status = 0;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell	data;
+	t_shell data;
 
-	init_struct(&data, envp);
-	print_banner();
-	data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-	data.env = transform_env(envp);
-	while (data.str_cmd)
+	init(&data, envp);
+	while (1)
 	{
-		if(quote_count(data.str_cmd) % 2 == 0)
-			data.str_cmd = quote_union(data.str_cmd);
-		add_history(data.str_cmd);
-		if (!ft_strlen(data.str_cmd) || only_spaces(data.str_cmd) == 1)
-			data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
-		lexer(data.str_cmd, &data.token);
-		if (data.token != NULL && syntaxis_is_ok(&data.token) == 1)
-		{
-			expand_variables(&data);
-			fill_struct(&data);
-			executor(&data);
-		}
-		free(data.str_cmd);
-		clear_structs(&data.token, &data.cmd);
-		data.str_cmd = readline(M "Mini" W "shell" G "--> " RST);
+		process_user_input(&data);
+		handle_empty_or_whitespace(&data);
+		process_commands(&data);
 	}
+	free_all(&data);
 	return ((void)argc, (void)argv, 0);
 }

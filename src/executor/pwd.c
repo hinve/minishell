@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 16:24:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:10:40 by mjeannin         ###   ########.fr       */
+/*   Created: 2024/12/01 18:55:18 by mjeannin          #+#    #+#             */
+/*   Updated: 2024/12/01 19:05:03 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_ptr;
+#include "minishell.h"
 
-	dest_ptr = dest;
-	while (*src)
-	{
-		*dest_ptr++ = *src++;
-	}
-	*dest_ptr = '\0';
-	return (dest);
+char	*get_current_directory(void)
+{
+	char	*path;
+
+	path = getcwd(NULL, 0);
+	if (!path)
+		perror("Error: getcwd failed");
+	return (path);
+}
+
+void	ft_pwd(void)
+{
+	char	*path;
+
+	path = get_current_directory();
+	printf("%s\n", path);
+	free(path);
 }

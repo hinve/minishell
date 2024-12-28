@@ -1,0 +1,4 @@
+check   expand_variables
+        handle vars
+
+echo $var no funciona
