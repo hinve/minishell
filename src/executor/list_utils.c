@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:34:23 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/27 10:35:50 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:57:15 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,18 @@ void	add(t_env **head, char *key, char *value)
 
 	new_node = (t_env *)malloc(sizeof(t_env));
 	if (!new_node)
-		return (free(key), free(value));
+	{
+		free(key);
+		free(value);
+		return ;
+	}
 	new_node->key = key;
 	new_node->value = value;
 	new_node->next = NULL;
 	if (*head == NULL)
+	{
 		*head = new_node;
+	}
 	else
 	{
 		temp = *head;

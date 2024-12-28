@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:36:22 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/27 10:37:32 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/28 14:06:41 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ void	get_key_value(char *str, char **key, char **value)
 {
 	char	*equal;
 
-	if (str == NULL || key == NULL || value == NULL)
-		perror("Error: null arguments");
-	*key = ft_substr(str, 0, ft_strchr(str, '=') - str);
 	equal = ft_strchr(str, '=');
+	if (str == NULL || key == NULL || value == NULL)
+	{
+		perror("Error: null arguments");
+		return ;
+	}
+	*key = ft_substr(str, 0, ft_strchr(str, '=') - str);
 	if (equal)
 		*value = ft_strdup(equal + 1);
 	else

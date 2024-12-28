@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 16:25:04 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/05/15 14:22:53 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:37:44 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		*str++ = *s++;
 	return (str_ptr);
 }
-/*
-int main()
-{
-    const char original[] = "Hello, World!"; 
-    char *sub = ft_substr(original, 7, 5);
-    if (sub != NULL) {
-        printf("Original: %s\n", original);
-        printf("Substring: %s\n", sub);
-        free(sub);
-    } else {
-        printf("Invalid input or memory allocation failed.\n");
-    }
-    return 0;
-} */

@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/28 13:31:38 by mjeannin         ###   ########.fr       */
+/*   Updated: 2024/12/28 15:54:24 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ static void	update_or_add(t_env **list, char *key, char *value)
 	node = find_node(*list, key);
 	if (node)
 	{
-		free(node->value);
 		node->value = value;
-		free(key);
 	}
 	else
 	{
@@ -46,6 +44,8 @@ static void	handle_vars(t_shell *data)
 {
 	char	*key;
 	char	*value;
+	char	*dup_key;
+	char	*dup_value;
 	int		i;
 
 	i = 1;
@@ -55,12 +55,14 @@ static void	handle_vars(t_shell *data)
 		update_or_add(&data->export, key, value);
 		if (value)
 		{
-			update_or_add(&data->env, strdup(key), strdup(value));
+			dup_key = ft_strdup(key);
+			dup_value = ft_strdup(value);
+			update_or_add(&data->env, dup_key, dup_value);
+			free(dup_key);
+			free(dup_value);
 		}
-		else
-		{
-			free(key);
-		}
+		free(key);
+		free(value);
 	}
 }
 
