@@ -14,54 +14,50 @@ int	is_there_a_dollar(char *str)
 	return (0);
 }
 
-char	*expand_utils2(char *line, char *temp, int *i, int *temp_len)
-{
-	char	*aux;
-	int		j;
-	char	*new_temp;
-	char	*env_value;
+char *get_env_value(const char *var, t_env *env) {
+    t_env *current = env;
 
-	aux = (char *)malloc(sizeof(ft_strlen(line) + 1)); // se tiene que proteger malloc en caso de error al reservar memoria
-	j = 0;
-	(*i)++;
-	while (line[*i] && ft_isalnum(line[*i]))
-		aux[j++] = line[(*i)++];
-	aux[j] = '\0';
-	env_value = getenv(aux); // getenv no se puede usar
-	if (!env_value)
-		env_value = "";
-	new_temp = ft_strjoin(temp, env_value);
-	*temp_len += ft_strlen(env_value);
-	free(aux);
-	free(temp);
-	return (new_temp);
+    while (current) {
+        if (strncmp(current->key, var, strlen(var)) == 0 && current->key[strlen(var)] == '\0') {
+            return current->value;
+        }
+        current = current->next;
+    }
+    return "";
 }
 
-char *replace_dollar(char *line, t_env *env, t_shell *data) // si has incluido como parametro la estructura data, puedes acceder a env desde data->env
-{
-    char *temp;
-    int i = 0;
-    int temp_len = 0;
+char *replace_dollar(char *str, t_shell *data) {
+    char *result = malloc(1024);
+    int i = 0, j = 0;
 
-	temp = ft_strdup("");
-    while (line[i])
-	{
-		if (line[i] == '$')
-		{
-			if(line[i + 1] == '?' && line[i + 2] == '\0')
-			{
-				temp = ft_strjoin(temp, ft_itoa(data->status));
-				temp_len += ft_strlen(ft_itoa(data->status));
-				i += 2;
-			}
-			else
-				temp = expand_utils2(line, temp, &i, &temp_len);
-		}
-        else if (line[i] == '~' && line[i + 1] == '\0')
-            return(get_value(env, "HOME")); // create una copia de la lista env para evitar leaks y q no afecte a los builtins recorrer la lista original
-		else
-            temp[temp_len++] = line[i++];
-        temp[temp_len] = '\0';
+    while (str[i] != '\0') {
+        if (str[i] == '$') {
+            char var_name[256];
+            int k = 0;
+
+            i++;
+            if (str[i] == '\0' || str[i] == ' ' || str[i] == '$') {
+                result[j++] = '$';
+                continue;
+            }
+
+            while (str[i] != '\0' && (isalnum(str[i]) || str[i] == '_')) {
+                var_name[k++] = str[i++];
+            }
+            var_name[k] = '\0';
+
+            char *value = get_env_value(var_name, data->env);
+            if (value) {
+                int l = 0;
+                while (value[l] != '\0') {
+                    result[j++] = value[l++];
+                }
+            }
+        } else {
+            result[j++] = str[i++];
+        }
     }
-    return temp;
+
+    result[j] = '\0';
+    return result;
 }

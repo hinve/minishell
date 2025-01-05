@@ -50,12 +50,12 @@ void	parser(t_token **tok, char **envp, t_env *env);
 
 //*--------------------EXPAND_VARIABLES---------------------
 // expand_variables.c
-void	expand_variables(t_token **token, t_env *env, t_shell *data);
+void	expand_variables(t_token **token, t_shell *data);
 
 // exp_utils.c
 int		is_there_a_dollar(char *str);
 char	*expand_utils2(char *line, char *temp, int *i, int *temp_len);
-char	*replace_dollar(char *line, t_env *env, t_shell *data);
+char *replace_dollar(char *str, t_shell *data);
 
 // expand_utils.c
 char	*expand_utils(char *line, char *temp, int *i, int *temp_len);

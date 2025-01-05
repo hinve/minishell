@@ -27,7 +27,7 @@ void	minishell(t_shell *data)
 {
 	if (data->token != NULL && syntaxis_is_ok(&data->token) == 1)
 	{
-		expand_variables(&data->token, data->env, data);
+		expand_variables(&data->token, data);
 		token_to_cmd(data);
 		if (data->cmd != NULL)
 		{
