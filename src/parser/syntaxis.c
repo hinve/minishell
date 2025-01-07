@@ -6,20 +6,22 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:14:39 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:19:07 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:23:16 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int	in_out_parser(t_token **tok)
 {
-	t_token *aux;
+	t_token	*aux;
 
 	aux = *tok;
-	while(aux && aux->type != IN && aux->type != OUT && aux->type != APPEND && aux->type != HEREDOC)
+	while (aux && aux->type != IN && aux->type != \
+	OUT && aux->type != APPEND && aux->type != HEREDOC)
 		aux = aux->next;
-	if (aux && (aux->type == IN || aux->type == OUT || aux->type == APPEND || aux->type == HEREDOC))
+	if (aux && (aux->type == IN || aux->type == OUT || \
+	aux->type == APPEND || aux->type == HEREDOC))
 	{
 		if (aux->next == NULL)
 		{

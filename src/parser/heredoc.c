@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:25:52 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:27:37 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:23:40 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	save_heredoc(t_cmd *cmd, t_token **tok, t_env *env)
 		line = readline("> ");
 		if (line == NULL)
 		{
-			printf("minishell: warning: here-document at line %d"
+			printf("minishell: warning: here-document at line %d" \
 			" delimited by (wanted «%s»)\n", i, (*tok)->content);
 			break ;
 		}

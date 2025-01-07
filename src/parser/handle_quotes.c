@@ -1,5 +1,16 @@
-# include "minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 14:24:03 by mjeannin          #+#    #+#             */
+/*   Updated: 2025/01/07 14:26:38 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minishell.h"
 
 void	handle_double_quotes(char *str, char *aux, int *i, int *j)
 {
@@ -22,10 +33,12 @@ void	handle_single_quotes(char *str, char *aux, int *i, int *j)
 char	*quote_union(char *str)
 {
 	char	*aux;
-	int		i = 0, j;
+	int		i;
+	int		j;
 
 	aux = malloc(sizeof(char) * (strlen(str) + 1));
-	i = 0, j = 0;
+	i = 0;
+	j = 0;
 	if (!aux)
 		return (NULL);
 	while (str[i])
@@ -41,18 +54,20 @@ char	*quote_union(char *str)
 	return (aux);
 }
 
-
-int quote_count(char *str) {
-	int i;
-	int count;
+int	quote_count(char *str)
+{
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
-	while (str[i]) {
-		if (str[i] == '"' || str[i] == '\'') {
+	while (str[i])
+	{
+		if (str[i] == '"' || str[i] == '\'')
+		{
 			count++;
 		}
 		i++;
 	}
-	return count;
+	return (count);
 }

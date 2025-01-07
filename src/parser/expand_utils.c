@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/07 14:32:22 by mjeannin          #+#    #+#             */
+/*   Updated: 2025/01/07 14:33:16 by mjeannin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char	*expand_utils(char *line, char *temp, int *i, int *temp_len)
@@ -28,7 +40,7 @@ char	*expand_heredoc(char *line, t_env *env)
 	char	*temp;
 	int		i;
 	int		temp_len;
-	char   *home;
+	char	*home;
 
 	temp = ft_strdup("");
 	i = 0;
@@ -39,16 +51,15 @@ char	*expand_heredoc(char *line, t_env *env)
 			temp = expand_utils(line, temp, &i, &temp_len);
 		else if ((line[i] == '~' && line[i + 1] == '\0') || line[i] == '-')
 		{
-            home = get_value(env, "HOME");
-            temp = malloc(sizeof(ft_strlen(home)));
-            temp = ft_strdup(home);
-            temp_len += ft_strlen(home);
-            i++;
-        }
+			home = get_value(env, "HOME");
+			temp = malloc(sizeof(ft_strlen(home)));
+			temp = ft_strdup(home);
+			temp_len += ft_strlen(home);
+			i++;
+		}
 		else
 			temp[temp_len++] = line[i++];
 	}
 	temp[temp_len] = '\0';
 	return (temp);
 }
-
