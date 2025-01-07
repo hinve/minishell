@@ -6,16 +6,36 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/28 15:54:24 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:03:35 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	unvalid_format(char *str)
+{
+	int	i;
+	int	sign;
+
+	i = 0;
+	sign = 0;
+	while (str[i])
+	{
+		if (!ft_isalnum(str[i]))
+			return (1);
+		if (str[i] == '=')
+		{
+			if (sign == 1 || !ft_isalnum(str[i + 1]))
+				return (1);
+			sign = 1;
+		}
+		i++;
+	}
+	return (0);
+}
+
 t_env	*find_node(t_env *head, char *key)
 {
-	if (!head || !key)
-		return (NULL);
 	while (head)
 	{
 		if (ft_strcmp(head->key, key) == 0)
@@ -25,18 +45,19 @@ t_env	*find_node(t_env *head, char *key)
 	return (NULL);
 }
 
-static void	update_or_add(t_env **list, char *key, char *value)
+static void	update_or_add_node(t_env **list, char *key, char *value)
 {
 	t_env	*node;
 
 	node = find_node(*list, key);
 	if (node)
 	{
-		node->value = value;
+		free(node->value);
+		node->value = ft_strdup(value);
 	}
 	else
 	{
-		add(list, key, value);
+		add(list, ft_strdup(key), ft_strdup(value));
 	}
 }
 
@@ -44,23 +65,14 @@ static void	handle_vars(t_shell *data)
 {
 	char	*key;
 	char	*value;
-	char	*dup_key;
-	char	*dup_value;
 	int		i;
 
 	i = 1;
 	while (i < data->cmd->n_args)
 	{
 		get_key_value(data->cmd->arg[i++], &key, &value);
-		update_or_add(&data->export, key, value);
-		if (value)
-		{
-			dup_key = ft_strdup(key);
-			dup_value = ft_strdup(value);
-			update_or_add(&data->env, dup_key, dup_value);
-			free(dup_key);
-			free(dup_value);
-		}
+		update_or_add_node(&data->export, key, value);
+		update_or_add_node(&data->env, key, value);
 		free(key);
 		free(value);
 	}
@@ -71,6 +83,8 @@ void	ft_export(t_shell *data)
 	t_env	*export;
 	t_env	*temp;
 
+	if (!unvalid_format(data->cmd->arg[1]))
+		return ;
 	handle_vars(data);
 	if (data->cmd->n_args > 1)
 		return ;
