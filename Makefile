@@ -31,6 +31,7 @@ FILES_SRC		= main.c    \
                 parser/file_des.c       \
 				parser/token_to_cmd.c   \
 				parser/token_to_cmd_utils.c   \
+                parser/simple_quotes.c         \
                 main_utils.c \
                 executor/exec_builtins.c  \
                 executor/exec_utils.c     \

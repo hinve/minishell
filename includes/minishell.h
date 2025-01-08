@@ -177,4 +177,7 @@ void	process_commands(t_shell *data);
 void	minishell(t_shell *data);
 void	clear_structs_main(t_token **token, t_cmd **cmd);
 
+//*----------------------SIMPLE_QUOTES-----------------------------
+void remove_quotes_and_spaces(char **cmd);
+
 #endif
