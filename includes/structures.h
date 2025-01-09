@@ -35,6 +35,7 @@ typedef struct s_cmd
 	int				n_args;
 	int				fdin;
 	int 			fdout;
+	int error;
 	struct s_cmd	*next;
 }	t_cmd;
 

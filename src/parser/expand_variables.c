@@ -15,6 +15,7 @@
 void	expand_variables(t_token **token, t_shell *data)
 {
 	t_token	*aux;
+	char	*new_content;
 
 	aux = *token;
 	while (aux)
@@ -28,7 +29,7 @@ void	expand_variables(t_token **token, t_shell *data)
 			if (is_there_a_dollar(aux->content) && \
 				(aux->type == DQUOTE || aux->type == WORD))
 			{
-				char *new_content = replace_dollar(aux->content, data);
+				new_content = replace_dollar(aux->content, data);
 				free(aux->content);
 				aux->content = ft_strdup(new_content);
 				free (new_content);
