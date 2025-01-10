@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/07 14:03:35 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/10 12:07:43 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,20 @@ static void	handle_vars(t_shell *data)
 	i = 1;
 	while (i < data->cmd->n_args)
 	{
-		get_key_value(data->cmd->arg[i++], &key, &value);
+		if (ft_strchr(data->cmd->arg[i], '='))
+		{
+			get_key_value(data->cmd->arg[i], &key, &value);
+		}
+		else
+		{
+			key = ft_strdup(data->cmd->arg[i]);
+			value = ft_strdup("");
+		}
 		update_or_add_node(&data->export, key, value);
 		update_or_add_node(&data->env, key, value);
 		free(key);
 		free(value);
+		i++;
 	}
 }
 
