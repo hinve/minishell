@@ -32,6 +32,17 @@ static char *append_str(char *dest, const char *src)
     return (new_str);
 }
 
+char *get_env_var(char *line, int *i, t_env *env)
+{
+    int start = *i + 1;
+    while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_'))
+        (*i)++;
+    char *var_name = ft_substr(line, start, *i - start);
+    char *value = get_value(env, var_name);
+    free(var_name);
+    return value ? value : "";
+}
+
 char *expand_heredoc(char *line, t_env *env)
 {
     int i = 0;
@@ -39,15 +50,21 @@ char *expand_heredoc(char *line, t_env *env)
     while (line && line[i])
     {
         if (line[i] == '$')
-            temp = append_str(temp, get_value(env, "VAR"));
+        {
+            char *value = get_env_var(line, &i, env);
+            temp = append_str(temp, value);
+        }
         else if (line[i] == '~' && (!line[i + 1] || line[i + 1] == '/'))
+        {
             temp = append_str(temp, get_value(env, "HOME"));
+            i++;
+        }
         else
         {
             char c[2] = { line[i], '\0' };
             temp = append_str(temp, c);
+            i++;
         }
-        i++;
     }
     return (temp);
 }
