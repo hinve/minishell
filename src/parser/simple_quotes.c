@@ -12,7 +12,41 @@
 
 #include "minishell.h"
 
-void	remove_quotes_and_spaces(char **cmd)
+char *ft_strncat(char *dest, const char *src, size_t n)
+{
+	char *d = dest;
+	while (*d)
+		d++;
+	while (n-- && (*d++ = *src++))
+		;
+	if (n == (size_t)-1)
+		*d = '\0';
+	return dest;
+}
+
+char *ft_strstr(const char *haystack, const char *needle)
+{
+	if (!*needle)
+		return (char *)haystack;
+
+	for (; *haystack; haystack++)
+	{
+		const char *h = haystack;
+		const char *n = needle;
+
+		while (*h && *n && *h == *n)
+		{
+			h++;
+			n++;
+		}
+
+		if (!*n)
+			return (char *)haystack;
+	}
+
+	return NULL;
+}
+void remove_quotes_and_spaces(char **cmd)
 {
 	char *equal_pos;
 
