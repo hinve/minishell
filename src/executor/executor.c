@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:57:09 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/10 13:01:06 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:32:42 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	executor(t_shell *data)
 	int		tmpout;
 	int		i;
 	t_cmd	*current;
-
 
 	i = -1;
 	count_commands(data);

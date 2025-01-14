@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/10 14:08:15 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 10:32:14 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,23 +63,23 @@ static void	update_or_add_node(t_env **list, char *key, char *value)
 
 static void	handle_vars(t_shell *data)
 {
-    char	*key;
-    char	*value;
+	char	*key;
+	char	*value;
 
-    if (ft_strchr(data->cmd->arg[1], '='))
-    {
-        get_key_value(data->cmd->arg[1], &key, &value);
-    }
-    else
-    {
-        key = ft_strdup(data->cmd->arg[1]);
-        value = ft_strdup("");
-    }
-    update_or_add_node(&data->export, key, value);
-    update_or_add_node(&data->env, key, value);
+	if (ft_strchr(data->cmd->arg[1], '='))
+	{
+		get_key_value(data->cmd->arg[1], &key, &value);
+	}
+	else
+	{
+		key = ft_strdup(data->cmd->arg[1]);
+		value = ft_strdup("");
+	}
+	update_or_add_node(&data->export, key, value);
+	update_or_add_node(&data->env, key, value);
 	printf("input %d : %s %s\n", 1, key, value);
-    free(key);
-    free(value);
+	free(key);
+	free(value);
 }
 
 void	ft_export(t_shell *data)
