@@ -3,48 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:32:22 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 10:31:25 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:38:28 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*append_str(char *dest, const char *src)
+char	*get_env_value2(const char *var, t_env *env)
 {
-	int		dl;
-	int		sl;
-	char	*new_str;
+	t_env	*current;
 
-	dl = ft_strlen(dest);
-	sl = ft_strlen(src);
-	new_str = (char *)malloc(dl + sl + 1);
-	if (!src)
-		return (dest);
-	if (!new_str)
-		return (NULL);
-	int i = 0;
-	while (dest && dest[i])
-	{
-		new_str[i] = dest[i];
-		i++;
-	}
-	for (int j = 0; j < sl; j++)
-		new_str[i++] = src[j];
-	new_str[i] = '\0';
-	free(dest);
-	return (new_str);
-}
-
-char *get_env_value2(const char *var, t_env *env)
-{
-	t_env *current = env;
-
+	current = env;
 	while (current)
 	{
-		if (ft_strncmp(current->key, var, ft_strlen(var)) == 0 && current->key[ft_strlen(var)] == '\0')
+		if (ft_strncmp(current->key, var, ft_strlen(var)) == 0
+			&& current->key[ft_strlen(var)] == '\0')
 		{
 			return (current->value);
 		}
@@ -53,49 +29,64 @@ char *get_env_value2(const char *var, t_env *env)
 	return ("");
 }
 
-char *get_env_var(char *line, int *i, t_env *env)
+char	*get_env_var(char *line, int *i, t_env *env)
 {
-	int start = *i + 1;
+	int		start;
+	char	*var_name;
+	char	*value;
+
+	start = *i + 1;
+	if (ft_strcmp(line, "") == 0)
+		return ("");
+	(*i)++;
 	while (line[*i] && (ft_isalnum(line[*i]) || line[*i] == '_'))
 		(*i)++;
-	char *var_name = ft_substr(line, start, *i - start);
-	char *value = get_env_value2(var_name, env);
+	var_name = ft_substr(line, start, *i - start);
+	value = get_env_value2(var_name, env);
 	free(var_name);
-	return value ? value : "";
+	if (value)
+		return (value);
+	else
+		return ("");
 }
 
-char *expand_heredoc(char *line, t_env *env)
+char	*process_variable(char *line, int *i, t_env *env, char *temp)
 {
-	int i = 0;
-	char *temp = ft_strdup("");
+	char	*value;
+
+	value = get_env_var(line, i, env);
+	printf("Found variable: %s\n", value);
+	temp = ft_strjoin(temp, value);
+	return (temp);
+}
+
+char	*process_character(char *line, int *i, char *temp)
+{
+	char	c[2];
+
+	c[0] = line[*i];
+	c[1] = '\0';
+	temp = ft_strjoin(temp, c);
+	(*i)++;
+	return (temp);
+}
+
+char	*expand_heredoc(char *line, t_env *env)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	temp = ft_strdup("");
 	if (!temp)
 		return (NULL);
 	while (line && line[i])
 	{
-		printf("Processing character: %c\n", line[i]); // Mensaje de depuración
-		if (line[i] == '$')
-		{
-			char *value = get_env_var(line, &i, env);
-			printf("Found variable: %s\n", value); // Mensaje de depuración
-			temp = append_str(temp, value);
-			int j = 0;
-			while(line[j]) {
-				i++;
-				j++;
-			}
-		}
-		else if (line[i] == '~' && (!line[i + 1] || line[i + 1] == '/'))
-		{
-			temp = append_str(temp, get_env_value2("HOME", env));
-			i++;
-		}
+		printf("Processing character: %c\n", line[i]);
+		if (line[i] == '$' && ft_isalpha(line[i + 1]))
+			temp = process_variable(line, &i, env, temp);
 		else
-		{
-			char c[2] = { line[i], '\0' };
-			temp = append_str(temp, c);
-			i++;
-		}
+			temp = process_character(line, &i, temp);
 	}
-	printf("Expanded line: %s\n", temp);
 	return (temp);
 }

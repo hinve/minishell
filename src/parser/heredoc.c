@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:25:52 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 10:28:53 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:42:26 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,48 +16,6 @@ void	write_heredoc(char *line, t_cmd *cmd)
 {
 	write(cmd->fdin, line, ft_strlen(line));
 	write(cmd->fdin, "\n", 1);
-}
-
-static void	ctrl_c_hd(int sig)
-{
-	(void)sig;
-	printf("\n");
-	exit(130);
-}
-
-static void	new_handler(int sig)
-{
-	if (sig == SIGINT)
-		ctrl_c_hd(sig);
-}
-
-static void	handle_ctrl_c(void)
-{
-	struct sigaction	new_act;
-
-	new_act.sa_handler = &new_handler;
-	new_act.sa_flags = SA_RESTART;
-	sigemptyset(&new_act.sa_mask);
-	if (sigaction(SIGINT, &new_act, NULL) == -1)
-		perror("Error: sigaction");
-}
-
-static void	wait_hd(t_token *tok, t_cmd *cmd)
-{
-	int	stat;
-
-	waitpid(0, &stat, 0);
-	if (WEXITSTATUS(stat) == 130)
-	{
-		cmd->error = 1;
-	}
-	else if (WEXITSTATUS(stat) == 1)
-	{
-		printf("minishell: warning: here-document at line delimited by \
-		(wanted «%s»)\n", tok->content);
-	}
-	close(cmd->fdin);
-	cmd->fdin = open("hdoc.tmp", O_RDONLY);
 }
 
 static void	here_doc(char *limit, t_cmd *cmd, t_env *env)

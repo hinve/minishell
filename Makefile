@@ -25,6 +25,7 @@ FILES_SRC		= main.c    \
                 parser/exp_utils.c      \
                 parser/syntaxis.c       \
 				parser/heredoc.c 	   \
+                parser/handlers.c       \
 				parser/parser_utils.c \
                 parser/handle_quotes.c \
                 parser/fill_struct.c    \

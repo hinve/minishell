@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:54:21 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/28 10:45:16 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:36:35 by hpino-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,12 @@ void	ft_exit(t_cmd *cmd)
 {
 	int	exit_code;
 
-	exit_code = 1;
+	exit_code = 0;
 	if (cmd->n_args > 2)
+	{
 		perror("exit: too many arguments");
+		exit_code = 1;
+	}
 	else if (cmd->n_args == 2)
 	{
 		if (isnum(cmd->arg[1]) == 0)

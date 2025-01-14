@@ -1,14 +1,26 @@
-#ifndef	MINISHELL_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/14 12:48:23 by hpino-mo          #+#    #+#             */
+/*   Updated: 2025/01/14 12:48:24 by hpino-mo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define RST "\033[0m"		/* Reset to default color */
-# define RED "\033[1;31m"	/* Bold Red */
-# define G "\033[1;32m"		/* Bold Green */
-# define Y "\033[1;33m"		/* Bold Yellow */
-# define B "\033[1;34m"		/* Bold Blue */
-# define M "\033[1;35m"		/* Bold Magenta */
-# define C "\033[1;36m"		/* Bold Cyan */
-# define W "\033[1;37m"		/* Bold White */
+# define RST "\033[0m"    /* Reset to default color */
+# define RED "\033[1;31m" /* Bold Red */
+# define G "\033[1;32m"   /* Bold Green */
+# define Y "\033[1;33m"   /* Bold Yellow */
+# define B "\033[1;34m"   /* Bold Blue */
+# define M "\033[1;35m"   /* Bold Magenta */
+# define C "\033[1;36m"   /* Bold Cyan */
+# define W "\033[1;37m"   /* Bold White */
 
 # include "structures.h"
 # include <errno.h>
@@ -16,11 +28,11 @@
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <signal.h>
 
 //*--------------------INIT--------------------------------
 void	init(t_shell *data, char **envp);
@@ -55,7 +67,7 @@ void	expand_variables(t_token **token, t_shell *data);
 // exp_utils.c
 int		is_there_a_dollar(char *str);
 char	*expand_utils2(char *line, char *temp, int *i, int *temp_len);
-char *replace_dollar(char *str, t_shell *data);
+char	*replace_dollar(char *str, t_shell *data);
 
 // expand_utils.c
 char	*expand_utils(char *line, char *temp, int *i, int *temp_len);
@@ -123,10 +135,10 @@ char	*get_cd_value(t_env *env, const char *key);
 
 //*--------------------REDIRECTIONS---------------------------
 // file_des.c
-int    save_append(t_cmd *cmd, t_token **tok);
-int    save_infile(t_cmd *cmd, t_token **tok);
-int    save_outfile(t_cmd *cmd, t_token **tok);
-int	ft_innout(t_cmd *cmd, t_token **tok, t_env *env);
+int		save_append(t_cmd *cmd, t_token **tok);
+int		save_infile(t_cmd *cmd, t_token **tok);
+int		save_outfile(t_cmd *cmd, t_token **tok);
+int		ft_innout(t_cmd *cmd, t_token **tok, t_env *env);
 
 //*--------------------EXECUTOR----------------------------
 // path.c
@@ -162,12 +174,12 @@ void	clear_structs(t_token **token, t_cmd **cmd);
 void	free_all(t_shell *data);
 
 //*--------------------ERRORS-------------------------------
-void fill_struct(t_shell *data);
+void	fill_struct(t_shell *data);
 
 //*--------------------HANDLE_QUOTES-------------------------------
 void	handle_single_quotes(char *str, char *aux, int *i, int *j);
 char	*quote_union(char *str);
-int quote_count(char *str);
+int		quote_count(char *str);
 void	handle_double_quotes(char *str, char *aux, int *i, int *j);
 
 //*--------------------MAIN_UTILS----------------------------------
@@ -178,6 +190,12 @@ void	minishell(t_shell *data);
 void	clear_structs_main(t_token **token, t_cmd **cmd);
 
 //*----------------------SIMPLE_QUOTES-----------------------------
-void remove_quotes_and_spaces(char **cmd);
+void	remove_quotes_and_spaces(char **cmd);
+
+//*----------------------HANDLERS----------------------------------
+void	handle_ctrl_c(void);
+void	wait_hd(t_token *tok, t_cmd *cmd);
+void	ctrl_c_hd(int sig);
+void	new_handler(int sig);
 
 #endif
