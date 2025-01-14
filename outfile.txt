@@ -1,0 +1,17 @@
+total 1680
+-rw-r--r-- 1 mjeannin _malaga     323 Jan 14 12:51 comandosInteresantes.txt
+drwxr-xr-x 2 mjeannin _malaga      45 Jan 14 12:51 includes
+drwxr-xr-x 5 mjeannin _malaga      70 Jan 14 13:41 libft
+-rw-r--r-- 1 mjeannin _malaga    2329 Jan 14 12:53 Makefile
+-rwxr-xr-x 1 mjeannin _malaga  113456 Jan 14 15:00 minishell
+-rw-r--r-- 1 mjeannin _malaga 1572230 Jan 14 12:51 minishell.es.subject.pdf
+drwxr-xr-x 4 mjeannin _malaga      70 Jan 14 13:45 obj
+-rw-r--r-- 1 mjeannin _malaga       0 Jan 14 15:34 outfile.txt
+-rw-r--r-- 1 mjeannin _malaga       0 Jan 14 15:30 output.txt
+-rw-r--r-- 1 mjeannin _malaga     137 Jan 14 12:51 readline.supp
+-rw-r--r-- 1 mjeannin _malaga      16 Jan 14 12:51 README.md
+-rw-r--r-- 1 mjeannin _malaga     351 Jan 14 12:51 report
+drwxr-xr-x 4 mjeannin _malaga      70 Jan 14 12:51 src
+-rw-r--r-- 1 mjeannin _malaga     473 Jan 14 15:05 steps.txt
+-rw-r--r-- 1 mjeannin _malaga    7133 Jan 14 12:51 testing.md
+drwxr-xr-x 2 mjeannin _malaga      45 Jan 14 12:51 tests

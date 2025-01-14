@@ -7,3 +7,19 @@ PARSEO:
 
 EXECUTOR:
     - romper minishell
+
+----------------------------------------
+
+Try ctrl-C after running a blocking command like cat without arguments or grep "something".
+
+echo "cat lol.c | cat > lol.c"
+
+ echo 'It'"'"'s a test'
+
+quizas crear un "*echo_str"
+
+Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
+
+echo hola | cat output.txt
+
+cat | cat | ls

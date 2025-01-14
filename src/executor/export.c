@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:51:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 10:32:14 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 15:00:05 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static void	handle_vars(t_shell *data)
 	}
 	update_or_add_node(&data->export, key, value);
 	update_or_add_node(&data->env, key, value);
-	printf("input %d : %s %s\n", 1, key, value);
 	free(key);
 	free(value);
 }

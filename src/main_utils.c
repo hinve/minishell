@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:47:33 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/01/14 12:48:02 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:45:00 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	process_user_input(t_shell *data)
 		free_all(data);
 		exit(0);
 	}
-	remove_quotes_and_spaces(&data->str_cmd);
+	//remove_quotes_and_spaces(&data->str_cmd);
 	if (quote_count(data->str_cmd) % 2 == 0)
 		data->str_cmd = quote_union(data->str_cmd);
 }

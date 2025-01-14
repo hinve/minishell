@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:48:26 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/01/14 12:48:27 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:00:15 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_shell
 	int				status;
 	pid_t			*pid;
 	int				cmd_count;
+	char			*echo_str;
 }					t_shell;
 
 #endif

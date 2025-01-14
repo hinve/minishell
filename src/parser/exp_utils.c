@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:33:37 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 12:50:09 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:17:20 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,38 @@ static int	append_env_value(char *result, int j, char *env_value)
 	return (j);
 }
 
+char	*process_dollar(char *str, int *i, int *j, t_shell *data, char *result)
+{
+	char	*var_name;
+	char	*value;
+	(*i)++;
+	var_name = extract_var_name(str, i);
+	value = get_env_value(var_name, data->env);
+	*j = append_env_value(result, *j, value);
+	free(var_name);
+	return result;
+}
+
 char	*replace_dollar(char *str, t_shell *data)
 {
 	int		i;
 	int		j;
 	char	*result;
-	char	*var_name;
-	char	*value;
+	char *value;
 
 	i = 0;
 	j = 0;
 	result = malloc(sizeof(char) * 1024);
 	while (str[i])
 	{
-		if (str[i] == '$' && str[i + 1] && (ft_isalnum(str[i + 1]) || str[i
-					+ 1] == '_'))
+		if (str[i] == '$' && str[i + 1] && (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+			result = process_dollar(str, &i, &j, data, result);
+		else if (str[i + 1] == '?' && str[i] == '$')
 		{
-			i++;
-			var_name = extract_var_name(str, &i);
-			value = get_env_value(var_name, data->env);
-			j = append_env_value(result, j, value);
-			free(var_name);
+		i += 2;
+		value = ft_itoa(data->status);
+		j = append_env_value(result, j, value);
+		free(value);
 		}
 		else
 			result[j++] = str[i++];

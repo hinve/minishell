@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:24:03 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/07 14:26:38 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:44:42 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*quote_union(char *str)
 	int		i;
 	int		j;
 
-	aux = malloc(sizeof(char) * (strlen(str) + 1));
+	aux = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	i = 0;
 	j = 0;
 	if (!aux)
