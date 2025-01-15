@@ -72,7 +72,7 @@ char	*create_new_cmd(char *cmd, char *equal_pos, char *closing_quote)
 	new_cmd = malloc(prefix_len + content_len + suffix_len + 1);
 	if (!new_cmd)
 		handle_memory_error();
-	strncpy(new_cmd, cmd, prefix_len);
+	ft_strncpy(new_cmd, cmd, prefix_len);
 	new_cmd[prefix_len] = '\0';
 	ft_strncat(new_cmd, equal_pos + 2, content_len);
 	ft_strcat(new_cmd, closing_quote + 1);
@@ -81,19 +81,21 @@ char	*create_new_cmd(char *cmd, char *equal_pos, char *closing_quote)
 
 void	remove_quotes_and_spaces(char **cmd)
 {
-	char	*equal_pos;
-	char	*closing_quote;
-	char	*new_cmd;
+    char	*equal_pos;
+    char	*closing_quote;
+    char	*new_cmd;
+    char	quote_char;
 
-	equal_pos = ft_strstr(*cmd, "=");
-	if (equal_pos && *(equal_pos + 1) == '\'')
-	{
-		closing_quote = ft_strchr(equal_pos + 2, '\'');
-		if (closing_quote)
-		{
-			new_cmd = create_new_cmd(*cmd, equal_pos, closing_quote);
-			free(*cmd);
-			*cmd = new_cmd;
-		}
-	}
+    equal_pos = ft_strstr(*cmd, "=");
+    if (equal_pos && (*(equal_pos + 1) == '\'' || *(equal_pos + 1) == '\"'))
+    {
+        quote_char = *(equal_pos + 1);
+        closing_quote = ft_strchr(equal_pos + 2, quote_char);
+        if (closing_quote)
+        {
+            new_cmd = create_new_cmd(*cmd, equal_pos, closing_quote);
+            free(*cmd);
+            *cmd = new_cmd;
+        }
+    }
 }

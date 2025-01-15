@@ -22,9 +22,7 @@ void	process_user_input(t_shell *data)
 		free_all(data);
 		exit(0);
 	}
-	//remove_quotes_and_spaces(&data->str_cmd);
-	if (quote_count(data->str_cmd) % 2 == 0)
-		data->str_cmd = quote_union(data->str_cmd);
+	remove_quotes_and_spaces(&data->str_cmd);
 }
 
 void	handle_empty_or_whitespace(t_shell *data)
