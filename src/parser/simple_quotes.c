@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   simple_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hpino-mo <hpino-mo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:03:23 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 12:18:51 by hpino-mo         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:32:15 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,21 @@ char	*create_new_cmd(char *cmd, char *equal_pos, char *closing_quote)
 
 void	remove_quotes_and_spaces(char **cmd)
 {
-    char	*equal_pos;
-    char	*closing_quote;
-    char	*new_cmd;
-    char	quote_char;
+	char	*equal_pos;
+	char	*closing_quote;
+	char	*new_cmd;
+	char	quote_char;
 
-    equal_pos = ft_strstr(*cmd, "=");
-    if (equal_pos && (*(equal_pos + 1) == '\'' || *(equal_pos + 1) == '\"'))
-    {
-        quote_char = *(equal_pos + 1);
-        closing_quote = ft_strchr(equal_pos + 2, quote_char);
-        if (closing_quote)
-        {
-            new_cmd = create_new_cmd(*cmd, equal_pos, closing_quote);
-            free(*cmd);
-            *cmd = new_cmd;
-        }
-    }
+	equal_pos = ft_strstr(*cmd, "=");
+	if (equal_pos && (*(equal_pos + 1) == '\'' || *(equal_pos + 1) == '\"'))
+	{
+		quote_char = *(equal_pos + 1);
+		closing_quote = ft_strchr(equal_pos + 2, quote_char);
+		if (closing_quote)
+		{
+			new_cmd = create_new_cmd(*cmd, equal_pos, closing_quote);
+			free(*cmd);
+			*cmd = new_cmd;
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:57:09 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 15:38:07 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:40:26 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	executer(t_shell *data, t_cmd *current, int i)
 			get_path(data, current);
 			if (!data->path)
 			{
-				perror("Error: command not found");
+				printf("Error: command not found: %s\n", current->arg[0]);
 				exit(127);
 			}
 			execve(data->path, current->arg, data->envp);
@@ -54,7 +54,9 @@ void	executer(t_shell *data, t_cmd *current, int i)
 			exit(127);
 		}
 		else if (data->pid[i] < 0)
+		{
 			perror("Error: fork failed");
+		}
 	}
 }
 
@@ -70,27 +72,32 @@ void	executor(t_shell *data)
 {
 	int		tmpin;
 	int		tmpout;
-	int		i;
+	int		fdpipe[2];
 	t_cmd	*current;
+	int		i;
 
-	i = -1;
-	count_commands(data);
-	init_pid(data);
-	current = data->cmd;
-	if (!current)
-		return ;
 	tmpin = dup(0);
 	tmpout = dup(1);
-	if (current->fdin == -1)
-		current->fdin = dup(tmpin);
-	while (++i < data->cmd_count)
+	current = data->cmd;
+	i = 0;
+	while (current)
 	{
-		redirection(current, tmpout, data->cmd_count - 1 == i);
+		dup2(current->fdin, 0);
+		close(current->fdin);
+		if (current->next)
+		{
+			pipe(fdpipe);
+			current->next->fdin = fdpipe[0];
+			if (current->fdout == -1)
+				current->fdout = fdpipe[1];
+			else
+				close(fdpipe[1]);
+		}
+		dup2(current->fdout, 1);
+		close(current->fdout);
 		executer(data, current, i);
 		current = current->next;
+		i++;
 	}
-	waitpid(data->pid[data->cmd_count - 1], &data->status, 0);
-	data->status = WEXITSTATUS(data->status);
-	end_processess(data->pid, data->cmd_count - 1);
 	restart_fds(tmpin, tmpout);
 }

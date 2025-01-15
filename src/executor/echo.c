@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:03:54 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/14 14:41:55 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:40:17 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_echo(t_cmd *args)
 
 	i = 1;
 	j = 1;
-	
 	newline = 1;
 	while (args->arg[i] && args->arg[i][0] == '-')
 	{
