@@ -10,11 +10,11 @@ EXECUTOR:
 
 ----------------------------------------
 
-Try ctrl-C after running a blocking command like cat without arguments or grep "something".
+Try ctrl-C after running a blocking command like cat without arguments or grep "something". //
 
-echo "cat lol.c | cat > lol.c"
+echo "cat lol.c | cat > lol.c" //
 
- echo 'It'"'"'s a test'
+ echo 'It'"'"'s a test' //
 
 quizas crear un "*echo_str"
 
@@ -22,4 +22,4 @@ Set the $PATH to a multiple directory value (directory1:directory2) and ensure t
 
 echo hola | cat output.txt
 
-cat | cat | ls
+cat | cat | ls //

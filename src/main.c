@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+int g_signal;
+
 void	is_line_is_empty(char *str)
 {
 	free(str);

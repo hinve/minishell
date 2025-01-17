@@ -38,6 +38,7 @@ void	redirection(t_cmd *current, int tmpout, int last_cmd)
 
 void	executer(t_shell *data, t_cmd *current, int i)
 {
+	g_signal = 1;
 	if (!execute_builtin(data))
 	{
 		data->pid[i] = fork();
@@ -93,4 +94,5 @@ void	executor(t_shell *data)
 	data->status = WEXITSTATUS(data->status);
 	end_processess(data->pid, data->cmd_count - 1);
 	restart_fds(tmpin, tmpout);
+	g_signal = 0;
 }

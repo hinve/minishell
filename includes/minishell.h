@@ -23,16 +23,20 @@
 # define W "\033[1;37m"   /* Bold White */
 
 # include "structures.h"
-# include <errno.h>
-# include <fcntl.h>
-# include <limits.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <signal.h>
 # include <stdio.h>
-# include <stdlib.h>
-# include <sys/wait.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <string.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <signal.h>
+# include <stdbool.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+extern int g_signal;
 
 //*--------------------INIT--------------------------------
 void	init(t_shell *data, char **envp);
