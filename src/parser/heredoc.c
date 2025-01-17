@@ -24,7 +24,7 @@ static void	here_doc(char *limit, t_cmd *cmd, t_env *env)
 	int		len;
 
 	len = ft_strlen(limit);
-	line = readline("heredoc> ");
+	line = readline("> ");
 	while (line)
 	{
 		if (ft_strncmp(line, limit, len) == 0 && !line[len])
@@ -39,7 +39,7 @@ static void	here_doc(char *limit, t_cmd *cmd, t_env *env)
 			write_heredoc(line, cmd);
 			free(line);
 		}
-		line = readline("heredoc> ");
+		line = readline("> ");
 	}
 	if (!line)
 		exit(1);

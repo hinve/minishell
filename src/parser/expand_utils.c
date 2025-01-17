@@ -55,7 +55,6 @@ char	*process_variable(char *line, int *i, t_env *env, char *temp)
 	char	*value;
 
 	value = get_env_var(line, i, env);
-	printf("Found variable: %s\n", value);
 	temp = ft_strjoin(temp, value);
 	return (temp);
 }
@@ -82,7 +81,6 @@ char	*expand_heredoc(char *line, t_env *env)
 		return (NULL);
 	while (line && line[i])
 	{
-		printf("Processing character: %c\n", line[i]);
 		if (line[i] == '$' && ft_isalpha(line[i + 1]))
 			temp = process_variable(line, &i, env, temp);
 		else

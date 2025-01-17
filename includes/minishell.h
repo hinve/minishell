@@ -193,7 +193,7 @@ void	clear_structs_main(t_token **token, t_cmd **cmd);
 void	remove_quotes_and_spaces(char **cmd);
 
 //*----------------------HANDLERS----------------------------------
-void	handle_ctrl_c(void);
+void	handle_ctrl_c();
 void	wait_hd(t_token *tok, t_cmd *cmd);
 void	ctrl_c_hd(int sig);
 void	new_handler(int sig);
