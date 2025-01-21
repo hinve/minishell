@@ -23,3 +23,12 @@ Set the $PATH to a multiple directory value (directory1:directory2) and ensure t
 echo hola | cat output.txt
 
 cat | cat | ls //
+
+
+echo HOLA < Makefile > arch1 > arch2 > arch3 | cat -e
+preferencia a la redireccion
+
+l information se perd dans le pipe. 
+
+si es builtin, no recibe de stdin y no hace falta recuperar informacion. de hecho, se pierde en el pipe. si hay pipe, el commando se ejecuta en la pipe
+open pipe

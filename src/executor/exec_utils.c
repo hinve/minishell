@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:58:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/27 10:59:23 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:53:11 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	init_pid(t_shell *data)
 void	end_processess(int *pids, int len)
 {
 	while (len)
-		kill(pids[--len], SIGKILL);
+		kill(pids[--len], SIGTERM);
 	free(pids);
 }
