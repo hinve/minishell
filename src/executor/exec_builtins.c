@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:01:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/15 16:23:26 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:28:55 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ int	execute_builtin(t_shell *data)
 	else if (ft_strcmp(data->cmd->arg[0], "exit") == 0)
 		return (ft_exit(data->cmd), 1);
 	else
-		return (0);
+		return (1);
 }
