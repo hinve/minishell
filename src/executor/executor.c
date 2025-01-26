@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:57:09 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/22 13:50:47 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/26 13:50:10 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	execute_local_bin(t_shell *data, t_cmd *cmd)
 void exec_bin(t_shell *data, t_cmd *current)
 {
 
-        execve(data->path, current->arg, data->envp);
+    execve(data->path, current->arg, data->envp);
     
 }
 
@@ -63,15 +63,34 @@ void	handle_bin(t_shell *data, t_cmd *current)
 	exit(0);
 }
 
-void	restart_fds(int tmpin, int tmpout)
+void	close_fds(int *p_fd)
 {
-	dup2(tmpin, 0);
-	dup2(tmpout, 1);
-	close(tmpin);
-	close(tmpout);
+	close(p_fd[0]);
+	close(p_fd[1]);
 }
 
-void	handle_pipe(t_shell *data, t_cmd *current)
+void handle_pipe_out(t_shell *data, t_cmd *current)
+{
+		pid_t	pid;
+	int		status;
+	int		p_fd[2];
+
+	if (pipe(p_fd) == -1)
+		return ;
+	pid  = fork;
+	if (pid == -1)
+		return ;
+	if (pid == 0)
+	{
+		if (dup2(p_fd[1], 1) != 1)
+			return ;
+		close_fds(p_fd);
+		handle_bin(data, current);
+	}
+	close_fds(p_fd);
+}
+
+void	handle_pipe_in(t_shell *data, t_cmd *current)
 {
 	pid_t	pid;
 	int		status;
@@ -84,33 +103,26 @@ void	handle_pipe(t_shell *data, t_cmd *current)
 		return ;
 	if (pid == 0)
 	{
-		close(p_fd[0]);
 		if (dup2(p_fd[1], 1) != 1)
 			return ;
+		close_fds(p_fd);
 		handle_bin(data, current);
 	}
-	pid  = fork();
-	if (pid == -1)
+	if (dup2(p_fd[0], 0) != 0)
 		return ;
-	if (pid == 0)
-	{
-		close(p_fd[1]);
-		if (dup2(p_fd[0], 0) != 0)
-			perror("error");
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-			exit(status);
-		exit(0);
-	}
+	close_fds(p_fd);
 }
 
 void	executor(t_shell *data)
 {
 	t_cmd	*current = data->cmd;
 
-	while (current && current->next)
+	while (current)
 	{
-		handle_pipe(data, current);
-		current = current->next;
+		handle_pipe_in(data, current);
+		if (current->next)
+			current = current->next;
 	}
+		handle_pipe_out(data, current);
+	waitpid(-1, &data->status, WUNTRACED);
 }
