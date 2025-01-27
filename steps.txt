@@ -34,3 +34,5 @@ si es builtin, no recibe de stdin y no hace falta recuperar informacion. de hech
 open pipe
 
 condicion : o no hay pipe, y es un builtin -> proceso padre. si es un B
+
+Cambiar clang por gcc

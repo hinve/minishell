@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:48:23 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/01/15 16:23:17 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/27 12:26:24 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	token_to_cmd(t_shell *data);
 //*--------------------BUILTINS----------------------------
 
 // exec_builtins.c
-int		execute_builtin(t_shell *data);
+int		execute_builtin(t_shell *data, t_cmd *current);
 // cd.c
 t_env	*env_lst_search(t_env *env, const char *key);
 void	ft_cd(t_shell *data);
@@ -122,6 +122,8 @@ char	*get_current_directory(void);
 void	ft_pwd(void);
 // unset.c
 void	ft_unset(t_shell *data);
+int     is_builtin(t_cmd *str);
+
 
 //*--------------------ENV---------------------------------
 

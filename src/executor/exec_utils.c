@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:58:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/21 15:53:11 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:59:18 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	count_commands(t_shell *data)
 	while (current_cmd != NULL)
 	{
 		data->cmd_count++;
+		printf("ping count : %d : %s\n", data->cmd_count, current_cmd->arg[0]);
 		current_cmd = current_cmd->next;
 	}
 }
