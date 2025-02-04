@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:01:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/27 12:25:19 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:23:43 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	execute_builtin(t_shell *data, t_cmd *current)
 	else if (ft_strcmp(current->arg[0], "exit") == 0)
 		return (ft_exit(current), 1);
 	else
-		return (1);
+		return (0);
 }
 
 int is_builtin(t_cmd *cmd)

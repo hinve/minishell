@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:58:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/27 14:59:18 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:20:49 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,16 @@ void	init_pid(t_shell *data)
 		perror("Error: malloc failed");
 }
 
-void	end_processess(int *pids, int len)
+void end_processess(int *pids, int len)
 {
-	while (len)
-		kill(pids[--len], SIGTERM);
-	free(pids);
+    while (len)
+    {
+        len--;
+        if (pids[len] > 0)
+        {
+            kill(pids[len], SIGTERM);
+            waitpid(pids[len], NULL, 0);
+        }
+    }
+    free(pids);
 }

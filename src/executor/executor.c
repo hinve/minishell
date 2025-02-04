@@ -6,103 +6,96 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:57:09 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/27 15:01:14 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:24:16 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exec_bin(t_shell *data, t_cmd *current)
+void	redirection(t_cmd *current, int tmpout, int last_cmd)
 {
+	int	fdpipe[2];
 
-    execve(data->path, current->arg, data->envp);
-    
-}
-
-void	handle_bin(t_shell *data, t_cmd *current)
-{
-    if (execute_builtin(data, current))
-    {
-        get_path(data, current);
-        if (!data->path)
-        {
-            perror("Error: command not found");
-            exit(127);
-        }
-        exec_bin(data, current);
-        perror("Error: execve failed");
-    	exit(127);
-    }
-	exit(0);
-}
-
-void	close_fds(int *p_fd)
-{
-	close(p_fd[0]);
-	close(p_fd[1]);
-}
-
-void handle_pipe_out(t_shell *data, t_cmd *current)
-{
-	pid_t	pid;
-	int		p_fd[2];
-
-	if (pipe(p_fd) == -1)
-		return ;
-	pid  = fork();
-	if (pid == -1)
-		return ;
-	if (pid == 0)
+	dup2(current->fdin, 0);
+	close(current->fdin);
+	if (last_cmd)
 	{
-		if (dup2(p_fd[1], 1) != 1)
-			return ;
-		close_fds(p_fd);
-		handle_bin(data, current);
+		if (current->fdout == -1)
+			current->fdout = dup(tmpout);
 	}
-	close_fds(p_fd);
+	else
+	{
+		pipe(fdpipe);
+		current->next->fdin = fdpipe[0];
+		if (current->fdout == -1)
+			current->fdout = fdpipe[1];
+		else
+			close(fdpipe[1]);
+	}
+	dup2(current->fdout, 1);
+	close(current->fdout);
 }
 
-void	handle_pipe_in(t_shell *data, t_cmd *current)
+void	executer(t_shell *data, t_cmd *current, int i)
 {
-	pid_t	pid;
-	int		p_fd[2];
-
-	if (pipe(p_fd) == -1)
-		return ;
-	pid  = fork();
-	if (pid == -1)
-		return ;
-	if (pid == 0)
+	if (!execute_builtin(data, current))
 	{
-		if (dup2(p_fd[1], 1) != 1)
-			return ;
-		close_fds(p_fd);
-		handle_bin(data, current);
+		data->pid[i] = fork();
+		if (data->pid[i] == 0)
+		{
+			get_path(data, current);
+			if (!data->path)
+			{
+				perror("Error: command not found");
+				exit(127);
+			}
+			execve(data->path, current->arg, data->envp);
+			perror("Error: execve failed");
+			exit(127);
+		}
+		else if (data->pid[i] < 0)
+			perror("Error: fork failed");
+		else
+		{
+			if (current != NULL)
+				close(current->fdout);
+		}
 	}
-	if (dup2(p_fd[0], 0) != 0)
-		return ;
-	close_fds(p_fd);
+}
+
+void	restart_fds(int tmpin, int tmpout)
+{
+	dup2(tmpin, 0);
+	dup2(tmpout, 1);
+	close(tmpin);
+	close(tmpout);
 }
 
 void	executor(t_shell *data)
 {
-	t_cmd	*current = data->cmd;
+	int		tmpin;
+	int		tmpout;
+	int		i;
+	t_cmd	*current;
 
+	i = -1;
 	count_commands(data);
-	printf("ping %d\n", data->cmd_count);
-	if (is_builtin(current) && data->cmd_count == 1)
-	{
-		execute_builtin(data, current);
+	init_pid(data);
+	current = data->cmd;
+	if (!current)
 		return ;
-	}
-	else
+	tmpin = dup(0);
+	tmpout = dup(1);
+	if (current->fdin == -1)
+		current->fdin = dup(tmpin);
+	while (++i < data->cmd_count)
 	{
-		while (current)
-		{
-			handle_pipe_in(data, current);
-			current = current->next;
-		}
-			handle_pipe_out(data, current);
-		waitpid(-1, &data->status, WUNTRACED);
+		redirection(current, tmpout, data->cmd_count - 1 == i);
+		executer(data, current, i);
+		current = current->next;
 	}
+	waitpid(data->pid[data->cmd_count - 1], &data->status, 0);
+	data->status = WEXITSTATUS(data->status);
+	end_processess(data->pid, data->cmd_count - 1);
+	restart_fds(tmpin, tmpout);
 }
