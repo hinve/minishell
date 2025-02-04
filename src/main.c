@@ -6,13 +6,13 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:23:46 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/01/26 13:52:15 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:30:16 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_signal;
+int	g_signal;
 
 void	is_line_is_empty(char *str)
 {

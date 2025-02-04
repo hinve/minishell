@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:48:23 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/01/27 12:26:24 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:31:23 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ void	free_cmd_list(t_cmd **cmd_list);
 void	clear_structs(t_token **token, t_cmd **cmd);
 void	free_all(t_shell *data);
 
+//------------------------------IO---------------------------
+void	redirect_input(int fdin);
+void	redirect_output(int fdout, int tmpout);
 //*--------------------ERRORS-------------------------------
 void	fill_struct(t_shell *data);
 

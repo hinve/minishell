@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 18:24:42 by mjeannin          #+#    #+#             */
-/*   Updated: 2024/12/01 18:25:28 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:23:06 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	sig_handler(int signal)
 		ft_putendl_fd("Quit (core dumped)", 2);
 }
 
-void init_signals()
+void	init_signals()
 {
 	struct sigaction	act;
 

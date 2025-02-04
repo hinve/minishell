@@ -1,22 +1,12 @@
 
 PARSEO:
-    - Modificar todo el expand variables. //
-    - Modificar expand variables en heredoc
-    - refactorizar
-    - romper minishell
+    - ctrl+C -> cambiar el status por 130
+    - arreglar los errores  de la norminette 
 
 EXECUTOR:
-    - romper minishell
+    - cat | cat | ls -> es el unico que no funciona
 
 ----------------------------------------
-
-Try ctrl-C after running a blocking command like cat without arguments or grep "something". //
-
-echo "cat lol.c | cat > lol.c" //
-
- echo 'It'"'"'s a test' //
-
-quizas crear un "*echo_str"
 
 Set the $PATH to a multiple directory value (directory1:directory2) and ensure that directories are checked in order from left to right.
 
@@ -25,14 +15,8 @@ echo hola | cat output.txt
 cat | cat | ls //
 
 
-echo HOLA < Makefile > arch1 > arch2 > arch3 | cat -e
-preferencia a la redireccion
-
-l information se perd dans le pipe. 
-
 si es builtin, no recibe de stdin y no hace falta recuperar informacion. de hecho, se pierde en el pipe. si hay pipe, el commando se ejecuta en la pipe
 open pipe
 
 condicion : o no hay pipe, y es un builtin -> proceso padre. si es un B
 
-Cambiar clang por gcc

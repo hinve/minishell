@@ -50,6 +50,7 @@ FILES_SRC		= main.c    \
 				executor/unset.c          \
 				executor/executor.c       \
 				executor/path.c           \
+				executor/io.c  \
 				executor/printing.c
 
 SRC 			= $(addprefix $(SRC_DIR),$(FILES_SRC))

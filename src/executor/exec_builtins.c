@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 11:01:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/02/04 14:50:16 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 16:29:16 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ int	execute_builtin(t_shell *data, t_cmd *current)
 	return (1);
 }
 
-int is_builtin(t_cmd *cmd)
+int	is_builtin(t_cmd *cmd)
 {
-
 	if (cmd->n_args == 0)
 		return (0);
 	if (ft_strcmp(cmd->arg[0], "echo") == 0)
