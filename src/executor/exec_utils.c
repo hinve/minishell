@@ -6,7 +6,7 @@
 /*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 10:58:24 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/02/04 13:20:49 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:50:53 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_swap(char **a, char **b)
 	char	*aux;
 
 	aux = *a;
-	*a = *b;
+	*a = *b;  
 	*b = aux;
 }
 
@@ -30,7 +30,6 @@ void	count_commands(t_shell *data)
 	while (current_cmd != NULL)
 	{
 		data->cmd_count++;
-		printf("ping count : %d : %s\n", data->cmd_count, current_cmd->arg[0]);
 		current_cmd = current_cmd->next;
 	}
 }
