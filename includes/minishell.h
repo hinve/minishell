@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:48:23 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/02/04 16:31:23 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:04:17 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,5 +206,7 @@ void	handle_ctrl_c();
 void	wait_hd(t_token *tok, t_cmd *cmd);
 void	ctrl_c_hd(int sig);
 void	new_handler(int sig);
+
+int	is_there_a_dollar(char *str);
 
 #endif

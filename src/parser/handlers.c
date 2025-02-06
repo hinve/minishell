@@ -48,7 +48,7 @@ void	wait_hd(t_token *tok, t_cmd *cmd)
 	else if (WEXITSTATUS(stat) == 1)
 	{
 		printf("minishell: warning: here-document at line 3 delimited by "
-		"(wanted «%s»)\n",
+			"(wanted «%s»)\n",
 			tok->content);
 	}
 	close(cmd->fdin);

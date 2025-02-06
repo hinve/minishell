@@ -47,7 +47,7 @@ static void	sig_handler(int signal)
 		ft_putendl_fd("Quit (core dumped)", 2);
 }
 
-void	init_signals()
+void	init_signals(void)
 {
 	struct sigaction	act;
 

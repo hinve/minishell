@@ -57,6 +57,7 @@ typedef struct s_shell
 	t_cmd			*cmd;
 	t_env			*env;
 	t_env			*export;
+	char *result;
 	char			*str_cmd;
 	char			**envp;
 	char			*path;

@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:33:37 by mjeannin          #+#    #+#             */
-/*   Updated: 2025/02/04 16:24:19 by mjeannin         ###   ########.fr       */
+/*   Updated: 2025/02/06 17:26:18 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	is_there_a_dollar(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i] == '$' || str[i] == '-' || str[i] == '~')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	*get_env_value(const char *var, t_env *env)
 {
@@ -35,9 +21,7 @@ char	*get_env_value(const char *var, t_env *env)
 	{
 		if (ft_strncmp(current->key, var, ft_strlen(var)) == 0
 			&& current->key[ft_strlen(var)] == '\0')
-		{
 			return (current->value);
-		}
 		current = current->next;
 	}
 	return ("");
@@ -62,13 +46,13 @@ static int	append_env_value(char *result, int j, char *env_value)
 {
 	int	l;
 
-	l = 0;
-	while (env_value && env_value[l] != '\0')
-		result[j++] = env_value[l++];
+	l = -1;
+	while (env_value && env_value[++l])
+		result[j++] = env_value[l];
 	return (j);
 }
 
-char	*process_dollar(char *str, int *i, int *j, t_shell *data, char *result)
+char	*process_dollar(char *str, int *i, int *j, t_shell *data)
 {
 	char	*var_name;
 	char	*value;
@@ -76,36 +60,35 @@ char	*process_dollar(char *str, int *i, int *j, t_shell *data, char *result)
 	(*i)++;
 	var_name = extract_var_name(str, i);
 	value = get_env_value(var_name, data->env);
-	*j = append_env_value(result, *j, value);
+	*j = append_env_value(data->result, *j, value);
 	free(var_name);
-	return (result);
+	return (data->result);
 }
 
 char	*replace_dollar(char *str, t_shell *data)
 {
 	int		i;
 	int		j;
-	char	*result;
 	char	*value;
 
 	i = 0;
 	j = 0;
-	result = malloc(sizeof(char) * 1024);
+	data->result = malloc(sizeof(char) * 1024);
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1] && \
 		(ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
-			result = process_dollar(str, &i, &j, data, result);
+			data->result = process_dollar(str, &i, &j, data);
 		else if (str[i + 1] == '?' && str[i] == '$')
 		{
 			i += 2;
 			value = ft_itoa(data->status);
-			j = append_env_value(result, j, value);
+			j = append_env_value(data->result, j, value);
 			free(value);
 		}
 		else
-			result[j++] = str[i++];
+			data->result[j++] = str[i++];
 	}
-	result[j] = '\0';
-	return (result);
+	data->result[j] = '\0';
+	return (data->result);
 }

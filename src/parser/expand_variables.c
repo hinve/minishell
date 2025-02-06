@@ -32,7 +32,6 @@ void	expand_variables(t_token **token, t_shell *data)
 				new_content = replace_dollar(aux->content, data);
 				free(aux->content);
 				aux->content = ft_strdup(new_content);
-				free (new_content);
 			}
 			aux = aux->next;
 		}
