@@ -1,5 +1,0 @@
-cat non_existent_file | grep "something" | sort | head -n 1000 | tail -n 1000 > output.txt 2>&1 | wc -l
-
-ls -l | grep "txt" | sort | grep "test" | head -n 5
-
-echo "test line 1" > file1.txt; echo "test line 2" > file2.txt; cat file1.txt file2.txt | grep "test" | sort | head -n 1000 | tail -n 1000 > output.txt 2>&1 | wc -l

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mjeannin <mjeannin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 12:48:23 by hpino-mo          #+#    #+#             */
-/*   Updated: 2025/02/06 17:04:17 by codespace        ###   ########.fr       */
+/*   Updated: 2025/02/07 15:23:05 by mjeannin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-extern int g_signal;
+extern int	g_signal;
 
 //*--------------------INIT--------------------------------
 void	init(t_shell *data, char **envp);
@@ -122,8 +122,7 @@ char	*get_current_directory(void);
 void	ft_pwd(void);
 // unset.c
 void	ft_unset(t_shell *data);
-int     is_builtin(t_cmd *str);
-
+int		is_builtin(t_cmd *str);
 
 //*--------------------ENV---------------------------------
 
@@ -202,11 +201,11 @@ void	clear_structs_main(t_token **token, t_cmd **cmd);
 void	remove_quotes_and_spaces(char **cmd);
 
 //*----------------------HANDLERS----------------------------------
-void	handle_ctrl_c();
+void	handle_ctrl_c(void);
 void	wait_hd(t_token *tok, t_cmd *cmd);
 void	ctrl_c_hd(int sig);
 void	new_handler(int sig);
 
-int	is_there_a_dollar(char *str);
+int		is_there_a_dollar(char *str);
 
 #endif
