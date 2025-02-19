@@ -30,3 +30,11 @@
    ```bash
    git clone https://github.com/hinve/minishell.git
    ```
+2. Compila el proyecto:
+   ```bash
+   make
+   ```
+3. Ejecuta el proyecto:
+   ```bash
+   ./minishell
+   ```
